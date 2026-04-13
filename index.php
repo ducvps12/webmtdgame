@@ -42,25 +42,17 @@ if (session_status() == PHP_SESSION_NONE) {
 
             <!-- Download Platforms -->
             <div class="platforms-grid">
-                <a href="/huong-dan-java" class="platform-card platform-java">
-                    <div class="platform-icon"><img src="/images/jar.png" alt="Java"></div>
-                    <span class="platform-name">Phiên bản Java</span>
-                    <span class="platform-action">Hướng dẫn <span class="dl-arrow">→</span></span>
+                <a href="/huong-dan-java" class="platform-card-img">
+                    <img src="/images/card_java.jpg" alt="Phiên bản Java" loading="lazy">
                 </a>
-                <a href="/download/adr.apk" class="platform-card platform-android">
-                    <div class="platform-icon"><img src="/images/play.png" alt="Android"></div>
-                    <span class="platform-name">Android APK</span>
-                    <span class="platform-action">Tải xuống <span class="dl-arrow">↓</span></span>
+                <a href="/download/adr.apk" class="platform-card-img">
+                    <img src="/images/card_android.jpg" alt="Android APK" loading="lazy">
                 </a>
-                <a href="/download/pc.rar" class="platform-card platform-pc">
-                    <div class="platform-icon"><img src="/images/pc.png" alt="PC"></div>
-                    <span class="platform-name">Bản PC</span>
-                    <span class="platform-action">Tải xuống <span class="dl-arrow">↓</span></span>
+                <a href="/download/pc.rar" class="platform-card-img">
+                    <img src="/images/card_pc.jpg" alt="Bản PC" loading="lazy">
                 </a>
-                <a href="/huong-dan-iphone" class="platform-card platform-ios">
-                    <div class="platform-icon"><img src="/images/ip.png" alt="iOS"></div>
-                    <span class="platform-name">iPhone / iOS</span>
-                    <span class="platform-action">Hướng dẫn <span class="dl-arrow">→</span></span>
+                <a href="/huong-dan-iphone" class="platform-card-img">
+                    <img src="/images/card_ios.jpg" alt="iPhone / iOS" loading="lazy">
                 </a>
             </div>
         </div>
