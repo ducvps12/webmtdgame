@@ -17,7 +17,7 @@ include __DIR__ . '/head.php';
 
     <link rel="apple-touch-icon" href="/images/favicon-48x48.ico" />
     <link rel="icon" href="/images/favicon-48x48.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="/view/static/css/apple_ui.css?v=3.8">
+    <link rel="stylesheet" href="/view/static/css/apple_ui.css?v=4.0">
 
     <style>
         /* ===== IOS GUIDE PAGE STYLES ===== */

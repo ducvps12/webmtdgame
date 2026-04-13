@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 if (session_status() == PHP_SESSION_NONE) { session_start(); }
 require_once __DIR__ . '/connect.php';
 ?>
@@ -7,11 +7,11 @@ require_once __DIR__ . '/connect.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bảng Xếp Hạng Sức Mạnh | Chú Bé Rồng Online</title>
-    <meta name="description" content="Top 100 chiến binh mạnh nhất Chú Bé Rồng Online — Bảng xếp hạng sức mạnh cập nhật realtime." />
+    <title>B?ng X?p H?ng S?c M?nh | Ch� B� R?ng Online</title>
+    <meta name="description" content="Top 100 chi?n binh m?nh nh?t Ch� B� R?ng Online � B?ng x?p h?ng s?c m?nh c?p nh?t realtime." />
     <link rel="apple-touch-icon" href="/images/favicon-48x48.ico" />
     <link rel="icon" href="/images/favicon-48x48.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="/view/static/css/apple_ui.css?v=3.6">
+    <link rel="stylesheet" href="/view/static/css/apple_ui.css?v=4.0">
     <style>
         .ranking-page { padding-top: 100px; padding-bottom: 40px; max-width: 900px; margin: 0 auto; padding-left: 20px; padding-right: 20px; }
         .ranking-page h1 { text-align: center; font-size: 36px; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 8px; }
@@ -60,13 +60,13 @@ require_once __DIR__ . '/connect.php';
     <?php include __DIR__ . '/nav.php'; ?>
 
     <main class="ranking-page">
-        <h1>Bảng Xếp Hạng</h1>
-        <p class="subtitle">Top 100 chiến binh mạnh nhất — cập nhật realtime</p>
+        <h1>B?ng X?p H?ng</h1>
+        <p class="subtitle">Top 100 chi?n binh m?nh nh?t � c?p nh?t realtime</p>
 
         <div class="rank-tabs">
-            <a href="/bang-xep-hang" class="rank-tab active">Sức Mạnh</a>
-            <a href="/top-nap" class="rank-tab">Đua Top Nạp</a>
-            <a href="/ho-so" class="rank-tab">Hồ Sơ</a>
+            <a href="/bang-xep-hang" class="rank-tab active">S?c M?nh</a>
+            <a href="/top-nap" class="rank-tab">�ua Top N?p</a>
+            <a href="/ho-so" class="rank-tab">H? So</a>
         </div>
 
         <div class="rank-list" id="rankList">
@@ -84,10 +84,10 @@ require_once __DIR__ . '/connect.php';
                 ORDER BY tongdiem DESC LIMIT 100
             ";
             $data = mysqli_query($conn, $query);
-            $gender_names = ['Trái Đất', 'Namếc', 'Xayda'];
+            $gender_names = ['Tr�i �?t', 'Nam?c', 'Xayda'];
 
             function fmtPower($val) {
-                if ($val > 1000000000) return number_format($val / 1000000000, 1, '.', '') . ' tỷ';
+                if ($val > 1000000000) return number_format($val / 1000000000, 1, '.', '') . ' t?';
                 if ($val > 1000000) return number_format($val / 1000000, 1, '.', '') . ' tr';
                 if ($val >= 1000) return number_format($val / 1000, 1, '.', '') . 'k';
                 return number_format($val);
@@ -98,23 +98,23 @@ require_once __DIR__ . '/connect.php';
                 while ($row = mysqli_fetch_assoc($data)):
                     $cls = '';
                     $medal = '';
-                    if ($rank === 1) { $cls = 'top-1'; $medal = '🥇'; }
-                    elseif ($rank === 2) { $cls = 'top-2'; $medal = '🥈'; }
-                    elseif ($rank === 3) { $cls = 'top-3'; $medal = '🥉'; }
+                    if ($rank === 1) { $cls = 'top-1'; $medal = '??'; }
+                    elseif ($rank === 2) { $cls = 'top-2'; $medal = '??'; }
+                    elseif ($rank === 3) { $cls = 'top-3'; $medal = '??'; }
             ?>
             <div class="rank-item <?php echo $cls; ?>">
                 <div class="rank-pos <?php echo $medal ? 'medal' : ''; ?>"><?php echo $medal ?: $rank; ?></div>
                 <div class="rank-name"><?php echo htmlspecialchars($row['name']); ?></div>
                 <div class="rank-planet"><?php echo $gender_names[$row['gender']] ?? '?'; ?></div>
                 <div class="rank-power"><?php echo fmtPower($row['player_sm']); ?></div>
-                <div class="rank-total">Tổng: <?php echo fmtPower($row['tongdiem']); ?></div>
+                <div class="rank-total">T?ng: <?php echo fmtPower($row['tongdiem']); ?></div>
             </div>
             <?php $rank++; endwhile; else: ?>
-            <div style="text-align: center; padding: 60px; color: var(--text-secondary);">Chưa có dữ liệu xếp hạng.</div>
+            <div style="text-align: center; padding: 60px; color: var(--text-secondary);">Chua c� d? li?u x?p h?ng.</div>
             <?php endif; ?>
         </div>
 
-        <p class="update-time">Cập nhật lúc: <?php echo date('H:i d/m/Y'); ?></p>
+        <p class="update-time">C?p nh?t l�c: <?php echo date('H:i d/m/Y'); ?></p>
     </main>
 
     <?php include __DIR__ . '/footer.php'; ?>

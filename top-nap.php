@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 if (session_status() == PHP_SESSION_NONE) { session_start(); }
 require_once __DIR__ . '/connect.php';
 ?>
@@ -7,11 +7,11 @@ require_once __DIR__ . '/connect.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đua Top Nạp | Chú Bé Rồng Online</title>
-    <meta name="description" content="Bảng xếp hạng đua top nạp Chú Bé Rồng Online — ai là người ủng hộ dự án nhiều nhất?" />
+    <title>�ua Top N?p | Ch� B� R?ng Online</title>
+    <meta name="description" content="B?ng x?p h?ng dua top n?p Ch� B� R?ng Online � ai l� ngu?i ?ng h? d? �n nhi?u nh?t?" />
     <link rel="apple-touch-icon" href="/images/favicon-48x48.ico" />
     <link rel="icon" href="/images/favicon-48x48.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="/view/static/css/apple_ui.css?v=3.6">
+    <link rel="stylesheet" href="/view/static/css/apple_ui.css?v=4.0">
     <style>
         .ranking-page { padding-top: 100px; padding-bottom: 40px; max-width: 700px; margin: 0 auto; padding-left: 20px; padding-right: 20px; }
         .ranking-page h1 { text-align: center; font-size: 36px; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 8px; }
@@ -64,13 +64,13 @@ require_once __DIR__ . '/connect.php';
     <?php include __DIR__ . '/nav.php'; ?>
 
     <main class="ranking-page">
-        <h1>Đua Top Nạp</h1>
-        <p class="subtitle">Vinh danh những người ủng hộ dự án — số tiền cụ thể được ẩn</p>
+        <h1>�ua Top N?p</h1>
+        <p class="subtitle">Vinh danh nh?ng ngu?i ?ng h? d? �n � s? ti?n c? th? du?c ?n</p>
 
         <div class="rank-tabs">
-            <a href="/bang-xep-hang" class="rank-tab">Sức Mạnh</a>
-            <a href="/top-nap" class="rank-tab active">Đua Top Nạp</a>
-            <a href="/ho-so" class="rank-tab">Hồ Sơ</a>
+            <a href="/bang-xep-hang" class="rank-tab">S?c M?nh</a>
+            <a href="/top-nap" class="rank-tab active">�ua Top N?p</a>
+            <a href="/ho-so" class="rank-tab">H? So</a>
         </div>
 
         <?php
@@ -88,19 +88,19 @@ require_once __DIR__ . '/connect.php';
         <!-- Top 3 Podium -->
         <div class="top-podium">
             <div class="podium-card silver">
-                <div class="podium-medal">🥈</div>
+                <div class="podium-medal">??</div>
                 <div class="podium-name"><?php echo htmlspecialchars($players[1]['name']); ?></div>
-                <div class="podium-label">Hạng 2</div>
+                <div class="podium-label">H?ng 2</div>
             </div>
             <div class="podium-card gold">
-                <div class="podium-medal">🥇</div>
+                <div class="podium-medal">??</div>
                 <div class="podium-name"><?php echo htmlspecialchars($players[0]['name']); ?></div>
-                <div class="podium-label">Hạng 1</div>
+                <div class="podium-label">H?ng 1</div>
             </div>
             <div class="podium-card bronze">
-                <div class="podium-medal">🥉</div>
+                <div class="podium-medal">??</div>
                 <div class="podium-name"><?php echo htmlspecialchars($players[2]['name']); ?></div>
-                <div class="podium-label">Hạng 3</div>
+                <div class="podium-label">H?ng 3</div>
             </div>
         </div>
         <?php endif; ?>
@@ -118,11 +118,11 @@ require_once __DIR__ . '/connect.php';
             <?php endfor; endif; ?>
 
             <?php if (empty($players)): ?>
-            <div style="text-align: center; padding: 60px; color: var(--text-secondary);">Chưa có dữ liệu xếp hạng.</div>
+            <div style="text-align: center; padding: 60px; color: var(--text-secondary);">Chua c� d? li?u x?p h?ng.</div>
             <?php endif; ?>
         </div>
 
-        <p class="update-time">Cập nhật lúc: <?php echo date('H:i d/m/Y'); ?></p>
+        <p class="update-time">C?p nh?t l�c: <?php echo date('H:i d/m/Y'); ?></p>
     </main>
 
     <?php include __DIR__ . '/footer.php'; ?>

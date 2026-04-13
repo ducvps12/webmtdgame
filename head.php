@@ -146,6 +146,6 @@ if (isset($_SESSION['username']) && isset($conn)) { // Đảm bảo $conn đã c
     <link rel="stylesheet" href="/view/static/css/template.css?v=1.10">
     <link rel="stylesheet" href="/view/static/css/eff.css?v=1.00">
     <link rel="stylesheet" href="/view/static/css/w3.css?v=1.01">
-    <link rel="stylesheet" href="/view/static/css/apple_ui.css?v=3.6">
+    <link rel="stylesheet" href="/view/static/css/apple_ui.css?v=4.0">
     <link rel="stylesheet" href="/view/static/css/styleSheet.css?v=1.1">
     <script src="https://www.google.com/recaptcha/api.js?render="></script>

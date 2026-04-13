@@ -22,7 +22,7 @@ if (session_status() == PHP_SESSION_NONE) {
     <link rel="icon" href="/images/favicon-48x48.ico" type="image/x-icon" />
     
     <!-- Link CSS Mới Chuẩn Apple -->
-    <link rel="stylesheet" href="/view/static/css/apple_ui.css?v=3.8">
+    <link rel="stylesheet" href="/view/static/css/apple_ui.css?v=4.0">
 </head>
 <body>
 
@@ -43,16 +43,32 @@ if (session_status() == PHP_SESSION_NONE) {
             <!-- Download Platforms -->
             <div class="platforms-grid">
                 <a href="/huong-dan-java" class="platform-card-img">
-                    <img src="/images/card_java.jpg" alt="Phiên bản Java" loading="lazy">
+                    <div class="card-img-wrap"><img src="/images/card_java.jpg" alt="Phiên bản Java" loading="lazy"></div>
+                    <div class="card-info">
+                        <span class="card-name">Phiên bản Java</span>
+                        <span class="card-action">Tải xuống ↓</span>
+                    </div>
                 </a>
                 <a href="/download/adr.apk" class="platform-card-img">
-                    <img src="/images/card_android.jpg" alt="Android APK" loading="lazy">
+                    <div class="card-img-wrap"><img src="/images/card_android.jpg" alt="Android APK" loading="lazy"></div>
+                    <div class="card-info">
+                        <span class="card-name">Android APK</span>
+                        <span class="card-action">Tải xuống ↓</span>
+                    </div>
                 </a>
                 <a href="/download/pc.rar" class="platform-card-img">
-                    <img src="/images/card_pc.jpg" alt="Bản PC" loading="lazy">
+                    <div class="card-img-wrap"><img src="/images/card_pc.jpg" alt="Bản PC" loading="lazy"></div>
+                    <div class="card-info">
+                        <span class="card-name">Bản PC</span>
+                        <span class="card-action">Tải xuống ↓</span>
+                    </div>
                 </a>
                 <a href="/huong-dan-iphone" class="platform-card-img">
-                    <img src="/images/card_ios.jpg" alt="iPhone / iOS" loading="lazy">
+                    <div class="card-img-wrap"><img src="/images/card_ios.jpg" alt="iPhone / iOS" loading="lazy"></div>
+                    <div class="card-info">
+                        <span class="card-name">iPhone / iOS</span>
+                        <span class="card-action">Tải xuống ↓</span>
+                    </div>
                 </a>
             </div>
         </div>

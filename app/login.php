@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
@@ -12,8 +12,8 @@ if (isset($_SESSION['user_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng nhập - Chú Bé Rồng Online</title>
-    <link rel="stylesheet" href="/view/static/css/apple_ui.css?v=3.6">
+    <title>�ang nh?p - Ch� B� R?ng Online</title>
+    <link rel="stylesheet" href="/view/static/css/apple_ui.css?v=4.0">
     <link rel="shortcut icon" href="/images/favicon-48x48.ico" type="image/x-icon" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js" type="text/javascript"></script>
     <style>
@@ -90,20 +90,20 @@ if (isset($_SESSION['user_id'])) {
         <div class="nav-left">
             <a href="/"><img src="/images/logo_sk_he.png" alt="Logo" class="nav-logo"></a>
             <ul class="nav-links">
-                <li><a href="/">Trang Chủ</a></li>
-                <li><a href="/gioi-thieu">Giới Thiệu</a></li>
-                <li><a href="/forum">Diễn Đàn</a></li>
-                <li><a href="https://zalo.me/g/atqsvzxmfalbhc3n4d7d" target="_blank">Cộng Đồng</a></li>
+                <li><a href="/">Trang Ch?</a></li>
+                <li><a href="/gioi-thieu">Gi?i Thi?u</a></li>
+                <li><a href="/forum">Di?n ��n</a></li>
+                <li><a href="https://zalo.me/g/atqsvzxmfalbhc3n4d7d" target="_blank">C?ng �?ng</a></li>
             </ul>
         </div>
         <div class="nav-right">
-            <a href="/register" class="btn-pill btn-black small">Đăng Ký</a>
+            <a href="/register" class="btn-pill btn-black small">�ang K�</a>
         </div>
     </nav>
 
     <div class="auth-wrapper">
         <div class="glass-card">
-            <h2>Đăng Nhập</h2>
+            <h2>�ang Nh?p</h2>
             <form id="loginForm" method="POST" name="login">
                 <input type="hidden" name="action" value="login" />
                 <input type="hidden" name="keySig" value="a511129a7ce15460414e6fe318eebc2b" />
@@ -112,14 +112,14 @@ if (isset($_SESSION['user_id'])) {
                 <input type="hidden" name="captcha_hash" id="captcha_hash" value="" />
                 
                 <div class="form-group">
-                    <label>Tài khoản</label>
-                    <input name="user" type="text" class="apple-input" placeholder="Nhập tên đăng nhập" required />
+                    <label>T�i kho?n</label>
+                    <input name="user" type="text" class="apple-input" placeholder="Nh?p t�n dang nh?p" required />
                 </div>
                 <div class="form-group">
-                    <label>Mật khẩu</label>
+                    <label>M?t kh?u</label>
                     <div class="input-password-wrap">
-                        <input name="pass" type="password" class="apple-input" placeholder="Nhập mật khẩu" required />
-                        <button type="button" class="btn-eye" onclick="togglePassword(this)" title="Hiện/Ẩn mật khẩu">
+                        <input name="pass" type="password" class="apple-input" placeholder="Nh?p m?t kh?u" required />
+                        <button type="button" class="btn-eye" onclick="togglePassword(this)" title="Hi?n/?n m?t kh?u">
                             <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                             <svg class="eye-closed" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
                         </button>
@@ -127,26 +127,26 @@ if (isset($_SESSION['user_id'])) {
                 </div>
 
                 <div class="form-group">
-                    <label>Mã xác thực</label>
+                    <label>M� x�c th?c</label>
                     <div class="captcha-group">
                         <span class="captcha-question" id="captchaQuestion"></span>
                         <input name="captcha_answer" type="number" class="apple-input captcha-input" placeholder="= ?" required />
-                        <button type="button" class="captcha-refresh" onclick="generateCaptcha()" title="Đổi mã mới">&#8635;</button>
+                        <button type="button" class="captcha-refresh" onclick="generateCaptcha()" title="�?i m� m?i">&#8635;</button>
                     </div>
                 </div>
                 
                 <div class="form-group" style="display: flex; align-items: center; gap: 8px;">
                     <input type="radio" name="server" value="1" required checked id="sv1"/> 
-                    <label for="sv1" style="margin: 0; cursor: pointer;">Tham gia Máy chủ 1 (Vũ Trụ 1)</label>
+                    <label for="sv1" style="margin: 0; cursor: pointer;">Tham gia M�y ch? 1 (Vu Tr? 1)</label>
                 </div>
 
                 <div id="loginMessage" class="message"></div>
                 
-                <button type="submit" class="btn-pill btn-black" style="width: 100%; margin-top: 10px;">Đăng Nhập</button>
+                <button type="submit" class="btn-pill btn-black" style="width: 100%; margin-top: 10px;">�ang Nh?p</button>
             </form>
             
             <div style="margin-top: 20px; font-size: 14px; color: var(--text-secondary);">
-                Chưa có tài khoản? <a href="/register" style="color: #0071e3; text-decoration: none; font-weight: 500;">Tạo ngay miễn phí</a>
+                Chua c� t�i kho?n? <a href="/register" style="color: #0071e3; text-decoration: none; font-weight: 500;">T?o ngay mi?n ph�</a>
             </div>
         </div>
     </div>
@@ -191,13 +191,13 @@ if (isset($_SESSION['user_id'])) {
     function md5(s){var st=md5str(s);return hex(st[0])+hex(st[1])+hex(st[2])+hex(st[3]);}
 
     function generateCaptcha() {
-        var ops = ['+', '-', '×'];
+        var ops = ['+', '-', '�'];
         var op = ops[Math.floor(Math.random() * ops.length)];
         var a, b;
         if (op === '-') {
             a = Math.floor(Math.random() * 20) + 5;
             b = Math.floor(Math.random() * a);
-        } else if (op === '×') {
+        } else if (op === '�') {
             a = Math.floor(Math.random() * 9) + 2;
             b = Math.floor(Math.random() * 9) + 1;
         } else {
@@ -207,7 +207,7 @@ if (isset($_SESSION['user_id'])) {
         switch(op) {
             case '+': captchaAnswer = a + b; break;
             case '-': captchaAnswer = a - b; break;
-            case '×': captchaAnswer = a * b; break;
+            case '�': captchaAnswer = a * b; break;
         }
         document.getElementById('captchaQuestion').textContent = a + ' ' + op + ' ' + b;
         var hashVal = md5('nrotft_captcha_2026' + captchaAnswer);
@@ -241,7 +241,7 @@ if (isset($_SESSION['user_id'])) {
                     }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    $('#loginMessage').css('display', 'block').addClass('error').text('Đã xảy ra lỗi kết nối máy chủ. Vui lòng thử lại.');
+                    $('#loginMessage').css('display', 'block').addClass('error').text('�� x?y ra l?i k?t n?i m�y ch?. Vui l�ng th? l?i.');
                     generateCaptcha();
                 }
             });

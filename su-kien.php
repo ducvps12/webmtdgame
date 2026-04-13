@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 if (session_status() == PHP_SESSION_NONE) { session_start(); }
 require_once __DIR__ . '/connect.php';
 
@@ -29,10 +29,10 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sự Kiện - Chú Bé Rồng Online | mtdgame.com</title>
-    <meta name="description" content="Sự kiện mới nhất tại Chú Bé Rồng Online. GiftCode, khuyến mãi và các sự kiện đặc biệt!" />
+    <title>S? Ki?n - Ch� B� R?ng Online | mtdgame.com</title>
+    <meta name="description" content="S? ki?n m?i nh?t t?i Ch� B� R?ng Online. GiftCode, khuy?n m�i v� c�c s? ki?n d?c bi?t!" />
     <link rel="icon" href="/images/favicon-48x48.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="/view/static/css/apple_ui.css?v=3.6">
+    <link rel="stylesheet" href="/view/static/css/apple_ui.css?v=4.0">
     <style>
         .event-page { padding-top: 84px; }
 
@@ -328,16 +328,16 @@ $conn->close();
             <p class="sub"><?php echo htmlspecialchars($featured['description']); ?></p>
             <?php if ($featured['date_start'] && $featured['date_end']): ?>
             <div class="date-highlight">
-                📅 Từ ngày <?php echo date('d/m', strtotime($featured['date_start'])); ?> đến hết ngày <?php echo date('d/m/Y', strtotime($featured['date_end'])); ?>
+                ?? T? ng�y <?php echo date('d/m', strtotime($featured['date_start'])); ?> d?n h?t ng�y <?php echo date('d/m/Y', strtotime($featured['date_end'])); ?>
             </div>
             <?php endif; ?>
 
             <?php if ($featured['date_end']): ?>
             <div class="countdown-row" id="betaCountdown">
-                <div class="cd-block"><div class="cd-num" id="cd-days">--</div><div class="cd-label">Ngày</div></div>
-                <div class="cd-block"><div class="cd-num" id="cd-hours">--</div><div class="cd-label">Giờ</div></div>
-                <div class="cd-block"><div class="cd-num" id="cd-mins">--</div><div class="cd-label">Phút</div></div>
-                <div class="cd-block"><div class="cd-num" id="cd-secs">--</div><div class="cd-label">Giây</div></div>
+                <div class="cd-block"><div class="cd-num" id="cd-days">--</div><div class="cd-label">Ng�y</div></div>
+                <div class="cd-block"><div class="cd-num" id="cd-hours">--</div><div class="cd-label">Gi?</div></div>
+                <div class="cd-block"><div class="cd-num" id="cd-mins">--</div><div class="cd-label">Ph�t</div></div>
+                <div class="cd-block"><div class="cd-num" id="cd-secs">--</div><div class="cd-label">Gi�y</div></div>
             </div>
             <?php endif; ?>
         </section>
@@ -350,7 +350,7 @@ $conn->close();
         <div class="info-grid">
             <?php foreach ($highlights as $h): ?>
             <div class="info-card">
-                <div class="ic-icon"><?php echo $h['icon'] ?? '⭐'; ?></div>
+                <div class="ic-icon"><?php echo $h['icon'] ?? '?'; ?></div>
                 <h3><?php echo htmlspecialchars($h['title'] ?? ''); ?></h3>
                 <p><?php echo htmlspecialchars($h['desc'] ?? ''); ?></p>
                 <span class="highlight-value"><?php echo htmlspecialchars($h['value'] ?? ''); ?></span>
@@ -363,10 +363,10 @@ $conn->close();
             <!-- Featured Event Detail -->
             <div class="event-card">
                 <div class="event-card-body" style="padding-top: 36px;">
-                    <span class="event-badge badge-beta">🚀 <?php echo htmlspecialchars($featured['badge_text']); ?></span>
-                    <h2>🎮 <?php echo htmlspecialchars($featured['title']); ?></h2>
+                    <span class="event-badge badge-beta">?? <?php echo htmlspecialchars($featured['badge_text']); ?></span>
+                    <h2>?? <?php echo htmlspecialchars($featured['title']); ?></h2>
                     <?php if ($featured['date_start']): ?>
-                    <p class="event-date">📅 <?php echo date('d/m/Y', strtotime($featured['date_start'])); ?> — <?php echo date('d/m/Y', strtotime($featured['date_end'])); ?></p>
+                    <p class="event-date">?? <?php echo date('d/m/Y', strtotime($featured['date_start'])); ?> � <?php echo date('d/m/Y', strtotime($featured['date_end'])); ?></p>
                     <?php endif; ?>
                     <div class="event-content"><?php echo $featured['content']; ?></div>
 
@@ -379,13 +379,13 @@ $conn->close();
                             <div style="color: rgba(255,255,255,0.6); font-size: 12px; margin-top: 6px;"><?php echo htmlspecialchars($featured['giftcode_desc']); ?></div>
                             <?php endif; ?>
                         </div>
-                        <button class="gc-copy-btn" onclick="copyCode('featured-code', this)">📋 Sao Chép</button>
+                        <button class="gc-copy-btn" onclick="copyCode('featured-code', this)">?? Sao Ch�p</button>
                     </div>
                     <?php endif; ?>
 
                     <div class="beta-notice">
-                        <h4>⚠️ Lưu ý</h4>
-                        <p>Đây là phiên bản thử nghiệm. Dữ liệu trong giai đoạn này có thể sẽ được reset khi server chính thức ra mắt. Mọi góp ý xin gửi tại mục Góp Ý.</p>
+                        <h4>?? Luu �</h4>
+                        <p>��y l� phi�n b?n th? nghi?m. D? li?u trong giai do?n n�y c� th? s? du?c reset khi server ch�nh th?c ra m?t. M?i g�p � xin g?i t?i m?c G�p �.</p>
                     </div>
                 </div>
             </div>
@@ -405,7 +405,7 @@ $conn->close();
                     <span class="event-badge <?php echo $badge_class; ?>"><?php echo htmlspecialchars($ev['badge_text'] ?: $ev['title']); ?></span>
                     <h2><?php echo htmlspecialchars($ev['title']); ?></h2>
                     <?php if ($ev['date_start']): ?>
-                    <p class="event-date">📅 <?php echo date('d/m/Y', strtotime($ev['date_start'])); ?> — <?php echo date('d/m/Y', strtotime($ev['date_end'])); ?></p>
+                    <p class="event-date">?? <?php echo date('d/m/Y', strtotime($ev['date_start'])); ?> � <?php echo date('d/m/Y', strtotime($ev['date_end'])); ?></p>
                     <?php endif; ?>
                     <div class="event-content"><?php echo $ev['content']; ?></div>
 
@@ -415,7 +415,7 @@ $conn->close();
                             <div class="gc-label">GIFTCODE</div>
                             <div class="gc-code" id="code-<?php echo $ev['id']; ?>"><?php echo htmlspecialchars($ev['giftcode']); ?></div>
                         </div>
-                        <button class="gc-copy-btn" onclick="copyCode('code-<?php echo $ev['id']; ?>', this)">📋 Sao Chép</button>
+                        <button class="gc-copy-btn" onclick="copyCode('code-<?php echo $ev['id']; ?>', this)">?? Sao Ch�p</button>
                     </div>
                     <?php endif; ?>
                 </div>
@@ -424,8 +424,8 @@ $conn->close();
 
             <?php if (empty($events)): ?>
             <div class="no-events">
-                <span style="font-size:48px; opacity:0.3">📅</span>
-                <p>Chưa có sự kiện nào đang diễn ra. Hãy quay lại sau!</p>
+                <span style="font-size:48px; opacity:0.3">??</span>
+                <p>Chua c� s? ki?n n�o dang di?n ra. H�y quay l?i sau!</p>
             </div>
             <?php endif; ?>
 
@@ -433,11 +433,11 @@ $conn->close();
 
         <!-- CTA -->
         <section style="text-align:center; padding: 40px 20px 60px; max-width: 600px; margin: 0 auto;">
-            <h2 style="font-size: 32px; font-weight: 700; margin-bottom: 12px;">Sẵn Sàng Tham Gia?</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 24px;">Tải game ngay và tham gia các sự kiện hấp dẫn!</p>
+            <h2 style="font-size: 32px; font-weight: 700; margin-bottom: 12px;">S?n S�ng Tham Gia?</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 24px;">T?i game ngay v� tham gia c�c s? ki?n h?p d?n!</p>
             <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-                <a href="/download/pc.rar" class="btn-pill btn-black">Tải Game cho PC</a>
-                <a href="/download/adr.apk" class="btn-pill btn-outline">Tải cho Android</a>
+                <a href="/download/pc.rar" class="btn-pill btn-black">T?i Game cho PC</a>
+                <a href="/download/adr.apk" class="btn-pill btn-outline">T?i cho Android</a>
             </div>
         </section>
     </div>
@@ -449,10 +449,10 @@ $conn->close();
     function copyCode(id, btn) {
         const code = document.getElementById(id).textContent;
         navigator.clipboard.writeText(code).then(() => {
-            btn.textContent = '✅ Đã Sao Chép!';
+            btn.textContent = '? �� Sao Ch�p!';
             btn.classList.add('copied');
             setTimeout(() => {
-                btn.textContent = '📋 Sao Chép';
+                btn.textContent = '?? Sao Ch�p';
                 btn.classList.remove('copied');
             }, 2000);
         });

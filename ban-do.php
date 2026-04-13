@@ -1,48 +1,48 @@
-﻿<?php
+<?php
 if (session_status() == PHP_SESSION_NONE) session_start();
 require_once __DIR__ . '/connect.php';
 include __DIR__ . '/head.php';
 
 // Map zone data
 $zones = [
-    ['id'=>'dao-kame','name'=>'Đảo Kame','bg'=>'b00','level'=>'1-10','type'=>'hub','desc'=>'Trung tâm chính. NPC: Satan, Shop VIP, Bà Hạt Mít.','screens'=>['2-1','2-3','2-5'],'color'=>'#0071e3'],
-    ['id'=>'lang-plant','name'=>'Làng Plant','bg'=>'b10','level'=>'1-15','type'=>'start','desc'=>'Điểm xuất phát hành tinh Trái Đất.','screens'=>[],'color'=>'#8b5cf6'],
-    ['id'=>'rung-nguyen-sinh','name'=>'Rừng Nguyên Sinh','bg'=>'b11','level'=>'10-25','type'=>'wild','desc'=>'Khu rừng hoang dã, quái cấp thấp.','screens'=>[],'color'=>'#10b981'],
-    ['id'=>'rung-xayda','name'=>'Rừng Thông Xayda','bg'=>'b12','level'=>'20-40','type'=>'wild','desc'=>'Rừng thông cổ thụ, tuyến Xayda.','screens'=>[],'color'=>'#f59e0b'],
-    ['id'=>'vach-nui','name'=>'Vách Núi Đen','bg'=>'b13','level'=>'30-50','type'=>'training','desc'=>'Khu huấn luyện trung cấp. Võ đài dưới 150tr SM.','screens'=>[],'color'=>'#6366f1'],
-    ['id'=>'tp-vegeta','name'=>'Thành Phố Vegeta','bg'=>'b20','level'=>'40-60','type'=>'city','desc'=>'Boss Hirudegarn 22h. Drop đệ tử Mabư.','screens'=>['4-1','4-2'],'color'=>'#e53e3e'],
-    ['id'=>'nappa','name'=>'Nappa','bg'=>'b21','level'=>'50-70','type'=>'boss','desc'=>'Tuyến Boss Nappa — Kuku, Mập Đầu Đinh, Rambo.','screens'=>[],'color'=>'#d53f8c'],
-    ['id'=>'cold','name'=>'Cold','bg'=>'b22','level'=>'60-80','type'=>'boss','desc'=>'Boss Cold Form 1. Drop đồ Thần Linh cấp thấp.','screens'=>[],'color'=>'#805ad5'],
-    ['id'=>'dao-balec','name'=>'Đảo Balec','bg'=>'b30','level'=>'15-30','type'=>'wild','desc'=>'Đảo phía Bắc, bắt đầu tuyến Bắc-Tây.','screens'=>[],'color'=>'#0ea5e9'],
-    ['id'=>'cao-nguyen','name'=>'Cao Nguyên','bg'=>'b31','level'=>'25-45','type'=>'wild','desc'=>'Cao nguyên gió lớn, quái trung cấp.','screens'=>[],'color'=>'#14b8a6'],
-    ['id'=>'tp-phia-bac','name'=>'TP Phía Bắc','bg'=>'b32','level'=>'35-55','type'=>'city','desc'=>'Thành phố trung tâm phía Bắc.','screens'=>[],'color'=>'#3b82f6'],
-    ['id'=>'hang-bang','name'=>'Hang Băng','bg'=>'b41','level'=>'20-35','type'=>'wild','desc'=>'Hang động băng giá, tuyến Tuyết phía Nam.','screens'=>[],'color'=>'#06b6d4'],
-    ['id'=>'nui-tuyet','name'=>'Núi Tuyết','bg'=>'b40','level'=>'25-45','type'=>'wild','desc'=>'Đỉnh núi tuyết phủ trắng.','screens'=>[],'color'=>'#8b5cf6'],
-    ['id'=>'nui-khi','name'=>'Núi Khỉ Vàng','bg'=>'b42','level'=>'35-55','type'=>'wild','desc'=>'Núi Khỉ Vàng → Đỏ → Đen. Farm quái liên tục.','screens'=>[],'color'=>'#f97316'],
-    ['id'=>'tp-nappa','name'=>'Thành Phố Nappa','bg'=>'b50','level'=>'50-70','type'=>'city','desc'=>'Khu vực Boss tuyến chính.','screens'=>['5-1','5-2'],'color'=>'#ef4444'],
-    ['id'=>'dr-kore','name'=>'Dr. Kore Lab','bg'=>'b60','level'=>'Mọi cấp','type'=>'hub','desc'=>'Chế tạo SKH, Giáp, Mề đay, Chân Thiện Tử.','screens'=>['6-1','6-2'],'color'=>'#22c55e'],
-    ['id'=>'dau-truong','name'=>'Đấu Trường','bg'=>'b70','level'=>'PvP','type'=>'pvp','desc'=>'PvP Guild vs Guild, 1v1. Phần thưởng hàng tuần.','screens'=>['7-1'],'color'=>'#f43f5e'],
-    ['id'=>'thanh-dia','name'=>'Thánh Địa Thời Gian','bg'=>'b80','level'=>'70+','type'=>'endgame','desc'=>'Cổng vào Ma Giới và Địa Ngục.','screens'=>['8-2','8-3'],'color'=>'#a855f7'],
-    ['id'=>'ma-gioi','name'=>'Ma Giới','bg'=>'b90','level'=>'80+','type'=>'endgame','desc'=>'Boss Janemba, Demigre. Drop đồ Hủy Diệt.','screens'=>['9-1','9-3'],'color'=>'#dc2626'],
-    ['id'=>'yadrat','name'=>'Hành Tinh Yadrat','bg'=>'b100','level'=>'60+','type'=>'special','desc'=>'Hành tinh đặc biệt Yadrat 1-3.','screens'=>['10-1'],'color'=>'#eab308'],
-    ['id'=>'vu-tru-11','name'=>'Vũ Trụ 11','bg'=>'b110','level'=>'90+','type'=>'endgame','desc'=>'Trại Huấn Luyện + Căn Cứ Pride Troopers.','screens'=>['11-2','11-3'],'color'=>'#7c3aed'],
-    ['id'=>'trai-huan-luyen','name'=>'Trại Huấn Luyện','bg'=>'b111','level'=>'90+','type'=>'endgame','desc'=>'Boss mạnh nhất, trang bị Thiên sứ.','screens'=>[],'color'=>'#2563eb'],
-    ['id'=>'pride-troopers','name'=>'Căn Cứ Pride Troopers','bg'=>'b112','level'=>'100+','type'=>'endgame','desc'=>'Endgame cuối cùng. Black Goku, Zamasu.','screens'=>['11-4'],'color'=>'#9333ea'],
-    ['id'=>'dong-ho-tg','name'=>'Đồng Hồ Thời Gian','bg'=>'b120','level'=>'50+','type'=>'special','desc'=>'Cổng dẫn vào Thánh Địa Thời Gian.','screens'=>[],'color'=>'#0891b2'],
+    ['id'=>'dao-kame','name'=>'�?o Kame','bg'=>'b00','level'=>'1-10','type'=>'hub','desc'=>'Trung t�m ch�nh. NPC: Satan, Shop VIP, B� H?t M�t.','screens'=>['2-1','2-3','2-5'],'color'=>'#0071e3'],
+    ['id'=>'lang-plant','name'=>'L�ng Plant','bg'=>'b10','level'=>'1-15','type'=>'start','desc'=>'�i?m xu?t ph�t h�nh tinh Tr�i �?t.','screens'=>[],'color'=>'#8b5cf6'],
+    ['id'=>'rung-nguyen-sinh','name'=>'R?ng Nguy�n Sinh','bg'=>'b11','level'=>'10-25','type'=>'wild','desc'=>'Khu r?ng hoang d�, qu�i c?p th?p.','screens'=>[],'color'=>'#10b981'],
+    ['id'=>'rung-xayda','name'=>'R?ng Th�ng Xayda','bg'=>'b12','level'=>'20-40','type'=>'wild','desc'=>'R?ng th�ng c? th?, tuy?n Xayda.','screens'=>[],'color'=>'#f59e0b'],
+    ['id'=>'vach-nui','name'=>'V�ch N�i �en','bg'=>'b13','level'=>'30-50','type'=>'training','desc'=>'Khu hu?n luy?n trung c?p. V� d�i du?i 150tr SM.','screens'=>[],'color'=>'#6366f1'],
+    ['id'=>'tp-vegeta','name'=>'Th�nh Ph? Vegeta','bg'=>'b20','level'=>'40-60','type'=>'city','desc'=>'Boss Hirudegarn 22h. Drop d? t? Mabu.','screens'=>['4-1','4-2'],'color'=>'#e53e3e'],
+    ['id'=>'nappa','name'=>'Nappa','bg'=>'b21','level'=>'50-70','type'=>'boss','desc'=>'Tuy?n Boss Nappa � Kuku, M?p �?u �inh, Rambo.','screens'=>[],'color'=>'#d53f8c'],
+    ['id'=>'cold','name'=>'Cold','bg'=>'b22','level'=>'60-80','type'=>'boss','desc'=>'Boss Cold Form 1. Drop d? Th?n Linh c?p th?p.','screens'=>[],'color'=>'#805ad5'],
+    ['id'=>'dao-balec','name'=>'�?o Balec','bg'=>'b30','level'=>'15-30','type'=>'wild','desc'=>'�?o ph�a B?c, b?t d?u tuy?n B?c-T�y.','screens'=>[],'color'=>'#0ea5e9'],
+    ['id'=>'cao-nguyen','name'=>'Cao Nguy�n','bg'=>'b31','level'=>'25-45','type'=>'wild','desc'=>'Cao nguy�n gi� l?n, qu�i trung c?p.','screens'=>[],'color'=>'#14b8a6'],
+    ['id'=>'tp-phia-bac','name'=>'TP Ph�a B?c','bg'=>'b32','level'=>'35-55','type'=>'city','desc'=>'Th�nh ph? trung t�m ph�a B?c.','screens'=>[],'color'=>'#3b82f6'],
+    ['id'=>'hang-bang','name'=>'Hang Bang','bg'=>'b41','level'=>'20-35','type'=>'wild','desc'=>'Hang d?ng bang gi�, tuy?n Tuy?t ph�a Nam.','screens'=>[],'color'=>'#06b6d4'],
+    ['id'=>'nui-tuyet','name'=>'N�i Tuy?t','bg'=>'b40','level'=>'25-45','type'=>'wild','desc'=>'�?nh n�i tuy?t ph? tr?ng.','screens'=>[],'color'=>'#8b5cf6'],
+    ['id'=>'nui-khi','name'=>'N�i Kh? V�ng','bg'=>'b42','level'=>'35-55','type'=>'wild','desc'=>'N�i Kh? V�ng ? �? ? �en. Farm qu�i li�n t?c.','screens'=>[],'color'=>'#f97316'],
+    ['id'=>'tp-nappa','name'=>'Th�nh Ph? Nappa','bg'=>'b50','level'=>'50-70','type'=>'city','desc'=>'Khu v?c Boss tuy?n ch�nh.','screens'=>['5-1','5-2'],'color'=>'#ef4444'],
+    ['id'=>'dr-kore','name'=>'Dr. Kore Lab','bg'=>'b60','level'=>'M?i c?p','type'=>'hub','desc'=>'Ch? t?o SKH, Gi�p, M? day, Ch�n Thi?n T?.','screens'=>['6-1','6-2'],'color'=>'#22c55e'],
+    ['id'=>'dau-truong','name'=>'�?u Tru?ng','bg'=>'b70','level'=>'PvP','type'=>'pvp','desc'=>'PvP Guild vs Guild, 1v1. Ph?n thu?ng h�ng tu?n.','screens'=>['7-1'],'color'=>'#f43f5e'],
+    ['id'=>'thanh-dia','name'=>'Th�nh �?a Th?i Gian','bg'=>'b80','level'=>'70+','type'=>'endgame','desc'=>'C?ng v�o Ma Gi?i v� �?a Ng?c.','screens'=>['8-2','8-3'],'color'=>'#a855f7'],
+    ['id'=>'ma-gioi','name'=>'Ma Gi?i','bg'=>'b90','level'=>'80+','type'=>'endgame','desc'=>'Boss Janemba, Demigre. Drop d? H?y Di?t.','screens'=>['9-1','9-3'],'color'=>'#dc2626'],
+    ['id'=>'yadrat','name'=>'H�nh Tinh Yadrat','bg'=>'b100','level'=>'60+','type'=>'special','desc'=>'H�nh tinh d?c bi?t Yadrat 1-3.','screens'=>['10-1'],'color'=>'#eab308'],
+    ['id'=>'vu-tru-11','name'=>'Vu Tr? 11','bg'=>'b110','level'=>'90+','type'=>'endgame','desc'=>'Tr?i Hu?n Luy?n + Can C? Pride Troopers.','screens'=>['11-2','11-3'],'color'=>'#7c3aed'],
+    ['id'=>'trai-huan-luyen','name'=>'Tr?i Hu?n Luy?n','bg'=>'b111','level'=>'90+','type'=>'endgame','desc'=>'Boss m?nh nh?t, trang b? Thi�n s?.','screens'=>[],'color'=>'#2563eb'],
+    ['id'=>'pride-troopers','name'=>'Can C? Pride Troopers','bg'=>'b112','level'=>'100+','type'=>'endgame','desc'=>'Endgame cu?i c�ng. Black Goku, Zamasu.','screens'=>['11-4'],'color'=>'#9333ea'],
+    ['id'=>'dong-ho-tg','name'=>'�?ng H? Th?i Gian','bg'=>'b120','level'=>'50+','type'=>'special','desc'=>'C?ng d?n v�o Th�nh �?a Th?i Gian.','screens'=>[],'color'=>'#0891b2'],
 ];
 
-$typeLabels = ['hub'=>'NPC Hub','start'=>'Khởi Đầu','wild'=>'Hoang Dã','training'=>'Huấn Luyện','city'=>'Thành Phố','boss'=>'Boss','pvp'=>'PvP','endgame'=>'Endgame','special'=>'Đặc Biệt'];
-$typeIcons = ['hub'=>'🏝️','start'=>'🌱','wild'=>'🌲','training'=>'⚔️','city'=>'🏙️','boss'=>'💀','pvp'=>'🏆','endgame'=>'🔥','special'=>'✨'];
+$typeLabels = ['hub'=>'NPC Hub','start'=>'Kh?i �?u','wild'=>'Hoang D�','training'=>'Hu?n Luy?n','city'=>'Th�nh Ph?','boss'=>'Boss','pvp'=>'PvP','endgame'=>'Endgame','special'=>'�?c Bi?t'];
+$typeIcons = ['hub'=>'???','start'=>'??','wild'=>'??','training'=>'??','city'=>'???','boss'=>'??','pvp'=>'??','endgame'=>'??','special'=>'?'];
 ?>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bản Đồ Thế Giới Game - Chú Bé Rồng Online</title>
-    <meta name="description" content="Khám phá thế giới Chú Bé Rồng Online với bản đồ tương tác — Hình ảnh game thực tế, NPC, Boss và lộ trình chi tiết." />
+    <title>B?n �? Th? Gi?i Game - Ch� B� R?ng Online</title>
+    <meta name="description" content="Kh�m ph� th? gi?i Ch� B� R?ng Online v?i b?n d? tuong t�c � H�nh ?nh game th?c t?, NPC, Boss v� l? tr�nh chi ti?t." />
     <link rel="icon" href="/images/favicon-48x48.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="/view/static/css/apple_ui.css?v=3.6">
+    <link rel="stylesheet" href="/view/static/css/apple_ui.css?v=4.0">
     <style>
     :root {
         --map-accent: #ff6b35;
@@ -570,7 +570,7 @@ $typeIcons = ['hub'=>'🏝️','start'=>'🌱','wild'=>'🌲','training'=>'⚔�
     .tips-box ul { list-style: none; padding: 0; margin: 0; }
     .tips-box ul li { padding: 8px 0; font-size: 14px; color: #78350f; line-height: 1.6; border-bottom: 1px solid rgba(245,158,11,0.16); }
     .tips-box ul li:last-child { border-bottom: none; }
-    .tips-box ul li::before { content: '•'; margin-right: 8px; }
+    .tips-box ul li::before { content: '�'; margin-right: 8px; }
 
     .map-cta { text-align: center; padding: 56px 20px 20px; max-width: 700px; margin: 0 auto; }
     .map-cta h2 { font-size: 32px; font-weight: 700; margin: 0 0 12px; }
@@ -685,11 +685,11 @@ $typeIcons = ['hub'=>'🏝️','start'=>'🌱','wild'=>'🌲','training'=>'⚔�
     <section class="map-hero">
         <div class="map-hero-bg"></div>
         <div class="map-hero-content">
-            <h1>Khám Phá <span>Thế Giới Game</span></h1>
-            <p class="subtitle">Trải nghiệm toàn bộ bản đồ Chú Bé Rồng Online — từ Đảo Kame đến Vũ Trụ 11, mỗi khu vực là một cuộc phiêu lưu.</p>
+            <h1>Kh�m Ph� <span>Th? Gi?i Game</span></h1>
+            <p class="subtitle">Tr?i nghi?m to�n b? b?n d? Ch� B� R?ng Online � t? �?o Kame d?n Vu Tr? 11, m?i khu v?c l� m?t cu?c phi�u luu.</p>
             <div class="hero-stats">
-                <div class="hero-stat"><span class="num"><?php echo count($zones); ?></span><span class="label">Khu Vực</span></div>
-                <div class="hero-stat"><span class="num">4</span><span class="label">Tuyến Đường</span></div>
+                <div class="hero-stat"><span class="num"><?php echo count($zones); ?></span><span class="label">Khu V?c</span></div>
+                <div class="hero-stat"><span class="num">4</span><span class="label">Tuy?n �u?ng</span></div>
                 <div class="hero-stat"><span class="num">15+</span><span class="label">Boss</span></div>
             </div>
         </div>
@@ -697,20 +697,20 @@ $typeIcons = ['hub'=>'🏝️','start'=>'🌱','wild'=>'🌲','training'=>'⚔�
 
     <!-- QUICK NAV -->
     <div class="quick-nav fade-in">
-        <a href="#zone-explorer">🗺️ Bản Đồ</a>
-        <a href="#routes">🛤️ Lộ Trình</a>
-        <a href="#boss-system">👹 Boss</a>
-        <a href="#equipment">⚔️ Trang Bị</a>
-        <a href="#skills">✨ Kỹ Năng</a>
-        <a href="#newbie-tips">📖 Newbie</a>
+        <a href="#zone-explorer">??? B?n �?</a>
+        <a href="#routes">??? L? Tr�nh</a>
+        <a href="#boss-system">?? Boss</a>
+        <a href="#equipment">?? Trang B?</a>
+        <a href="#skills">? K? Nang</a>
+        <a href="#newbie-tips">?? Newbie</a>
     </div>
 
     <div class="map-content">
         <!-- ZONE EXPLORER -->
         <section id="zone-explorer" class="fade-in">
             <div class="section-hdr">
-                <h2>🗺️ Khám Phá Khu Vực</h2>
-                <p>Click vào từng khu vực để xem chi tiết — hình ảnh game thực tế, NPC, Boss và thông tin hữu ích.</p>
+                <h2>??? Kh�m Ph� Khu V?c</h2>
+                <p>Click v�o t?ng khu v?c d? xem chi ti?t � h�nh ?nh game th?c t?, NPC, Boss v� th�ng tin h?u �ch.</p>
             </div>
             <div class="zone-grid">
                 <?php
@@ -743,7 +743,7 @@ $typeIcons = ['hub'=>'🏝️','start'=>'🌱','wild'=>'🌲','training'=>'⚔�
                     <div class="zone-card-glow" style="background:linear-gradient(135deg,<?php echo $z['color']; ?>44,transparent);"></div>
                     <div class="zone-card-bg" style="background-image:url('/images/map-zones/<?php echo $z['id']; ?>.<?php echo $bgExt; ?>')"></div>
                     <div class="zone-card-overlay"></div>
-                    <div class="zone-card-screenshots">📸 <?php echo count($z['screens']); ?></div>
+                    <div class="zone-card-screenshots">?? <?php echo count($z['screens']); ?></div>
                     <?php if($hasMascot): ?>
                     <img class="zone-card-mascot" src="/images/gif/<?php echo $zoneMascots[$z['id']]; ?>" alt="mascot" loading="lazy">
                     <?php endif; ?>
@@ -762,120 +762,120 @@ $typeIcons = ['hub'=>'🏝️','start'=>'🌱','wild'=>'🌲','training'=>'⚔�
         <!-- ROUTE FLOW -->
         <section id="routes" class="route-section fade-in">
             <div class="section-hdr">
-                <h2>🛤️ Lộ Trình Di Chuyển</h2>
-                <p>Đi theo từng tuyến để lên cấp ổn định. Mỗi tuyến có mốc cấp độ và nhánh rẽ rõ ràng.</p>
+                <h2>??? L? Tr�nh Di Chuy?n</h2>
+                <p>�i theo t?ng tuy?n d? l�n c?p ?n d?nh. M?i tuy?n c� m?c c?p d? v� nh�nh r? r� r�ng.</p>
             </div>
             <div class="route-box">
                 <div class="route-head">
-                    <div class="route-title"><span class="route-badge" style="background:#8b5cf6">HÀNH TINH</span> Con Đường Plant</div>
-                    <div class="route-meta"><span>Lv 1-80</span><span>1 nhánh rẽ</span></div>
+                    <div class="route-title"><span class="route-badge" style="background:#8b5cf6">H�NH TINH</span> Con �u?ng Plant</div>
+                    <div class="route-meta"><span>Lv 1-80</span><span>1 nh�nh r?</span></div>
                 </div>
                 <div class="route-flow">
-                    <span class="route-node start" style="--nbg:url('/map-res?bg=b10&res=x2')"><span>Làng Plant</span></span><span class="route-arrow">→</span>
-                    <span class="route-node"><span>Rừng Nguyên Sinh</span></span><span class="route-arrow">→</span>
-                    <span class="route-node"><span>Rừng Thông Xayda</span></span><span class="route-arrow">→</span>
-                    <span class="route-node"><span>Vách Núi Đen</span></span><span class="route-arrow">→</span>
-                    <span class="route-node"><span>TP Vegeta</span></span><span class="route-arrow">→</span>
-                    <span class="route-node branch end"><span>Nappa</span></span><span class="route-branch-label">hoặc</span><span class="route-node branch end"><span>Cold</span></span>
+                    <span class="route-node start" style="--nbg:url('/map-res?bg=b10&res=x2')"><span>L�ng Plant</span></span><span class="route-arrow">?</span>
+                    <span class="route-node"><span>R?ng Nguy�n Sinh</span></span><span class="route-arrow">?</span>
+                    <span class="route-node"><span>R?ng Th�ng Xayda</span></span><span class="route-arrow">?</span>
+                    <span class="route-node"><span>V�ch N�i �en</span></span><span class="route-arrow">?</span>
+                    <span class="route-node"><span>TP Vegeta</span></span><span class="route-arrow">?</span>
+                    <span class="route-node branch end"><span>Nappa</span></span><span class="route-branch-label">ho?c</span><span class="route-node branch end"><span>Cold</span></span>
                 </div>
-                <p class="route-note">Tuyến chính cho người mới: đi thẳng đến TP Vegeta rồi chọn farm boss Nappa hoặc Cold.</p>
+                <p class="route-note">Tuy?n ch�nh cho ngu?i m?i: di th?ng d?n TP Vegeta r?i ch?n farm boss Nappa ho?c Cold.</p>
             </div>
             <div class="route-box">
                 <div class="route-head">
-                    <div class="route-title"><span class="route-badge" style="background:#0071e3">PHÍA BẮC</span> Con Đường Phía Bắc - Tây</div>
-                    <div class="route-meta"><span>Lv 15-55</span><span>Tuyến phụ mở rộng</span></div>
+                    <div class="route-title"><span class="route-badge" style="background:#0071e3">PH�A B?C</span> Con �u?ng Ph�a B?c - T�y</div>
+                    <div class="route-meta"><span>Lv 15-55</span><span>Tuy?n ph? m? r?ng</span></div>
                 </div>
                 <div class="route-flow">
-                    <span class="route-node start"><span>Đảo Balec</span></span><span class="route-arrow">→</span>
-                    <span class="route-node"><span>Cao Nguyên</span></span><span class="route-arrow">→</span>
-                    <span class="route-node"><span>TP Phía Bắc</span></span><span class="route-arrow">→</span>
-                    <span class="route-node"><span>TP Phía Tây</span></span><span class="route-arrow">→</span>
-                    <span class="route-node"><span>Ngọn Núi Phía Bắc</span></span><span class="route-arrow">→</span>
-                    <span class="route-node end"><span>Thị Trấn Ginder</span></span>
+                    <span class="route-node start"><span>�?o Balec</span></span><span class="route-arrow">?</span>
+                    <span class="route-node"><span>Cao Nguy�n</span></span><span class="route-arrow">?</span>
+                    <span class="route-node"><span>TP Ph�a B?c</span></span><span class="route-arrow">?</span>
+                    <span class="route-node"><span>TP Ph�a T�y</span></span><span class="route-arrow">?</span>
+                    <span class="route-node"><span>Ng?n N�i Ph�a B?c</span></span><span class="route-arrow">?</span>
+                    <span class="route-node end"><span>Th? Tr?n Ginder</span></span>
                 </div>
-                <p class="route-note">Nhánh này phù hợp để đổi không khí farm và gom tài nguyên trước khi vào boss tuyến cao.</p>
+                <p class="route-note">Nh�nh n�y ph� h?p d? d?i kh�ng kh� farm v� gom t�i nguy�n tru?c khi v�o boss tuy?n cao.</p>
             </div>
             <div class="route-box">
                 <div class="route-head">
-                    <div class="route-title"><span class="route-badge" style="background:#10b981">PHÍA NAM</span> Con Đường Tuyết</div>
-                    <div class="route-meta"><span>Lv 20-65</span><span>Tuyến farm dài</span></div>
+                    <div class="route-title"><span class="route-badge" style="background:#10b981">PH�A NAM</span> Con �u?ng Tuy?t</div>
+                    <div class="route-meta"><span>Lv 20-65</span><span>Tuy?n farm d�i</span></div>
                 </div>
                 <div class="route-flow">
-                    <span class="route-node start"><span>Hang Băng</span></span><span class="route-arrow">→</span>
-                    <span class="route-node"><span>Núi Tuyết</span></span><span class="route-arrow">→</span>
-                    <span class="route-node"><span>Cánh Đồng Tuyết</span></span><span class="route-arrow">→</span>
-                    <span class="route-node"><span>Núi Khỉ Vàng</span></span><span class="route-arrow">→</span>
-                    <span class="route-node"><span>Hang Khỉ Đen</span></span><span class="route-arrow">→</span>
-                    <span class="route-node"><span>Khe Núi Tử Thần</span></span><span class="route-arrow">→</span>
-                    <span class="route-node end"><span>Đồi Cây Frieza</span></span>
+                    <span class="route-node start"><span>Hang Bang</span></span><span class="route-arrow">?</span>
+                    <span class="route-node"><span>N�i Tuy?t</span></span><span class="route-arrow">?</span>
+                    <span class="route-node"><span>C�nh �?ng Tuy?t</span></span><span class="route-arrow">?</span>
+                    <span class="route-node"><span>N�i Kh? V�ng</span></span><span class="route-arrow">?</span>
+                    <span class="route-node"><span>Hang Kh? �en</span></span><span class="route-arrow">?</span>
+                    <span class="route-node"><span>Khe N�i T? Th?n</span></span><span class="route-arrow">?</span>
+                    <span class="route-node end"><span>�?i C�y Frieza</span></span>
                 </div>
-                <p class="route-note">Tuyến quái đông, nhịp cày đều, thích hợp cho tổ đội muốn tăng cấp liên tục.</p>
+                <p class="route-note">Tuy?n qu�i d�ng, nh?p c�y d?u, th�ch h?p cho t? d?i mu?n tang c?p li�n t?c.</p>
             </div>
             <div class="route-box">
                 <div class="route-head">
-                    <div class="route-title"><span class="route-badge" style="background:#f59e0b">ĐẶC BIỆT</span> Khu Vực Đặc Biệt</div>
+                    <div class="route-title"><span class="route-badge" style="background:#f59e0b">�?C BI?T</span> Khu V?c �?c Bi?t</div>
                     <div class="route-meta"><span>Lv 50+</span><span>Endgame</span></div>
                 </div>
                 <div class="route-subflows">
                     <div class="route-subflow">
                         <div class="route-subtitle">Yadrat</div>
                         <div class="route-flow">
-                            <span class="route-node start"><span>Hành Tinh Yadrat</span></span><span class="route-arrow">→</span>
-                            <span class="route-node"><span>Yadrat 1</span></span><span class="route-arrow">→</span>
-                            <span class="route-node"><span>Yadrat 2</span></span><span class="route-arrow">→</span>
+                            <span class="route-node start"><span>H�nh Tinh Yadrat</span></span><span class="route-arrow">?</span>
+                            <span class="route-node"><span>Yadrat 1</span></span><span class="route-arrow">?</span>
+                            <span class="route-node"><span>Yadrat 2</span></span><span class="route-arrow">?</span>
                             <span class="route-node end"><span>Yadrat 3</span></span>
                         </div>
                     </div>
                     <div class="route-subflow">
-                        <div class="route-subtitle">Thời Gian</div>
+                        <div class="route-subtitle">Th?i Gian</div>
                         <div class="route-flow">
-                            <span class="route-node start"><span>Đồng Hồ Thời Gian</span></span><span class="route-arrow">→</span>
-                            <span class="route-node"><span>Thánh Địa Thời Gian</span></span><span class="route-arrow">→</span>
-                            <span class="route-node branch end"><span>Ma Giới</span></span><span class="route-branch-label">hoặc</span><span class="route-node branch end"><span>Địa Ngục</span></span>
+                            <span class="route-node start"><span>�?ng H? Th?i Gian</span></span><span class="route-arrow">?</span>
+                            <span class="route-node"><span>Th�nh �?a Th?i Gian</span></span><span class="route-arrow">?</span>
+                            <span class="route-node branch end"><span>Ma Gi?i</span></span><span class="route-branch-label">ho?c</span><span class="route-node branch end"><span>�?a Ng?c</span></span>
                         </div>
                     </div>
                     <div class="route-subflow">
-                        <div class="route-subtitle">Vũ Trụ 11</div>
+                        <div class="route-subtitle">Vu Tr? 11</div>
                         <div class="route-flow">
-                            <span class="route-node start"><span>Vũ Trụ 11</span></span><span class="route-arrow">→</span>
-                            <span class="route-node"><span>Trại Huấn Luyện</span></span><span class="route-arrow">→</span>
-                            <span class="route-node end"><span>Căn Cứ Pride Troopers</span></span>
+                            <span class="route-node start"><span>Vu Tr? 11</span></span><span class="route-arrow">?</span>
+                            <span class="route-node"><span>Tr?i Hu?n Luy?n</span></span><span class="route-arrow">?</span>
+                            <span class="route-node end"><span>Can C? Pride Troopers</span></span>
                         </div>
                     </div>
                 </div>
-                <p class="route-note">Nhóm khu đặc biệt yêu cầu lực chiến cao, nên đi tổ đội để mở khóa và farm hiệu quả hơn.</p>
+                <p class="route-note">Nh�m khu d?c bi?t y�u c?u l?c chi?n cao, n�n di t? d?i d? m? kh�a v� farm hi?u qu? hon.</p>
             </div>
         </section>
         <!-- BOSS SYSTEM -->
         <section id="boss-system" class="fade-in">
             <div class="section-hdr">
-                <h2>👹 Hệ Thống Boss</h2>
-                <p>Boss được chia theo tuyến đường, tiến triển từ dễ đến khó theo cốt truyện Dragon Ball.</p>
+                <h2>?? H? Th?ng Boss</h2>
+                <p>Boss du?c chia theo tuy?n du?ng, ti?n tri?n t? d? d?n kh� theo c?t truy?n Dragon Ball.</p>
             </div>
             <div class="boss-grid">
-                <div class="boss-card"><h4>🔮 Tuyến Xayda</h4><p><strong>Broly</strong> → <strong>Super Broly</strong>. Drop trứng đệ tử + trang bị hiếm.</p><span class="boss-tag">Boss Path</span></div>
-                <div class="boss-card"><h4>💀 Tuyến Nappa</h4><p><strong>Kuku</strong> → <strong>Mập Đầu Đinh</strong> → <strong>Rambo</strong> → <strong>Ginyu</strong> → <strong>Frieza 1-3</strong></p><span class="boss-tag">Boss Path</span></div>
-                <div class="boss-card"><h4>🤖 Tuyến Tương Lai</h4><p><strong>Gohan TL</strong> → <strong>Android 19, 20</strong> → <strong>Cell Form 1, 2, Perfect</strong> → <strong>Cell Jr</strong></p><span class="boss-tag">Boss Path</span></div>
-                <div class="boss-card"><h4>❄️ Cold &amp; Cooler</h4><p>Cold (Form 1) → Cooler (Form 1-2). Drop đồ Thần Linh cấp thấp.</p><span class="boss-tag">Endgame</span></div>
-                <div class="boss-card"><h4>👿 Janemba &amp; Demigre</h4><p>Boss Ma Giới. Drop trang bị Hủy diệt. Yêu cầu sức mạnh cao.</p><span class="boss-tag">Endgame</span></div>
-                <div class="boss-card"><h4>⚡ Black Goku &amp; Zamasu</h4><p>Boss endgame cực mạnh. Drop nguyên liệu Thiên sứ và trang bị Phase 2.</p><span class="boss-tag">Top Tier</span></div>
+                <div class="boss-card"><h4>?? Tuy?n Xayda</h4><p><strong>Broly</strong> ? <strong>Super Broly</strong>. Drop tr?ng d? t? + trang b? hi?m.</p><span class="boss-tag">Boss Path</span></div>
+                <div class="boss-card"><h4>?? Tuy?n Nappa</h4><p><strong>Kuku</strong> ? <strong>M?p �?u �inh</strong> ? <strong>Rambo</strong> ? <strong>Ginyu</strong> ? <strong>Frieza 1-3</strong></p><span class="boss-tag">Boss Path</span></div>
+                <div class="boss-card"><h4>?? Tuy?n Tuong Lai</h4><p><strong>Gohan TL</strong> ? <strong>Android 19, 20</strong> ? <strong>Cell Form 1, 2, Perfect</strong> ? <strong>Cell Jr</strong></p><span class="boss-tag">Boss Path</span></div>
+                <div class="boss-card"><h4>?? Cold &amp; Cooler</h4><p>Cold (Form 1) ? Cooler (Form 1-2). Drop d? Th?n Linh c?p th?p.</p><span class="boss-tag">Endgame</span></div>
+                <div class="boss-card"><h4>?? Janemba &amp; Demigre</h4><p>Boss Ma Gi?i. Drop trang b? H?y di?t. Y�u c?u s?c m?nh cao.</p><span class="boss-tag">Endgame</span></div>
+                <div class="boss-card"><h4>? Black Goku &amp; Zamasu</h4><p>Boss endgame c?c m?nh. Drop nguy�n li?u Thi�n s? v� trang b? Phase 2.</p><span class="boss-tag">Top Tier</span></div>
             </div>
         </section>
 
         <!-- EQUIPMENT -->
         <section id="equipment" class="fade-in">
             <div class="section-hdr">
-                <h2>⚔️ Hệ Thống Trang Bị</h2>
-                <p>Phase 1 → Phase 2, hệ thống nâng sao từ 1 đến 10.</p>
+                <h2>?? H? Th?ng Trang B?</h2>
+                <p>Phase 1 ? Phase 2, h? th?ng n�ng sao t? 1 d?n 10.</p>
             </div>
             <div class="route-box">
                 <table class="equip-table">
-                    <thead><tr><th>Phase</th><th>Loại</th><th>Yêu Cầu</th><th>Nâng Sao</th></tr></thead>
+                    <thead><tr><th>Phase</th><th>Lo?i</th><th>Y�u C?u</th><th>N�ng Sao</th></tr></thead>
                     <tbody>
-                        <tr><td><strong>Phase 1</strong></td><td>Đồ Thần Linh</td><td>Boss Cold/Cooler</td><td>Tối đa 8★</td></tr>
-                        <tr><td><strong>Phase 1</strong></td><td>Đồ Hủy Diệt</td><td>Nâng từ Thần Linh</td><td>Tối đa 8★</td></tr>
-                        <tr><td><strong>Phase 2</strong></td><td>Đồ Thiên Sứ</td><td>80 tỷ SM + Angel Stones</td><td>Tối đa 10★</td></tr>
-                        <tr><td><strong>Phase 2</strong></td><td>Tinh Luyện SPL Cấp 2</td><td>Nguyên liệu endgame</td><td>10★ + Bonus</td></tr>
+                        <tr><td><strong>Phase 1</strong></td><td>�? Th?n Linh</td><td>Boss Cold/Cooler</td><td>T?i da 8?</td></tr>
+                        <tr><td><strong>Phase 1</strong></td><td>�? H?y Di?t</td><td>N�ng t? Th?n Linh</td><td>T?i da 8?</td></tr>
+                        <tr><td><strong>Phase 2</strong></td><td>�? Thi�n S?</td><td>80 t? SM + Angel Stones</td><td>T?i da 10?</td></tr>
+                        <tr><td><strong>Phase 2</strong></td><td>Tinh Luy?n SPL C?p 2</td><td>Nguy�n li?u endgame</td><td>10? + Bonus</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -883,16 +883,16 @@ $typeIcons = ['hub'=>'🏝️','start'=>'🌱','wild'=>'🌲','training'=>'⚔�
 
         <!-- SKILLS -->
         <section id="skills" class="fade-in">
-            <div class="section-hdr"><h2>✨ Biến Hình (Bọc Khí)</h2></div>
+            <div class="section-hdr"><h2>? Bi?n H�nh (B?c Kh�)</h2></div>
             <div class="route-box">
                 <table class="equip-table">
-                    <thead><tr><th>Cấp</th><th>Tên</th><th>Hiệu Ứng</th><th>CD</th></tr></thead>
+                    <thead><tr><th>C?p</th><th>T�n</th><th>Hi?u ?ng</th><th>CD</th></tr></thead>
                     <tbody>
-                        <tr><td>1</td><td>Bọc Khí Cơ Bản</td><td>+10% HP, KI, Damage</td><td>6 phút</td></tr>
-                        <tr><td>2</td><td>Bọc Khí Nâng Cao</td><td>+20% HP, KI, Damage</td><td>6 phút</td></tr>
-                        <tr><td>3</td><td>Super Saiyan / Đại Namếc</td><td>+35% HP, KI, Damage</td><td>6 phút</td></tr>
-                        <tr><td>4</td><td>SSJ2 / Siêu Namếc</td><td>+50% HP, KI, Damage</td><td>6 phút</td></tr>
-                        <tr><td>5</td><td>Ultra (SSJ3 / God)</td><td>+75% HP, KI, Damage</td><td>6 phút</td></tr>
+                        <tr><td>1</td><td>B?c Kh� Co B?n</td><td>+10% HP, KI, Damage</td><td>6 ph�t</td></tr>
+                        <tr><td>2</td><td>B?c Kh� N�ng Cao</td><td>+20% HP, KI, Damage</td><td>6 ph�t</td></tr>
+                        <tr><td>3</td><td>Super Saiyan / �?i Nam?c</td><td>+35% HP, KI, Damage</td><td>6 ph�t</td></tr>
+                        <tr><td>4</td><td>SSJ2 / Si�u Nam?c</td><td>+50% HP, KI, Damage</td><td>6 ph�t</td></tr>
+                        <tr><td>5</td><td>Ultra (SSJ3 / God)</td><td>+75% HP, KI, Damage</td><td>6 ph�t</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -900,27 +900,27 @@ $typeIcons = ['hub'=>'🏝️','start'=>'🌱','wild'=>'🌲','training'=>'⚔�
 
         <!-- NEWBIE -->
         <section id="newbie-tips" class="fade-in">
-            <div class="section-hdr"><h2>📖 Hướng Dẫn Cho Người Mới</h2></div>
+            <div class="section-hdr"><h2>?? Hu?ng D?n Cho Ngu?i M?i</h2></div>
             <div class="tips-box">
-                <h4>⚡ Mẹo Vàng Cho Newbie</h4>
+                <h4>? M?o V�ng Cho Newbie</h4>
                 <ul>
-                    <li>Luôn mang theo Đậu Thần khi farm và đánh Boss</li>
-                    <li>Boss Hirudegarn 22h tối — dù yếu cũng nên nhóm lớn</li>
-                    <li>Ưu tiên Nhiệm vụ Bulma mỗi ngày</li>
-                    <li>Không nâng sao khi chưa có đồ Thần Linh</li>
-                    <li>Tham gia Đại Hội Võ Thuật mỗi ngày dù thua</li>
-                    <li>Chat hỏi người chơi lâu năm trong bang hội</li>
+                    <li>Lu�n mang theo �?u Th?n khi farm v� d�nh Boss</li>
+                    <li>Boss Hirudegarn 22h t?i � d� y?u cung n�n nh�m l?n</li>
+                    <li>Uu ti�n Nhi?m v? Bulma m?i ng�y</li>
+                    <li>Kh�ng n�ng sao khi chua c� d? Th?n Linh</li>
+                    <li>Tham gia �?i H?i V� Thu?t m?i ng�y d� thua</li>
+                    <li>Chat h?i ngu?i choi l�u nam trong bang h?i</li>
                 </ul>
             </div>
         </section>
 
         <!-- CTA -->
         <section class="map-cta fade-in">
-            <h2>Sẵn Sàng Khám Phá?</h2>
-            <p>Tải game và bắt đầu hành trình chinh phục thế giới Chú Bé Rồng Online!</p>
+            <h2>S?n S�ng Kh�m Ph�?</h2>
+            <p>T?i game v� b?t d?u h�nh tr�nh chinh ph?c th? gi?i Ch� B� R?ng Online!</p>
             <div class="cta-btns">
-                <a href="/register" class="btn-pill btn-black">Đăng Ký Miễn Phí</a>
-                <a href="/download/pc.rar" class="btn-pill btn-outline">Tải Game</a>
+                <a href="/register" class="btn-pill btn-black">�ang K� Mi?n Ph�</a>
+                <a href="/download/pc.rar" class="btn-pill btn-outline">T?i Game</a>
             </div>
         </section>
     </div>
@@ -935,7 +935,7 @@ $typeIcons = ['hub'=>'🏝️','start'=>'🌱','wild'=>'🌲','training'=>'⚔�
                     <h2 id="modalTitle"></h2>
                     <div class="meta" id="modalMeta"></div>
                 </div>
-                <button class="zone-modal-close" onclick="closeModal()">✕</button>
+                <button class="zone-modal-close" onclick="closeModal()">?</button>
             </div>
             <div class="zone-modal-body">
                 <p id="modalDesc"></p>
@@ -973,11 +973,11 @@ $typeIcons = ['hub'=>'🏝️','start'=>'🌱','wild'=>'🌲','training'=>'⚔�
                 var screens = JSON.parse(d.screens);
                 var html = '';
                 if(screens.length > 0) {
-                    html = '<div class="modal-section-title">Hình Ảnh Trong Game</div><div class="zone-modal-screens">';
+                    html = '<div class="modal-section-title">H�nh ?nh Trong Game</div><div class="zone-modal-screens">';
                     screens.forEach(function(s) { html += '<img src="/images/screen/' + s + '.png" alt="' + d.name + '" loading="lazy">'; });
                     html += '</div>';
                 } else {
-                    html = '<div class="modal-section-title">Ảnh Minh Hoạ Map</div><div class="zone-modal-screens"><img src="/images/map-zones/' + d.zone + '.' + imgExt + '" alt="' + d.name + '" loading="lazy"></div>';
+                    html = '<div class="modal-section-title">?nh Minh Ho? Map</div><div class="zone-modal-screens"><img src="/images/map-zones/' + d.zone + '.' + imgExt + '" alt="' + d.name + '" loading="lazy"></div>';
                 }
                 document.getElementById('modalScreens').innerHTML = html;
                 document.getElementById('zoneModal').classList.add('active');

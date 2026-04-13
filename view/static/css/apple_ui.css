@@ -224,32 +224,64 @@ body {
 }
 
 .platform-card-img {
-    display: block;
+    display: flex;
+    flex-direction: column;
     text-decoration: none;
     border-radius: 20px;
     overflow: hidden;
     transition: transform 0.4s var(--cubic-apple), box-shadow 0.4s;
     box-shadow: 0 8px 24px rgba(0,0,0,0.18);
-    position: relative;
+    background: #1a1a2e;
 }
 
-.platform-card-img img {
+.card-img-wrap {
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+}
+
+.card-img-wrap img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: top center;
     display: block;
-    aspect-ratio: 9 / 16;
     transition: transform 0.5s var(--cubic-apple);
+}
+
+.card-info {
+    padding: 14px 16px;
+    text-align: center;
+    background: linear-gradient(180deg, #1a1a2e, #0f0f23);
+}
+
+.card-name {
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+}
+
+.card-action {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.7);
+    transition: color 0.3s;
 }
 
 .platform-card-img:hover {
     transform: translateY(-10px) scale(1.03);
-    box-shadow: 0 20px 48px rgba(0,0,0,0.28);
+    box-shadow: 0 20px 48px rgba(0,0,0,0.35);
 }
 
-.platform-card-img:hover img {
-    transform: scale(1.05);
+.platform-card-img:hover .card-img-wrap img {
+    transform: scale(1.08);
+}
+
+.platform-card-img:hover .card-action {
+    color: #fff;
 }
 
 /* Responsive download grid */
@@ -259,12 +291,16 @@ body {
         gap: 12px;
         padding: 0 10px;
     }
+    .card-name { font-size: 14px; }
+    .card-info { padding: 10px 12px; }
 }
 @media (max-width: 480px) {
     .platforms-grid {
         grid-template-columns: 1fr 1fr;
         gap: 10px;
     }
+    .card-name { font-size: 13px; }
+    .card-action { font-size: 11px; }
 }
 
 
