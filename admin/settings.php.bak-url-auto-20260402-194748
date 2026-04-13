@@ -1,0 +1,715 @@
+﻿<?php
+// admin/settings.php - Comprehensive System Settings
+if (session_status() === PHP_SESSION_NONE) { session_start(); }
+require_once __DIR__ . '/../connect.php';
+require_once __DIR__ . '/../env.php';
+
+if (!isset($_SESSION['username'])) { header('Location: /login'); exit; }
+$stmt = $conn->prepare("SELECT id, username, is_admin FROM account WHERE username = ? LIMIT 1");
+$stmt->bind_param("s", $_SESSION['username']);
+$stmt->execute();
+$admin_user = $stmt->get_result()->fetch_assoc();
+$stmt->close();
+if (!$admin_user || $admin_user['is_admin'] != 1) { header('Location: /'); exit; }
+
+$admin_username = htmlspecialchars($admin_user['username']);
+$cfg = $_ENV_CONFIG;
+
+// DB stats
+$db_stats = [];
+$r = $conn->query("SELECT COUNT(*) as c FROM account"); $db_stats['accounts'] = $r->fetch_assoc()['c'];
+$r = $conn->query("SELECT COUNT(*) as c FROM player"); $db_stats['players'] = $r->fetch_assoc()['c'];
+$r = $conn->query("SELECT COUNT(*) as c FROM bank_transactions"); $db_stats['tx_total'] = $r->fetch_assoc()['c'];
+$r = $conn->query("SELECT COUNT(*) as c FROM bank_transactions WHERE status='success'"); $db_stats['tx_success'] = $r->fetch_assoc()['c'];
+$r = $conn->query("SELECT COALESCE(SUM(amount),0) as s FROM bank_transactions WHERE status='success'"); $db_stats['revenue'] = $r->fetch_assoc()['s'];
+?>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Cài đặt hệ thống</title>
+    <link rel="stylesheet" href="/admin/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" href="/images/favicon-48x48.ico">
+    <style>
+        .settings-tabs {
+            display: flex; gap: 4px;
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius);
+            padding: 5px; margin-bottom: 24px;
+            overflow-x: auto;
+        }
+        .settings-tab {
+            padding: 10px 18px; border-radius: var(--radius-sm);
+            font-size: 13px; font-weight: 500;
+            color: var(--text-muted); cursor: pointer;
+            transition: all 0.2s; white-space: nowrap;
+            border: none; background: none;
+            font-family: inherit;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .settings-tab:hover { color: var(--text-secondary); background: rgba(255,255,255,0.03); }
+        .settings-tab.active { background: var(--accent-blue); color: #fff; font-weight: 600; box-shadow: 0 2px 10px rgba(88,117,245,0.3); }
+
+        .tab-panel { display: none; animation: fadeIn 0.3s ease; }
+        .tab-panel.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+        .form-group { margin-bottom: 0; }
+        .form-group label { display: block; font-size: 11px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.8px; }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%; padding: 10px 14px; border-radius: var(--radius-sm);
+            border: 1px solid var(--border-primary); background: rgba(255,255,255,0.04);
+            backdrop-filter: blur(8px);
+            color: var(--text-primary); font-size: 14px; font-family: inherit;
+            transition: all 0.2s; outline: none;
+        }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--accent-blue); box-shadow: 0 0 0 3px rgba(88,117,245,0.12); }
+        .form-group input[readonly] { opacity: 0.5; cursor: not-allowed; }
+        .form-group .hint { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+
+        .save-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 12px 28px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 600;
+            background: var(--gradient-1); color: #fff; border: none; cursor: pointer;
+            transition: all 0.2s; margin-top: 20px;
+            box-shadow: 0 3px 12px rgba(88,117,245,0.3);
+        }
+        .save-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(88,117,245,0.4); }
+        .save-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin-bottom: 20px; }
+        .info-stat {
+            background: rgba(255,255,255,0.03); backdrop-filter: blur(12px);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-sm); padding: 18px; text-align: center;
+            transition: all 0.2s;
+        }
+        .info-stat:hover { border-color: rgba(255,255,255,0.1); transform: translateY(-2px); }
+        .info-stat .label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+        .info-stat .value { font-size: 24px; font-weight: 800; color: var(--text-primary); margin-top: 6px; }
+        .info-stat .value.green { color: var(--accent-green); }
+        .info-stat .value.orange { color: var(--accent-orange); }
+        .info-stat .value.cyan { color: var(--accent-cyan); }
+
+        .cron-url-box {
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border-primary);
+            border-radius: var(--radius-sm);
+            padding: 14px 16px; font-family: 'JetBrains Mono', monospace; font-size: 13px;
+            color: var(--accent-green); word-break: break-all; margin: 8px 0;
+            display: flex; align-items: center; justify-content: space-between; gap: 12px;
+        }
+        .cron-url-box .copy-cron {
+            padding: 6px 14px; border-radius: var(--radius-xs); font-size: 12px; font-weight: 600;
+            background: rgba(16,185,129,0.12); color: var(--accent-green); border: none; cursor: pointer;
+            white-space: nowrap; transition: all 0.2s;
+        }
+        .cron-url-box .copy-cron:hover { background: rgba(16,185,129,0.2); }
+
+        .toggle-switch { position: relative; display: inline-block; width: 48px; height: 26px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider {
+            position: absolute; cursor: pointer; inset: 0;
+            background: rgba(255,255,255,0.08); border-radius: 26px;
+            transition: 0.3s;
+        }
+        .toggle-slider::before {
+            content: ''; position: absolute; height: 20px; width: 20px;
+            left: 3px; bottom: 3px; background: #fff;
+            border-radius: 50%; transition: 0.3s;
+        }
+        .toggle-switch input:checked + .toggle-slider { background: var(--accent-green); }
+        .toggle-switch input:checked + .toggle-slider::before { transform: translateX(22px); }
+
+        .alert-box {
+            border-radius: var(--radius-sm); padding: 14px 18px; font-size: 13px;
+            margin-top: 16px; display: flex; align-items: flex-start; gap: 10px; line-height: 1.6;
+        }
+        .alert-box.info { background: rgba(88,117,245,0.08); border: 1px solid rgba(88,117,245,0.15); color: var(--accent-blue); }
+        .alert-box.success { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.15); color: var(--accent-green); }
+        .alert-box.warning { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.15); color: var(--accent-orange); }
+
+        .server-card {
+            display: flex; align-items: center; gap: 16px;
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border-primary);
+            border-radius: var(--radius-sm); padding: 18px; transition: all 0.2s;
+        }
+        .server-card:hover { border-color: rgba(255,255,255,0.1); }
+        .server-card .sc-icon {
+            width: 44px; height: 44px; border-radius: var(--radius-sm);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px; flex-shrink: 0;
+        }
+        .server-card .sc-info { flex: 1; }
+        .server-card .sc-info h4 { font-size: 14px; font-weight: 600; margin: 0 0 2px; color: var(--text-primary); }
+        .server-card .sc-info p { font-size: 12px; color: var(--text-muted); margin: 0; }
+    </style>
+</head>
+<body class="admin-body">
+
+<aside class="admin-sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <a href="/admin" class="sidebar-logo">
+            <div class="sidebar-logo-icon">⚡</div>
+            <div class="sidebar-logo-text">Admin Panel<span>Quản trị hệ thống</span></div>
+        </a>
+    </div>
+    <nav class="sidebar-nav">
+        <div class="nav-section-title">Tổng quan</div>
+        <a href="/admin" class="nav-item"><i class="bi bi-grid-1x2-fill"></i> Dashboard</a>
+        <a href="/admin/operations" class="nav-item"><i class="bi bi-diagram-3-fill"></i> Quản trị mở rộng</a>
+        <div class="nav-section-title">Quản lý</div>
+        <a href="/admin/users" class="nav-item"><i class="bi bi-people-fill"></i> Người dùng</a>
+        <a href="/admin/transactions" class="nav-item"><i class="bi bi-receipt"></i> Giao dịch Bank</a>
+        <a href="/admin/feedback" class="nav-item"><i class="bi bi-envelope-fill"></i> Góp ý</a>
+        <div class="nav-section-title">Hệ thống</div>
+        <a href="/admin/settings" class="nav-item active"><i class="bi bi-gear-fill"></i> Cài đặt</a>
+        <a href="/" class="nav-item"><i class="bi bi-box-arrow-left"></i> Về trang chủ</a>
+    </nav>
+    <div class="sidebar-footer">
+        <div class="sidebar-user">
+            <div class="sidebar-user-avatar"><?php echo strtoupper(substr($admin_username, 0, 1)); ?></div>
+            <div class="sidebar-user-info">
+                <div class="sidebar-user-name"><?php echo $admin_username; ?></div>
+                <div class="sidebar-user-role">Administrator</div>
+            </div>
+        </div>
+    </div>
+</aside>
+
+<main class="admin-main">
+    <header class="admin-topbar">
+        <div class="topbar-left">
+            <button class="topbar-btn btn-menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">
+                <i class="bi bi-list"></i>
+            </button>
+            <div>
+                <div class="topbar-title">Cài đặt hệ thống</div>
+                <div class="topbar-breadcrumb">Admin / Cài đặt</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="admin-content">
+        <!-- Tabs -->
+        <div class="settings-tabs">
+            <button class="settings-tab active" onclick="switchTab('general', this)"><i class="bi bi-globe"></i> Thông tin chung</button>
+            <button class="settings-tab" onclick="switchTab('atm', this)"><i class="bi bi-bank"></i> Auto ATM</button>
+            <button class="settings-tab" onclick="switchTab('appearance', this)"><i class="bi bi-palette"></i> Giao diện</button>
+            <button class="settings-tab" onclick="switchTab('cron', this)"><i class="bi bi-clock-history"></i> Cron & API</button>
+            <button class="settings-tab" onclick="switchTab('server', this)"><i class="bi bi-server"></i> Server & DB</button>
+            <button class="settings-tab" onclick="switchTab('game', this)"><i class="bi bi-controller"></i> Game Server</button>
+        </div>
+
+        <!-- TAB: General -->
+        <div id="tab-general" class="tab-panel active">
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title"><i class="bi bi-globe" style="margin-right:8px;color:var(--accent-blue)"></i>Cấu hình Website</div>
+                </div>
+                <div class="panel-body padded">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Domain</label>
+                            <input type="text" id="cfg_DOMAIN" value="<?php echo htmlspecialchars($cfg['DOMAIN'] ?? ''); ?>">
+                        </div>
+                        <div class="form-group">
+                            <label>IP Server</label>
+                            <input type="text" id="cfg_IP" value="<?php echo htmlspecialchars($cfg['IP'] ?? ''); ?>">
+                        </div>
+                        <div class="form-group">
+                            <label>Tiêu đề website</label>
+                            <input type="text" id="cfg_SITE_TITLE" value="<?php echo htmlspecialchars($cfg['SITE_TITLE'] ?? 'Chú Bé Rồng Online'); ?>">
+                        </div>
+                        <div class="form-group">
+                            <label>Mô tả SEO</label>
+                            <input type="text" id="cfg_SITE_DESCRIPTION" maxlength="160" value="<?php echo htmlspecialchars($cfg['SITE_DESCRIPTION'] ?? ''); ?>">
+                            <div class="hint" id="seoDescHint">Độ dài chuẩn SEO nên từ 140-160 ký tự.</div>
+                            <button type="button" class="btn btn-sm btn-ghost" style="margin-top:8px" onclick="generateSeoDescription()">
+                                <i class="bi bi-magic"></i> Gợi ý mô tả SEO
+                            </button>
+                        </div>
+                        <div class="form-group">
+                            <label>Từ khóa SEO</label>
+                            <input type="text" id="cfg_SITE_KEYWORDS" value="<?php echo htmlspecialchars($cfg['SITE_KEYWORDS'] ?? ''); ?>">
+                        </div>
+                    </div>
+
+                    <h3 style="font-size:14px;font-weight:600;color:var(--text-primary);margin:24px 0 16px;padding-top:20px;border-top:1px solid var(--border-primary)">
+                        <i class="bi bi-share" style="margin-right:6px;color:var(--accent-purple)"></i>Liên kết mạng xã hội
+                    </h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Link Zalo</label>
+                            <input type="text" id="cfg_ZALO_LINK" value="<?php echo htmlspecialchars($cfg['ZALO_LINK'] ?? ''); ?>" placeholder="https://zalo.me/...">
+                        </div>
+                        <div class="form-group">
+                            <label>Link Facebook</label>
+                            <input type="text" id="cfg_FACEBOOK_LINK" value="<?php echo htmlspecialchars($cfg['FACEBOOK_LINK'] ?? ''); ?>" placeholder="https://facebook.com/...">
+                        </div>
+                    </div>
+
+                    <h3 style="font-size:14px;font-weight:600;color:var(--text-primary);margin:24px 0 16px;padding-top:20px;border-top:1px solid var(--border-primary)">
+                        <i class="bi bi-shield-exclamation" style="margin-right:6px;color:var(--accent-orange)"></i>Chế độ bảo trì
+                    </h3>
+                    <div style="display:flex;align-items:center;gap:14px">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="cfg_MAINTENANCE_MODE" <?php echo ($cfg['MAINTENANCE_MODE'] ?? '0') == '1' ? 'checked' : ''; ?>>
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <span style="font-size:13px;color:var(--text-secondary)">Bật chế độ bảo trì (trang chủ sẽ hiển thị thông báo bảo trì)</span>
+                    </div>
+
+                    <button class="save-btn" onclick="saveSettings('general')"><i class="bi bi-check-lg"></i> Lưu thông tin chung</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: ATM -->
+        <div id="tab-atm" class="tab-panel">
+            <div class="grid-2">
+                <div class="panel">
+                    <div class="panel-header">
+                        <div class="panel-title"><i class="bi bi-bank" style="margin-right:8px;color:var(--accent-green)"></i>Cấu hình Auto ATM</div>
+                    </div>
+                    <div class="panel-body padded">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Tên ngân hàng</label>
+                                <input type="text" id="cfg_BANK_NAME" value="<?php echo htmlspecialchars($cfg['BANK_NAME'] ?? 'ACB - Ngan hang A Chau'); ?>">
+                            </div>
+                            <div class="form-group">
+                                <label>Số tài khoản ACB</label>
+                                <input type="text" id="cfg_ACB_ACCOUNT" value="<?php echo htmlspecialchars($cfg['ACB_ACCOUNT'] ?? ''); ?>">
+                            </div>
+                            <div class="form-group">
+                                <label>Chủ tài khoản</label>
+                                <input type="text" id="cfg_ACCOUNT_HOLDER" value="<?php echo htmlspecialchars($cfg['ACCOUNT_HOLDER'] ?? 'MAI XUAN ANH'); ?>">
+                            </div>
+                            <div class="form-group">
+                                <label>API Token</label>
+                                <input type="text" id="cfg_ACB_TOKEN" value="<?php echo htmlspecialchars($cfg['ACB_TOKEN'] ?? ''); ?>">
+                                <div class="hint">Token từ sieuthicode.net</div>
+                            </div>
+                            <div class="form-group">
+                                <label>API URL</label>
+                                <input type="text" id="cfg_ACB_API_URL" value="<?php echo htmlspecialchars($cfg['ACB_API_URL'] ?? ''); ?>">
+                            </div>
+                            <div class="form-group">
+                                <label>Prefix nội dung CK</label>
+                                <input type="text" id="cfg_ATM_PREFIX" value="<?php echo htmlspecialchars($cfg['ATM_PREFIX'] ?? 'chuyen tien'); ?>">
+                                <div class="hint">VD: chuyen tien → user ghi "chuyen tien username"</div>
+                            </div>
+                            <div class="form-group">
+                                <label>Số tiền nạp tối thiểu</label>
+                                <input type="number" id="cfg_MIN_DEPOSIT" value="<?php echo htmlspecialchars($cfg['MIN_DEPOSIT'] ?? '10000'); ?>">
+                            </div>
+                        </div>
+                        <div class="alert-box success">
+                            <i class="bi bi-info-circle" style="flex-shrink:0;margin-top:2px"></i>
+                            <div>
+                                User chuyển khoản với nội dung: <strong><?php echo htmlspecialchars($cfg['ATM_PREFIX'] ?? 'chuyen tien'); ?> &lt;tên_tài_khoản&gt;</strong><br>
+                                Ví dụ: <strong><?php echo htmlspecialchars($cfg['ATM_PREFIX'] ?? 'chuyen tien'); ?> player1</strong> → tự động cộng VND cho tài khoản "player1"
+                            </div>
+                        </div>
+                        <button class="save-btn" onclick="saveSettings('atm')"><i class="bi bi-check-lg"></i> Lưu cấu hình ATM</button>
+                    </div>
+                </div>
+
+                <!-- QR & API Status -->
+                <div>
+                    <div class="panel" style="margin-bottom:22px">
+                        <div class="panel-header">
+                            <div class="panel-title"><i class="bi bi-activity" style="margin-right:8px;color:var(--accent-cyan)"></i>Trạng thái API</div>
+                            <button class="btn btn-sm btn-ghost" onclick="testAPI()">Test kết nối</button>
+                        </div>
+                        <div class="panel-body padded">
+                            <div id="apiStatus" style="min-height:100px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:13px">
+                                Nhấn "Test kết nối" để kiểm tra
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-header">
+                            <div class="panel-title"><i class="bi bi-qr-code" style="margin-right:8px;color:var(--accent-purple)"></i>VietQR Preview</div>
+                        </div>
+                        <div class="panel-body padded" style="text-align:center">
+                            <img src="https://img.vietqr.io/image/970416-<?php echo htmlspecialchars($cfg['ACB_ACCOUNT'] ?? ''); ?>-print.png?accountName=<?php echo urlencode($cfg['ACCOUNT_HOLDER'] ?? 'MAI XUAN ANH'); ?>"
+                                 alt="QR Preview" style="width:200px;border-radius:12px;border:1px solid var(--border-primary)" onerror="this.style.display='none'">
+                            <div style="font-size:12px;color:var(--text-muted);margin-top:10px">QR mẫu cho user (VietQR)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: Appearance -->
+        <div id="tab-appearance" class="tab-panel">
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title"><i class="bi bi-palette" style="margin-right:8px;color:var(--accent-pink)"></i>Tùy chỉnh giao diện</div>
+                </div>
+                <div class="panel-body padded">
+                    <div class="alert-box info" style="margin-top:0;margin-bottom:20px">
+                        <i class="bi bi-lightbulb" style="flex-shrink:0;margin-top:2px"></i>
+                        <div>Phần này cho phép tùy chỉnh nội dung hiển thị trên trang chủ, footer và các phần khác. Sau khi lưu, refresh trang để thấy thay đổi.</div>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Tiêu đề Hero (Trang chủ)</label>
+                            <input type="text" id="cfg_HERO_TITLE" value="<?php echo htmlspecialchars($cfg['HERO_TITLE'] ?? ''); ?>" placeholder="Chú Bé Rồng Online">
+                            <div class="hint">Tiêu đề lớn hiển thị trên trang chủ</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Phụ đề Hero</label>
+                            <input type="text" id="cfg_HERO_SUBTITLE" value="<?php echo htmlspecialchars($cfg['HERO_SUBTITLE'] ?? ''); ?>" placeholder="Bảo vệ Trái Đất, chiến đấu vì vinh quang!">
+                        </div>
+                        <div class="form-group">
+                            <label>Nội dung Footer</label>
+                            <input type="text" id="cfg_FOOTER_TEXT" value="<?php echo htmlspecialchars($cfg['FOOTER_TEXT'] ?? ''); ?>" placeholder="© 2026 Chú Bé Rồng Online. All rights reserved.">
+                        </div>
+                        <div class="form-group">
+                            <label>Link Discord</label>
+                            <input type="text" id="cfg_DISCORD_LINK" value="<?php echo htmlspecialchars($cfg['DISCORD_LINK'] ?? ''); ?>" placeholder="https://discord.gg/...">
+                        </div>
+                    </div>
+                    <button class="save-btn" onclick="saveSettings('appearance')"><i class="bi bi-check-lg"></i> Lưu giao diện</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: Cron -->
+        <div id="tab-cron" class="tab-panel">
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title"><i class="bi bi-clock-history" style="margin-right:8px;color:var(--accent-orange)"></i>Cron Job & Tự động kiểm tra</div>
+                </div>
+                <div class="panel-body padded">
+                    <p style="color:var(--text-secondary);font-size:14px;margin:0 0 20px;line-height:1.6">
+                        Cài đặt Cron Job để hệ thống tự động kiểm tra giao dịch bank định kỳ.<br>
+                        Sao chép URL dưới đây và đặt vào cron job (khuyến nghị mỗi 30 giây - 1 phút).
+                    </p>
+
+                    <div class="form-group" style="margin-bottom:24px">
+                        <label>Custom Cron URL (tuỳ chỉnh)</label>
+                        <input type="text" id="cfg_CRON_URL" value="<?php echo htmlspecialchars($cfg['CRON_URL'] ?? ''); ?>" placeholder="Để trống để dùng URL mặc định">
+                        <div class="hint">Nếu bạn muốn dùng URL cron riêng (proxy, cloud function...). Để trống = dùng URL mặc định.</div>
+                    </div>
+
+                    <div style="margin-bottom:22px">
+                        <label style="font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.8px;display:block;margin-bottom:6px">URL Check ATM (GET)</label>
+                        <div class="cron-url-box">
+                            <span id="cronUrl"><?php echo htmlspecialchars(($cfg['DOMAIN'] ?? 'localhost')); ?>/admin/api.php?action=check_atm</span>
+                            <button class="copy-cron" onclick="copyText(document.getElementById('cronUrl').textContent)">📋 Copy</button>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom:22px">
+                        <label style="font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.8px;display:block;margin-bottom:6px">Crontab command (Linux)</label>
+                        <div class="cron-url-box">
+                            <span id="cronCmd">*/1 * * * * curl -s "https://<?php echo htmlspecialchars($cfg['DOMAIN'] ?? 'localhost'); ?>/admin/api.php?action=check_atm" > /dev/null</span>
+                            <button class="copy-cron" onclick="copyText(document.getElementById('cronCmd').textContent)">📋 Copy</button>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom:22px">
+                        <label style="font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.8px;display:block;margin-bottom:6px">Windows Task Scheduler (PowerShell)</label>
+                        <div class="cron-url-box">
+                            <span id="cronWin">Invoke-WebRequest "http://<?php echo htmlspecialchars($cfg['DOMAIN'] ?? 'localhost'); ?>/admin/api.php?action=check_atm"</span>
+                            <button class="copy-cron" onclick="copyText(document.getElementById('cronWin').textContent)">📋 Copy</button>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="testAPI()" style="margin-top:8px"><i class="bi bi-play-fill"></i> Chạy thủ công ngay</button>
+                    <button class="save-btn" onclick="saveSettings('cron')" style="margin-left:12px"><i class="bi bi-check-lg"></i> Lưu cấu hình Cron</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: Server & DB -->
+        <div id="tab-server" class="tab-panel">
+            <div class="info-grid">
+                <div class="info-stat">
+                    <div class="label">Tổng tài khoản</div>
+                    <div class="value cyan"><?php echo number_format($db_stats['accounts']); ?></div>
+                </div>
+                <div class="info-stat">
+                    <div class="label">Tổng nhân vật</div>
+                    <div class="value"><?php echo number_format($db_stats['players']); ?></div>
+                </div>
+                <div class="info-stat">
+                    <div class="label">Giao dịch bank</div>
+                    <div class="value orange"><?php echo number_format($db_stats['tx_total']); ?></div>
+                </div>
+                <div class="info-stat">
+                    <div class="label">GD thành công</div>
+                    <div class="value green"><?php echo number_format($db_stats['tx_success']); ?></div>
+                </div>
+                <div class="info-stat">
+                    <div class="label">Tổng doanh thu</div>
+                    <div class="value green"><?php echo number_format($db_stats['revenue']); ?>đ</div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="panel">
+                    <div class="panel-header">
+                        <div class="panel-title"><i class="bi bi-server" style="margin-right:8px;color:var(--accent-purple)"></i>Thông tin Server</div>
+                    </div>
+                    <div class="panel-body padded">
+                        <table class="admin-table">
+                            <tr><td style="color:var(--text-secondary)">Domain</td><td class="text-white" style="text-align:right"><strong><?php echo htmlspecialchars($cfg['DOMAIN'] ?? ''); ?></strong></td></tr>
+                            <tr><td style="color:var(--text-secondary)">IP Server</td><td class="text-white" style="text-align:right"><strong><?php echo htmlspecialchars($cfg['IP'] ?? ''); ?></strong></td></tr>
+                            <tr><td style="color:var(--text-secondary)">PHP Version</td><td class="text-white" style="text-align:right"><strong><?php echo phpversion(); ?></strong></td></tr>
+                            <tr><td style="color:var(--text-secondary)">Server Time</td><td class="text-white" style="text-align:right"><strong><?php echo date('H:i:s d/m/Y'); ?></strong></td></tr>
+                            <tr><td style="color:var(--text-secondary)">OS</td><td class="text-white" style="text-align:right"><strong><?php echo PHP_OS; ?></strong></td></tr>
+                            <tr><td style="color:var(--text-secondary)">MySQL Version</td><td class="text-white" style="text-align:right"><strong><?php echo $conn->server_info; ?></strong></td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <div class="panel-title"><i class="bi bi-database" style="margin-right:8px;color:var(--accent-orange)"></i>Database</div>
+                    </div>
+                    <div class="panel-body padded">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>DB Host</label>
+                                <input type="text" value="<?php echo htmlspecialchars($cfg['DB_HOST'] ?? ''); ?>" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>DB Name</label>
+                                <input type="text" value="<?php echo htmlspecialchars($cfg['DB_NAME'] ?? ''); ?>" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>DB User</label>
+                                <input type="text" value="<?php echo htmlspecialchars($cfg['DB_USER'] ?? ''); ?>" readonly>
+                            </div>
+                        </div>
+                        <div class="alert-box warning" style="margin-top:16px">
+                            <i class="bi bi-shield-lock" style="flex-shrink:0;margin-top:2px"></i>
+                            <div>Thông tin database chỉ hiển thị, không thể sửa từ giao diện vì lý do bảo mật. Sửa trực tiếp trong file <code>.env</code>.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: Game Server -->
+        <div id="tab-game" class="tab-panel">
+            <div class="grid-2">
+                <div class="panel">
+                    <div class="panel-header">
+                        <div class="panel-title"><i class="bi bi-controller" style="margin-right:8px;color:var(--accent-purple)"></i>Cấu hình Game Server</div>
+                    </div>
+                    <div class="panel-body padded">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Game Server IP</label>
+                                <input type="text" id="cfg_GAME_SERVER_IP" value="<?php echo htmlspecialchars($cfg['IP'] ?? ''); ?>" placeholder="103.157.204.182">
+                            </div>
+                            <div class="form-group">
+                                <label>Game Server Port</label>
+                                <input type="text" id="cfg_GAME_SERVER_PORT" value="<?php echo htmlspecialchars($cfg['GAME_SERVER_PORT'] ?? '14445'); ?>">
+                            </div>
+                        </div>
+                        <div class="alert-box info" style="margin-top:16px;margin-bottom:20px">
+                            <i class="bi bi-lightning" style="flex-shrink:0;margin-top:2px"></i>
+                            <div>Phần quản trị Game Server đang được phát triển. Các tính năng sẽ bao gồm: restart server, reload config, quản lý event, gửi thông báo in-game, xem log realtime.</div>
+                        </div>
+                        <button class="save-btn" onclick="saveSettings('game')"><i class="bi bi-check-lg"></i> Lưu cấu hình Game</button>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="panel" style="margin-bottom:22px">
+                        <div class="panel-header">
+                            <div class="panel-title"><i class="bi bi-hdd-network" style="margin-right:8px;color:var(--accent-cyan)"></i>Trạng thái Server</div>
+                            <button class="btn btn-sm btn-ghost" onclick="checkGameServer()"><i class="bi bi-arrow-clockwise"></i> Kiểm tra</button>
+                        </div>
+                        <div class="panel-body padded" id="gameServerStatus">
+                            <div style="text-align:center;padding:20px;color:var(--text-muted);font-size:13px">
+                                Nhấn "Kiểm tra" để xem trạng thái
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-header">
+                            <div class="panel-title"><i class="bi bi-tools" style="margin-right:8px;color:var(--accent-orange)"></i>Tính năng sắp tới</div>
+                        </div>
+                        <div class="panel-body padded" style="display:grid;gap:12px">
+                            <div class="server-card">
+                                <div class="sc-icon" style="background:rgba(88,117,245,0.12);color:var(--accent-blue)"><i class="bi bi-arrow-repeat"></i></div>
+                                <div class="sc-info"><h4>Restart Server</h4><p>Khởi động lại game server từ panel</p></div>
+                            </div>
+                            <div class="server-card">
+                                <div class="sc-icon" style="background:rgba(16,185,129,0.12);color:var(--accent-green)"><i class="bi bi-megaphone"></i></div>
+                                <div class="sc-info"><h4>Gửi thông báo</h4><p>Gửi thông báo tới tất cả người chơi online</p></div>
+                            </div>
+                            <div class="server-card">
+                                <div class="sc-icon" style="background:rgba(245,158,11,0.12);color:var(--accent-orange)"><i class="bi bi-calendar-event"></i></div>
+                                <div class="sc-info"><h4>Quản lý Event</h4><p>Bật/tắt sự kiện in-game từ panel</p></div>
+                            </div>
+                            <div class="server-card">
+                                <div class="sc-icon" style="background:rgba(236,72,153,0.12);color:var(--accent-pink)"><i class="bi bi-terminal"></i></div>
+                                <div class="sc-info"><h4>Server Logs</h4><p>Xem log server realtime</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+function switchTab(tab, btn) {
+    document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+    document.querySelectorAll('.settings-tab').forEach(function(t) { t.classList.remove('active'); });
+    document.getElementById('tab-' + tab).classList.add('active');
+    btn.classList.add('active');
+}
+
+function showToast(msg, type) {
+    var c = document.getElementById('toastContainer');
+    var t = document.createElement('div');
+    t.className = 'toast ' + (type || 'info');
+    t.textContent = msg;
+    c.appendChild(t);
+    setTimeout(function() { t.remove(); }, 4000);
+}
+
+function updateSeoCounter() {
+    var el = document.getElementById('cfg_SITE_DESCRIPTION');
+    var hint = document.getElementById('seoDescHint');
+    if (!el || !hint) return;
+    var len = (el.value || '').trim().length;
+    var status = (len >= 140 && len <= 160) ? 'Tốt' : 'Cần tối ưu';
+    hint.textContent = 'Độ dài: ' + len + '/160 ký tự - ' + status;
+}
+
+function generateSeoDescription() {
+    var titleEl = document.getElementById('cfg_SITE_TITLE');
+    var keywordEl = document.getElementById('cfg_SITE_KEYWORDS');
+    var descEl = document.getElementById('cfg_SITE_DESCRIPTION');
+    if (!titleEl || !keywordEl || !descEl) return;
+
+    var title = (titleEl.value || 'Chú Bé Rồng Online').trim();
+    var keywords = (keywordEl.value || 'ngọc rồng, NRO, game dragon ball').split(',').map(function(v){ return v.trim(); }).filter(Boolean);
+    var keywordText = keywords.slice(0, 3).join(', ');
+    var draft = title + ' - Máy chủ game nhập vai Dragon Ball online ổn định, nạp ATM tự động nhanh, cộng tiền tức thì, cộng đồng đông đảo.';
+    if (keywordText) {
+        draft += ' Từ khóa: ' + keywordText + '.';
+    }
+    if (draft.length > 160) draft = draft.slice(0, 157).trim() + '...';
+    descEl.value = draft;
+    updateSeoCounter();
+}
+
+function saveSettings(group) {
+    var settings = {};
+    var fields = [];
+
+    if (group === 'general') {
+        fields = ['DOMAIN', 'IP', 'SITE_TITLE', 'SITE_DESCRIPTION', 'SITE_KEYWORDS', 'ZALO_LINK', 'FACEBOOK_LINK'];
+        // Handle maintenance mode toggle
+        settings['MAINTENANCE_MODE'] = document.getElementById('cfg_MAINTENANCE_MODE').checked ? '1' : '0';
+    } else if (group === 'atm') {
+        fields = ['BANK_NAME', 'ACB_ACCOUNT', 'ACB_TOKEN', 'ACB_API_URL', 'ATM_PREFIX', 'ACCOUNT_HOLDER', 'MIN_DEPOSIT'];
+    } else if (group === 'appearance') {
+        fields = ['HERO_TITLE', 'HERO_SUBTITLE', 'FOOTER_TEXT', 'DISCORD_LINK'];
+    } else if (group === 'cron') {
+        fields = ['CRON_URL'];
+    } else if (group === 'game') {
+        fields = ['GAME_SERVER_IP', 'GAME_SERVER_PORT'];
+    }
+
+    fields.forEach(function(f) {
+        var el = document.getElementById('cfg_' + f);
+        if (el) settings[f] = el.value;
+    });
+
+    var formData = new FormData();
+    formData.append('action', 'save_settings');
+    Object.keys(settings).forEach(function(k) {
+        formData.append('settings[' + k + ']', settings[k]);
+    });
+
+    fetch('/admin/api.php', { method: 'POST', body: formData })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            showToast(res.message, res.status === 'success' ? 'success' : 'error');
+        })
+        .catch(function(e) { showToast('Lỗi: ' + e.message, 'error'); });
+}
+
+function testAPI() {
+    var statusDiv = document.getElementById('apiStatus');
+    if (statusDiv) {
+        statusDiv.innerHTML = '<div style="text-align:center"><div class="spinner"></div><div style="margin-top:10px;font-size:13px;color:var(--text-muted)">Đang kiểm tra...</div></div>';
+    }
+    fetch('/admin/api.php?action=check_atm')
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (!statusDiv) { showToast(res.message, res.status); return; }
+            if (res.status === 'success') {
+                statusDiv.innerHTML = '<div style="text-align:center;width:100%"><div style="font-size:42px;margin-bottom:10px">✅</div><div style="color:var(--accent-green);font-weight:600;font-size:15px;margin-bottom:6px">Kết nối thành công!</div><div style="color:var(--text-secondary);font-size:12px">' + res.message + '</div></div>';
+            } else {
+                statusDiv.innerHTML = '<div style="text-align:center;width:100%"><div style="font-size:42px;margin-bottom:10px">❌</div><div style="color:var(--accent-red);font-weight:600;font-size:15px;margin-bottom:6px">Lỗi kết nối</div><div style="color:var(--text-secondary);font-size:12px">' + res.message + '</div></div>';
+            }
+            showToast(res.message, res.status === 'success' ? 'success' : 'error');
+        })
+        .catch(function(e) { showToast('Lỗi kết nối: ' + e.message, 'error'); });
+}
+
+function checkGameServer() {
+    var container = document.getElementById('gameServerStatus');
+    var ip = document.getElementById('cfg_GAME_SERVER_IP')?.value || '<?php echo htmlspecialchars($cfg['IP'] ?? ''); ?>';
+    var port = document.getElementById('cfg_GAME_SERVER_PORT')?.value || '<?php echo htmlspecialchars($cfg['GAME_SERVER_PORT'] ?? '14445'); ?>';
+    container.innerHTML = '<div style="text-align:center;padding:20px"><div class="spinner"></div><div style="margin-top:8px;color:var(--text-muted);font-size:13px">Đang kiểm tra ' + ip + ':' + port + '...</div></div>';
+
+    // Simple check via API
+    fetch('/admin/api.php?action=check_game_server&ip=' + encodeURIComponent(ip) + '&port=' + encodeURIComponent(port))
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.status === 'success') {
+                container.innerHTML = '<div style="text-align:center;padding:20px"><div style="font-size:42px;margin-bottom:8px">🟢</div><div style="color:var(--accent-green);font-weight:600;font-size:14px">Server Online</div><div style="color:var(--text-muted);font-size:12px;margin-top:4px">' + ip + ':' + port + '</div></div>';
+            } else {
+                container.innerHTML = '<div style="text-align:center;padding:20px"><div style="font-size:42px;margin-bottom:8px">🔴</div><div style="color:var(--accent-red);font-weight:600;font-size:14px">Server Offline</div><div style="color:var(--text-muted);font-size:12px;margin-top:4px">' + (res.message || 'Không thể kết nối') + '</div></div>';
+            }
+        })
+        .catch(function() {
+            container.innerHTML = '<div style="text-align:center;padding:20px"><div style="font-size:42px;margin-bottom:8px">⚠️</div><div style="color:var(--accent-orange);font-weight:600;font-size:14px">Không xác định</div><div style="color:var(--text-muted);font-size:12px;margin-top:4px">Lỗi kết nối API</div></div>';
+        });
+}
+
+function copyText(text) {
+    navigator.clipboard.writeText(text).then(function() {
+        showToast('Đã sao chép!', 'success');
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    var seoInput = document.getElementById('cfg_SITE_DESCRIPTION');
+    if (seoInput) {
+        seoInput.addEventListener('input', updateSeoCounter);
+        updateSeoCounter();
+    }
+});
+</script>
+
+</body>
+</html>
+
+
+
+
+

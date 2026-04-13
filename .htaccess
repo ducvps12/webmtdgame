@@ -1,0 +1,19 @@
+RewriteEngine On
+RewriteBase /
+
+# Don't rewrite files with extensions (css, js, images, etc.)
+RewriteCond %{REQUEST_URI} \.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|webp|mp4|webm)$ [NC]
+RewriteRule ^ - [L]
+
+# Clean URLs cho auth pages
+RewriteRule ^login$ app/login.php [L,QSA]
+RewriteRule ^register$ app/register.php [L,QSA]
+
+# Generic: URL không có file/dir tương ứng -> thêm .php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^.]+)$ $1.php [L,QSA]
+
+DirectoryIndex index.php
+Options -Indexes
+AddDefaultCharset UTF-8
