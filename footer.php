@@ -45,11 +45,11 @@
 <!-- Zalo Floating Box -->
 <div class="zalo-floating-box">
     <a href="https://zalo.me/g/irufas657" target="_blank" class="zalo-btn">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/1024px-Icon_of_Zalo.svg.png" alt="Zalo Box 1">
+        <img src="/images/zalo_box1.jpg" alt="Box Zalo 1">
         <span>Box Zalo 1</span>
     </a>
     <a href="https://zalo.me/g/aejkmp483" target="_blank" class="zalo-btn">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/1024px-Icon_of_Zalo.svg.png" alt="Zalo Box 2">
+        <img src="/images/zalo_box2.jpg" alt="Box Zalo 2">
         <span>Box Zalo 2</span>
     </a>
 </div>
@@ -84,12 +84,13 @@
     color: white;
 }
 .zalo-btn img {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     margin-right: 10px;
     border-radius: 50%;
-    background: white;
-    padding: 2px;
+    object-fit: cover;
+    object-position: center;
+    border: 2px solid rgba(255,255,255,0.3);
 }
 .site-footer {
     background: #1d1d1f;

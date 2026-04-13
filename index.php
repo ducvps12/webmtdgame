@@ -74,26 +74,9 @@ if (session_status() == PHP_SESSION_NONE) {
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="landing-section">
-        <h2 class="section-title">Khám Phá Tính Năng<br>Làm Nên Thời Đại Mới</h2>
-        <div class="feature-grid">
-            <div class="feature-card">
-                <div class="feature-icon"><img src="/images/icons/sparkle.png" alt="Đồ Hoa" style="width:48px;height:48px;"></div>
-                <h3>Đồ Hoa Cải Tiến</h3>
-                <p>Nâng cấp texture, độ phân giải HD cùng hiệu ứng kĩ năng mượt mà 60 FPS, mang lại trải nghiệm thị giác tuyệt vời.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><img src="/images/icons/trade.png" alt="Giao Dịch" style="width:48px;height:48px;"></div>
-                <h3>Giao Dịch Tự Do</h3>
-                <p>Hệ thống kinh tế cân bằng, chợ ảo liên server giúp người chơi trao đổi vật phẩm hoàn toàn tự do và minh bạch.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><img src="/images/icons/community.png" alt="Cộng Đồng" style="width:48px;height:48px;"></div>
-                <h3>Cộng Đồng Sôi Động</h3>
-                <p>Gặp gỡ, kết giao hàng vạn đồng đạo trên các hội nhóm, thử sức săn Boss đa dạng với tính chiến thuật cao.</p>
-            </div>
-        </div>
+    <!-- Features Section — Dragon Ball Themed -->
+    <section class="dbz-features-section">
+        <img src="/images/features_section.png" alt="Chức năng nổi bật của game" class="dbz-features-img">
     </section>
 
     <!-- Showcase Section -->
@@ -109,20 +92,20 @@ if (session_status() == PHP_SESSION_NONE) {
         </div>
     </section>
 
-    <!-- GiftCode Section -->
-    <section class="giftcode-section" id="giftcodeSection">
-        <div class="giftcode-header" onclick="toggleGiftCodes()">
-            <h2 class="giftcode-title">
-                <span class="giftcode-icon">🎁</span>
-                GiftCode Đang Hoạt Động
-                <span class="giftcode-count" id="gcCount"></span>
-            </h2>
-            <button class="giftcode-toggle" id="gcToggleBtn" aria-label="Toggle Gift Code">
-                <svg class="toggle-chevron" id="gcChevron" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    <!-- GiftCode Section — Gaming UI -->
+    <section class="gc-section" id="giftcodeSection">
+        <div class="gc-header" onclick="toggleGiftCodes()">
+            <div class="gc-header-left">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5" rx="1"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+                <span class="gc-header-text">GiftCode Đang Hoạt Động</span>
+                <span class="gc-badge" id="gcCount"></span>
+            </div>
+            <button class="gc-toggle-btn" id="gcToggleBtn" aria-label="Toggle">
+                <svg class="gc-chevron" id="gcChevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
             </button>
         </div>
-        <div class="giftcode-body" id="gcBody">
-            <div class="giftcode-grid" id="gcGrid">
+        <div class="gc-body" id="gcBody">
+            <div class="gc-grid" id="gcGrid">
                 <div class="gc-loading"><div class="gc-spinner"></div>Đang tải...</div>
             </div>
         </div>
@@ -131,7 +114,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
     <!-- Event Banner Carousel -->
     <section class="event-section">
-        <h2 class="section-title">Sự Kiện Đang Diễn Ra<br>Phần Thưởng Hấp Dẫn</h2>
+        <h2 class="section-title">Sự Kiện Hấp Dẫn<br>Trong Game</h2>
         <div class="event-carousel" id="eventCarousel">
             <button class="event-nav-btn prev" onclick="slideEvent(-1)">‹</button>
             <div class="event-track" id="eventTrack">
@@ -249,24 +232,30 @@ if (session_status() == PHP_SESSION_NONE) {
                     const expDate = new Date(gc.expired);
                     const now = new Date();
                     const daysLeft = Math.ceil((expDate - now) / (1000 * 60 * 60 * 24));
-                    const urgentClass = daysLeft <= 3 ? 'gc-urgent' : '';
-                    const typeLabel = gc.type === 1 ? 'VIP' : '';
+                    const isUrgent = daysLeft <= 5;
+                    const isVIP = gc.type === 1;
+                    const topColor = isVIP ? 'gc-top-vip' : (isUrgent ? 'gc-top-urgent' : 'gc-top-normal');
 
                     html += `
-                    <div class="gc-card ${urgentClass}">
-                        <div class="gc-card-top">
-                            <div class="gc-code-wrap">
-                                <code class="gc-code">${gc.code}</code>
-                                ${typeLabel ? '<span class="gc-type-badge">' + typeLabel + '</span>' : ''}
-                            </div>
-                            <button class="gc-copy-btn" onclick="event.stopPropagation(); copyCode('${gc.code}', this)">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                                Copy
-                            </button>
+                    <div class="gc-card">
+                        <div class="gc-card-topline ${topColor}"></div>
+                        ${isVIP ? '<span class="gc-vip-tag">⭐ VIP</span>' : ''}
+                        <div class="gc-code-block">
+                            <code class="gc-code">${gc.code}</code>
                         </div>
-                        <div class="gc-card-bottom">
-                            <span class="gc-uses">🎫 Còn ${gc.count_left} lượt</span>
-                            <span class="gc-expires">${daysLeft > 0 ? '⏳ ' + daysLeft + ' ngày' : '⚠️ Hết hạn'}</span>
+                        <button class="gc-copy-btn" onclick="event.stopPropagation(); copyCode('${gc.code}', this)">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                            Copy Code
+                        </button>
+                        <div class="gc-stats">
+                            <span class="gc-stat">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 10h20"/></svg>
+                                Còn ${gc.count_left} lượt
+                            </span>
+                            <span class="gc-stat ${isUrgent ? 'gc-stat-urgent' : ''}">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                ${daysLeft > 0 ? daysLeft + ' ngày' : 'Hết hạn!'}
+                            </span>
                         </div>
                     </div>`;
                 });
