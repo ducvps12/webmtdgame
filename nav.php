@@ -18,7 +18,7 @@ if ($_nav_current === '' || $_nav_current === '/') $_nav_current = 'index';
 
 <nav class="apple-nav" id="mainNav">
     <div class="nav-left">
-        <a href="/"><img src="/images/logo_sk_he.png" alt="Logo" class="nav-logo"></a>
+        <a href="/"><img src="/images/logo_mtdgame.jpg" alt="MTD Game Logo" class="nav-logo"></a>
         <ul class="nav-links">
             <li><a href="/" class="<?php echo $_nav_current === 'index' ? 'active' : ''; ?>">Trang Chủ</a></li>
             <li><a href="/gioi-thieu" class="<?php echo $_nav_current === 'gioi-thieu' ? 'active' : ''; ?>">Giới Thiệu</a></li>
