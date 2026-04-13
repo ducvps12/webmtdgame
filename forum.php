@@ -9,9 +9,9 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang Ch? - Ch� B� R?ng Onlines - Ng?c R?ng Online</title>
-    <meta name="keywords" content="Ch� B� R?ng Online,ngoc rong mobile, game ngoc rong, game 7 vien ngoc rong, game bay vien ngoc rong" />
-    <meta name="description" content="Website ch�nh th?c c?a Ch� B� R?ng Online � Game Bay Vien Ng?c R?ng Mobile nh?p vai tr?c tuy?n tr�n m�y t�nh v� di?n tho?i v? Game 7 Vi�n Ng?c R?ng h?p d?n nh?t hi?n nay!" />
+    <title>Trang Chủ - Chú Bé Rồng Onlines - Ngọc Rồng Online</title>
+    <meta name="keywords" content="Chú Bé Rồng Online,ngoc rong mobile, game ngoc rong, game 7 vien ngoc rong, game bay vien ngoc rong" />
+    <meta name="description" content="Website chính thức của Chú Bé Rồng Online – Game Bay Vien Ngọc Rồng Mobile nhập vai trực tuyến trên máy tính và điện thoại về Game 7 Viên Ngọc Rồng hấp dẫn nhất hiện nay!" />
     <meta http-equiv="refresh" content="600" />
     <meta name="robots" content="INDEX,FOLLOW" />
 
@@ -57,8 +57,8 @@ $conn->close();
                                                                                 <?php echo htmlspecialchars($post['tieude']); ?> <img src="/images/gif/hot.gif" class="hot-icon" alt="Hot">
                                                                             </a>
                                                                             <div class="post-meta-info">
-                                                                                b?i <a href="javascript:void(0)"><?php echo htmlspecialchars($post['username']); ?></a>
-                                                                                <span style="color:red">?</span>
+                                                                                bởi <a href="javascript:void(0)"><?php echo htmlspecialchars($post['username']); ?></a>
+                                                                                <span style="color:red">☆</span>
                                                                                 <i>
                                                                                     <?php echo date_format(date_create($post['created_at']), 'd/m/Y H:i'); ?>
                                                                                 </i>
@@ -81,8 +81,8 @@ $conn->close();
                                                                             <?php echo htmlspecialchars($post['tieude']); ?>
                                                                         </a>
                                                                         <div class="post-meta-info">
-                                                                            b?i <a href="javascript:void(0)"><?php echo htmlspecialchars($post['username']); ?></a>
-                                                                            <span style="color:red">?</span>
+                                                                            bởi <a href="javascript:void(0)"><?php echo htmlspecialchars($post['username']); ?></a>
+                                                                            <span style="color:red">☆</span>
                                                                             <i>
                                                                                 <?php echo date_format(date_create($post['created_at']), 'd/m/Y H:i'); ?>
                                                                             </i>
@@ -105,7 +105,7 @@ $conn->close();
                                                      <div class="post-button-section">
                                                         <hr>
                                                         <a href="dang-bai.php">
-                                                            <span>�ang B�i</span>
+                                                            <span>Đăng Bài</span>
                                                         </a>
                                                         <hr>
                                                     </div>
@@ -122,7 +122,7 @@ $conn->close();
                                                         var now = Date.now();
                                                         if (now - lastPostTime < 10000) {
                                                             var secondsLeft = Math.ceil((10000 - (now - lastPostTime)) / 1000);
-                                                            $("#comment_error").css("color", "red").text("B?n ch? c� th? post m?i 10 gi�y. Vui l�ng ch? " + secondsLeft + " gi�y.");
+                                                            $("#comment_error").css("color", "red").text("Bạn chỉ có thể post mỗi 10 giây. Vui lòng chờ " + secondsLeft + " giây.");
                                                             return;
                                                         }
 
@@ -149,7 +149,7 @@ $conn->close();
                                                                 }
                                                             })
                                                             .fail(function(jqXHR) {
-                                                                var errorMessage = (jqXHR.responseJSON && jqXHR.responseJSON.message) || "Vui l�ng th? l?i trong �t ph�t n?a.";
+                                                                var errorMessage = (jqXHR.responseJSON && jqXHR.responseJSON.message) || "Vui lòng thử lại trong ít phút nữa.";
                                                                 $("#comment_error").css("color", "red").text(errorMessage);
                                                             });
                                                     });

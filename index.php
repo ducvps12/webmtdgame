@@ -42,7 +42,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
             <!-- Download Platforms -->
             <div class="platforms-grid">
-                <a href="/huong-dan-java" class="platform-card-img">
+                <a href="/download/VPS(2).jar" class="platform-card-img">
                     <div class="card-img-wrap"><img src="/images/card_java.jpg" alt="Phiên bản Java" loading="lazy"></div>
                     <div class="card-info">
                         <span class="card-name">Phiên bản Java</span>
@@ -67,7 +67,7 @@ if (session_status() == PHP_SESSION_NONE) {
                     <div class="card-img-wrap"><img src="/images/card_ios.jpg" alt="iPhone / iOS" loading="lazy"></div>
                     <div class="card-info">
                         <span class="card-name">iPhone / iOS</span>
-                        <span class="card-action">Tải xuống ↓</span>
+                        <span class="card-action">Hướng dẫn →</span>
                     </div>
                 </a>
             </div>

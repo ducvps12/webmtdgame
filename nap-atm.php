@@ -44,8 +44,8 @@ include __DIR__ . '/head.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>N?p ATM Bank | Ch� B� R?ng Online</title>
-    <meta name="description" content="N?p VND qua chuy?n kho?n ng�n h�ng t? d?ng c?ng ti?n." />
+    <title>Nạp ATM Bank | Chú Bé Rồng Online</title>
+    <meta name="description" content="Nạp VND qua chuyển khoản ngân hàng tự động cộng tiền." />
     <link rel="icon" href="/images/favicon-48x48.ico" type="image/x-icon" />
     <link rel="stylesheet" href="/view/static/css/apple_ui.css?v=4.0">
     <style>
@@ -456,12 +456,12 @@ include __DIR__ . '/head.php';
 
 <main class="atm-wrap">
     <section class="atm-panel">
-        <h1 class="atm-title">N?p Ti?n T�i Kho?n</h1>
-        <p class="atm-sub">Thanh to�n nhanh ch�ng v� an to�n</p>
+        <h1 class="atm-title">Nạp Tiền Tài Khoản</h1>
+        <p class="atm-sub">Thanh toán nhanh chóng và an toàn</p>
 
         <?php if (!$logged_in_username): ?>
         <div class="login-prompt">
-            B?n c?n <a href="/login">dang nh?p</a> d? t?o h�a don n?p ti?n theo t�i kho?n c?a b?n.
+            Bạn cần <a href="/login">đăng nhập</a> để tạo hóa đơn nạp tiền theo tài khoản của bạn.
         </div>
         <?php endif; ?>
 
@@ -472,26 +472,26 @@ include __DIR__ . '/head.php';
                         <div class="bank-badge">V</div>
                         <h2 class="bank-name"><?php echo htmlspecialchars($bank_name); ?></h2>
                     </div>
-                    <div class="bank-line">S? t�i kho?n: <span class="v" id="bank-account"><?php echo htmlspecialchars($acb_account); ?></span>
-                        <button class="copy-btn" onclick="copyText('<?php echo htmlspecialchars($acb_account); ?>', this)">Sao ch�p</button>
+                    <div class="bank-line">Số tài khoản: <span class="v" id="bank-account"><?php echo htmlspecialchars($acb_account); ?></span>
+                        <button class="copy-btn" onclick="copyText('<?php echo htmlspecialchars($acb_account); ?>', this)">Sao chép</button>
                     </div>
-                    <div class="bank-line">Ch? t�i kho?n: <b><?php echo htmlspecialchars($account_holder); ?></b></div>
-                    <div class="bank-line">N?i dung CK: <span class="v" id="transfer-syntax"><?php echo htmlspecialchars($transfer_syntax); ?></span>
+                    <div class="bank-line">Chủ tài khoản: <b><?php echo htmlspecialchars($account_holder); ?></b></div>
+                    <div class="bank-line">Nội dung CK: <span class="v" id="transfer-syntax"><?php echo htmlspecialchars($transfer_syntax); ?></span>
                         <?php if ($logged_in_username): ?>
-                        <button class="copy-btn" onclick="copyText('<?php echo htmlspecialchars($transfer_syntax); ?>', this)">Sao ch�p</button>
+                        <button class="copy-btn" onclick="copyText('<?php echo htmlspecialchars($transfer_syntax); ?>', this)">Sao chép</button>
                         <?php endif; ?>
                     </div>
                     <?php if ($logged_in_username && $player_name !== $logged_in_username): ?>
-                    <div class="bank-line" style="font-size:12px;color:#64748b">Nh�n v?t: <?php echo htmlspecialchars($player_name); ?> - T�i kho?n: <?php echo htmlspecialchars($logged_in_username); ?></div>
+                    <div class="bank-line" style="font-size:12px;color:#64748b">Nhân vật: <?php echo htmlspecialchars($player_name); ?> - Tài khoản: <?php echo htmlspecialchars($logged_in_username); ?></div>
                     <?php endif; ?>
 
                     <div class="bank-range">
                         <div>
-                            T?i thi?u
+                            Tối thiểu
                             <strong><?php echo $min_deposit; ?></strong>
                         </div>
                         <div style="text-align:right">
-                            T?i da
+                            Tối đa
                             <strong><?php echo $max_deposit; ?></strong>
                         </div>
                     </div>
@@ -499,16 +499,16 @@ include __DIR__ . '/head.php';
             </div>
 
             <div>
-                <div class="warn-box">? Luu �!!</div>
+                <div class="warn-box">⚠ Lưu ý!!</div>
                 <div style="margin-top:12px;color:#6b7280;font-size:13px;line-height:1.6;background:#fff;border:1px dashed #e2e8f0;border-radius:12px;padding:12px;">
-                    Ghi d�ng n?i dung chuy?n kho?n d? h? th?ng nh?n di?n t? d?ng.<br>
-                    Sai n?i dung ho?c n?p ngo�i gi?i h?n c� th? b? treo x? l�.
+                    Ghi đúng nội dung chuyển khoản để hệ thống nhận diện tự động.<br>
+                    Sai nội dung hoặc nạp ngoài giới hạn có thể bị treo xử lý.
                 </div>
             </div>
         </div>
 
         <div class="amount-row">
-            <input type="text" id="amountInput" placeholder="Nh?p s? ti?n c?n n?p" inputmode="numeric" autocomplete="off">
+            <input type="text" id="amountInput" placeholder="Nhập số tiền cần nạp" inputmode="numeric" autocomplete="off">
             <div class="currency">VND</div>
         </div>
 
@@ -523,7 +523,7 @@ include __DIR__ . '/head.php';
             <button type="button" onclick="setQuickAmount(10000000)">10,000,000</button>
         </div>
 
-        <button class="create-btn" type="button" onclick="createInvoice()">T?O H�A �ON</button>
+        <button class="create-btn" type="button" onclick="createInvoice()">TẠO HÓA ĐƠN</button>
 
         <div class="toolbar">
             <select id="limitFilter">
@@ -534,30 +534,30 @@ include __DIR__ . '/head.php';
             </select>
 
             <select id="statusFilter">
-                <option value="">(?) Tr?ng th�i</option>
-                <option value="success">Th�nh c�ng</option>
-                <option value="pending">�ang x? l�</option>
-                <option value="failed">Th?t b?i</option>
-                <option value="ignored">�� b? qua</option>
+                <option value="">(?) Trạng thái</option>
+                <option value="success">Thành công</option>
+                <option value="pending">Đang xử lý</option>
+                <option value="failed">Thất bại</option>
+                <option value="ignored">Đã bỏ qua</option>
             </select>
 
-            <input class="full" type="datetime-local" id="dateFrom" placeholder="T? ng�y">
-            <input class="full" type="datetime-local" id="dateTo" placeholder="�?n ng�y">
-            <input class="full" type="text" id="searchFilter" placeholder="T�m ki?m m� h�a don...">
+            <input class="full" type="datetime-local" id="dateFrom" placeholder="Từ ngày">
+            <input class="full" type="datetime-local" id="dateTo" placeholder="Đến ngày">
+            <input class="full" type="text" id="searchFilter" placeholder="Tìm kiếm mã hóa đơn...">
         </div>
 
         <div class="table-box atm-table-wrap">
             <table class="atm-table" id="atmTable">
                 <thead>
                     <tr>
-                        <th>Thao t�c</th>
-                        <th>M� h�a don</th>
-                        <th>C?ng thanh to�n</th>
-                        <th>S? ti?n</th>
-                        <th>Th?c nh?n</th>
-                        <th>Thu?ng</th>
-                        <th>Tr?ng th�i</th>
-                        <th>Ng�y t?o</th>
+                        <th>Thao tác</th>
+                        <th>Mã hóa đơn</th>
+                        <th>Cổng thanh toán</th>
+                        <th>Số tiền</th>
+                        <th>Thực nhận</th>
+                        <th>Thưởng</th>
+                        <th>Trạng thái</th>
+                        <th>Ngày tạo</th>
                     </tr>
                 </thead>
                 <tbody id="historyBody">
@@ -565,10 +565,10 @@ include __DIR__ . '/head.php';
                     <?php foreach ($recent_deposits as $dep):
                         $status = strtolower((string)($dep['status'] ?? 'pending'));
                         $status_class = 'st-pending';
-                        $status_label = '�ang x? l�';
-                        if ($status === 'success') { $status_class = 'st-success'; $status_label = 'Th�nh c�ng'; }
-                        elseif ($status === 'failed') { $status_class = 'st-failed'; $status_label = 'Th?t b?i'; }
-                        elseif ($status === 'ignored') { $status_class = 'st-ignored'; $status_label = '�� b? qua'; }
+                        $status_label = 'Đang xử lý';
+                        if ($status === 'success') { $status_class = 'st-success'; $status_label = 'Thành công'; }
+                        elseif ($status === 'failed') { $status_class = 'st-failed'; $status_label = 'Thất bại'; }
+                        elseif ($status === 'ignored') { $status_class = 'st-ignored'; $status_label = 'Đã bỏ qua'; }
                         $created_raw = $dep['created_at'] ?? '';
                         $created_at = $created_raw ? strtotime($created_raw) : time();
                         $transaction_code = !empty($dep['transaction_number']) ? ('NDHx' . $dep['transaction_number']) : ('NDHx' . str_pad((string)$dep['id'], 6, '0', STR_PAD_LEFT));
@@ -578,7 +578,7 @@ include __DIR__ . '/head.php';
                         data-created="<?php echo (int)$created_at; ?>"
                         data-code="<?php echo htmlspecialchars(strtolower($transaction_code)); ?>"
                     >
-                        <td><button class="action-btn" type="button" title="Chi ti?t">??</button></td>
+                        <td><button class="action-btn" type="button" title="Chi tiết">👁</button></td>
                         <td><strong><?php echo htmlspecialchars($transaction_code); ?></strong></td>
                         <td><?php echo htmlspecialchars($bank_name); ?></td>
                         <td class="money"><?php echo number_format((int)$dep['amount']); ?></td>
@@ -590,7 +590,7 @@ include __DIR__ . '/head.php';
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="8" class="empty">Chua c� giao d?ch n?p ti?n n�o.</td>
+                        <td colspan="8" class="empty">Chưa có giao dịch nạp tiền nào.</td>
                     </tr>
                 <?php endif; ?>
                 </tbody>
@@ -603,15 +603,15 @@ include __DIR__ . '/head.php';
 <div class="qr-modal" id="qrModal" onclick="closeQrModal(event)">
     <div class="qr-dialog" role="dialog" aria-modal="true" aria-labelledby="qrModalTitle">
         <div class="qr-head">
-            <h3 class="qr-title" id="qrModalTitle">Qu�t QR d? n?p ti?n</h3>
+            <h3 class="qr-title" id="qrModalTitle">Quét QR để nạp tiền</h3>
             <button type="button" class="qr-close" onclick="closeQrModal()">&times;</button>
         </div>
         <div class="qr-info" style="margin-bottom:10px">
-            <div>Ng�n h�ng: <strong id="qrBankName"><?php echo htmlspecialchars($bank_name); ?></strong></div>
-            <div>S? t�i kho?n: <strong id="qrAccountNumber"><?php echo htmlspecialchars($acb_account); ?></strong></div>
-            <div>Ch? t�i kho?n: <strong id="qrAccountHolder"><?php echo htmlspecialchars($account_holder); ?></strong></div>
-            <div>N?i dung CK: <strong id="qrTransferSyntax"><?php echo htmlspecialchars($transfer_syntax); ?></strong></div>
-            <div>S? ti?n: <strong id="qrAmount">0 VND</strong></div>
+            <div>Ngân hàng: <strong id="qrBankName"><?php echo htmlspecialchars($bank_name); ?></strong></div>
+            <div>Số tài khoản: <strong id="qrAccountNumber"><?php echo htmlspecialchars($acb_account); ?></strong></div>
+            <div>Chủ tài khoản: <strong id="qrAccountHolder"><?php echo htmlspecialchars($account_holder); ?></strong></div>
+            <div>Nội dung CK: <strong id="qrTransferSyntax"><?php echo htmlspecialchars($transfer_syntax); ?></strong></div>
+            <div>Số tiền: <strong id="qrAmount">0 VND</strong></div>
         </div>
         <div class="qr-image-wrap">
             <img id="qrImage" src="" alt="VietQR Nap ATM">
@@ -639,10 +639,10 @@ function parseMoneyInput(v) {
 function copyText(text, btn) {
     navigator.clipboard.writeText(text).then(() => {
         const old = btn.textContent;
-        btn.textContent = '�� ch�p';
+        btn.textContent = 'Đã chép';
         btn.classList.add('copied');
         setTimeout(() => {
-            btn.textContent = old === '�� ch�p' ? 'Sao ch�p' : old;
+            btn.textContent = old === 'Đã chép' ? 'Sao chép' : old;
             btn.classList.remove('copied');
         }, 1300);
     });
@@ -661,15 +661,15 @@ function createInvoice() {
 
     const amount = parseMoneyInput(document.getElementById('amountInput').value);
     if (!amount) {
-        alert('Vui l�ng nh?p s? ti?n c?n n?p.');
+        alert('Vui lòng nhập số tiền cần nạp.');
         return;
     }
     if (amount < minDeposit) {
-        alert('S? ti?n t?i thi?u l� ' + minDeposit.toLocaleString('vi-VN') + ' VND.');
+        alert('Số tiền tối thiểu là ' + minDeposit.toLocaleString('vi-VN') + ' VND.');
         return;
     }
     if (amount > maxDeposit) {
-        alert('S? ti?n t?i da l� ' + maxDeposit.toLocaleString('vi-VN') + ' VND.');
+        alert('Số tiền tối đa là ' + maxDeposit.toLocaleString('vi-VN') + ' VND.');
         return;
     }
 

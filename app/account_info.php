@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -6,11 +6,11 @@ if (session_status() === PHP_SESSION_NONE) {
 include_once __DIR__ . '/../connect.php';
 
 $is_logged_in = isset($_SESSION['username']);
-$account_username = $_SESSION['username'] ?? 'Kh�ch';
+$account_username = $_SESSION['username'] ?? 'Khách';
 $account_id = null;
 $user_balance = 0;
 
-$player_name = "Chua c� nh�n v?t";
+$player_name = "Chưa có nhân vật";
 $current_player_id = null;
 $items_bag_json_from_db = '[]';
 
@@ -25,7 +25,7 @@ function get_account_id_from_username($conn, $username) {
         }
         $stmt->close();
     } else {
-        error_log("L?i prepare l?y account_id t? username: " . $conn->error);
+        error_log("Lỗi prepare lấy account_id từ username: " . $conn->error);
     }
     return null;
 }
@@ -33,7 +33,7 @@ function get_account_id_from_username($conn, $username) {
 function get_player_info_for_account($conn, $account_id) {
     $player_data = [
         'id' => null,
-        'name' => "Chua c� nh�n v?t",
+        'name' => "Chưa có nhân vật",
         'items_bag' => '[]'
     ];
 
@@ -50,7 +50,7 @@ function get_player_info_for_account($conn, $account_id) {
             }
             $stmt->close();
         } else {
-            error_log("L?i prepare l?y th�ng tin nh�n v?t: " . $conn->error);
+            error_log("Lỗi prepare lấy thông tin nhân vật: " . $conn->error);
         }
     }
     return $player_data;
@@ -71,7 +71,7 @@ if ($is_logged_in && isset($conn)) {
             }
             $stmt_balance->close();
         } else {
-            error_log("L?i prepare l?y s? du VND: " . $conn->error);
+            error_log("Lỗi prepare lấy số dư VND: " . $conn->error);
         }
 
         $player_info = get_player_info_for_account($conn, $account_id);

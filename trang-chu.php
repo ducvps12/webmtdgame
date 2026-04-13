@@ -8,13 +8,13 @@ if (session_status() == PHP_SESSION_NONE) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ch� B� R?ng Online - �?ng C?p PC</title>
-    <meta name="description" content="Website ch�nh th?c c?a Ch� B� R?ng Online � Game Bay Vien Ngoc Rong Mobile nh?p vai tr?c tuy?n tr�n m�y t�nh v� di?n tho?i v? Game 7 Vi�n Ng?c R?ng h?p d?n nh?t hi?n nay!" />
+    <title>Chú Bé Rồng Online - Đẳng Cấp PC</title>
+    <meta name="description" content="Website chính thức của Chú Bé Rồng Online – Game Bay Vien Ngoc Rong Mobile nhập vai trực tuyến trên máy tính và điện thoại về Game 7 Viên Ngọc Rồng hấp dẫn nhất hiện nay!" />
     
     <link rel="apple-touch-icon" href="/images/favicon-48x48.ico" />
     <link rel="icon" href="/images/favicon-48x48.ico" type="image/x-icon" />
     
-    <!-- Link CSS M?i Chu?n Apple -->
+    <!-- Link CSS Mới Chuẩn Apple -->
     <link rel="stylesheet" href="/view/static/css/apple_ui.css?v=4.0">
 </head>
 <body>
@@ -26,22 +26,22 @@ if (session_status() == PHP_SESSION_NONE) {
         <div class="nav-left">
             <a href="/"><img src="/images/logo_sk_he.png" alt="Logo" class="nav-logo"></a>
             <ul class="nav-links">
-                <li><a href="/" class="active">Trang Ch?</a></li>
-                <li><a href="/gioi-thieu">Gi?i Thi?u</a></li>
-                <li><a href="/forum">Di?n ��n</a></li>
-                <li><a href="https://zalo.me/g/atqsvzxmfalbhc3n4d7d" target="_blank">C?ng �?ng</a></li>
+                <li><a href="/" class="active">Trang Chủ</a></li>
+                <li><a href="/gioi-thieu">Giới Thiệu</a></li>
+                <li><a href="/forum">Diễn Đàn</a></li>
+                <li><a href="https://zalo.me/g/atqsvzxmfalbhc3n4d7d" target="_blank">Cộng Đồng</a></li>
             </ul>
         </div>
         <div class="nav-right">
             <?php if (isset($_SESSION['username'])): ?>
-                <span class="user-balance" style="margin-right: 15px;">Ch�o <b><?php echo htmlspecialchars($_SESSION['player_name'] ?? $_SESSION['username']); ?></b> | S? du: <span style="color: #e65c00; font-weight: bold;"><?php echo number_format($_SESSION['coin'] ?? 0); ?> d</span></span>
+                <span class="user-balance" style="margin-right: 15px;">Chào <b><?php echo htmlspecialchars($_SESSION['player_name'] ?? $_SESSION['username']); ?></b> | Số dư: <span style="color: #e65c00; font-weight: bold;"><?php echo number_format($_SESSION['coin'] ?? 0); ?> đ</span></span>
                 <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1): ?>
-                    <a href="/admin" class="btn-pill small" style="background: #e53e3e; color: #fff; border: none; margin-right: 6px;">??? Admin</a>
+                    <a href="/admin" class="btn-pill small" style="background: #e53e3e; color: #fff; border: none; margin-right: 6px;">🛡️ Admin</a>
                 <?php endif; ?>
-                <a href="/app/logout" class="btn-pill btn-outline small">�ang xu?t</a>
+                <a href="/app/logout" class="btn-pill btn-outline small">Đăng xuất</a>
             <?php else: ?>
-                <a href="/login" class="btn-pill btn-outline small">�ang Nh?p</a>
-                <a href="/register" class="btn-pill btn-black small">�ang K�</a>
+                <a href="/login" class="btn-pill btn-outline small">Đăng Nhập</a>
+                <a href="/register" class="btn-pill btn-black small">Đăng Ký</a>
             <?php endif; ?>
         </div>
     </nav>
@@ -49,19 +49,19 @@ if (session_status() == PHP_SESSION_NONE) {
     <!-- Main Hero Landing -->
     <section class="apple-hero">
         <div class="hero-content">
-            <h1>S?ng l?i Huy?n Tho?i.<br>Tr?i nghi?m si�u vi?t.</h1>
-            <p>Kh�m ph� th? gi?i gi? tu?ng b?t t?n c�ng d?ng d?i. H? tr? d? h?a HD mu?t m� tr�n da n?n t?ng PC, Android v� iOS.</p>
+            <h1>Sống lại Huyền Thoại.<br>Trải nghiệm siêu việt.</h1>
+            <p>Khám phá thế giới giả tưởng bất tận cùng đồng đội. Hỗ trợ đồ họa HD mượt mà trên đa nền tảng PC, Android và iOS.</p>
             
             <div class="hero-buttons">
-                <a href="/download/pc.rar" class="btn-pill btn-black">T?i xu?ng cho Windows</a>
-                <a href="/gioi-thieu" class="btn-pill btn-outline">T�m hi?u th�m</a>
+                <a href="/download/pc.rar" class="btn-pill btn-black">Tải xuống cho Windows</a>
+                <a href="/gioi-thieu" class="btn-pill btn-outline">Tìm hiểu thêm</a>
             </div>
 
             <!-- Download Platforms -->
             <div class="platforms-grid">
                 <a href="/huong-dan-java" class="platform-card">
                     <div class="platform-icon"><img src="/images/jar.png" alt="Java"></div>
-                    <span>Phi�n b?n Java</span>
+                    <span>Phiên bản Java</span>
                 </a>
                 <a href="/download/adr.apk" class="platform-card">
                     <div class="platform-icon"><img src="/images/play.png" alt="Android"></div>
@@ -69,7 +69,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 </a>
                 <a href="/download/pc.rar" class="platform-card">
                     <div class="platform-icon"><img src="/images/pc.png" alt="PC"></div>
-                    <span>B?n PC Tr?c Ti?p</span>
+                    <span>Bản PC Trực Tiếp</span>
                 </a>
                 <a href="https://testflight.apple.com/join/Jj9kBWMa" target="_blank" class="platform-card">
                     <div class="platform-icon"><img src="/images/ip.png" alt="iOS"></div>
@@ -81,22 +81,22 @@ if (session_status() == PHP_SESSION_NONE) {
 
     <!-- Features Section -->
     <section class="landing-section">
-        <h2 class="section-title">Kh�m Ph� T�nh Nang<br>L�m N�n Th?i �?i M?i</h2>
+        <h2 class="section-title">Khám Phá Tính Năng<br>Làm Nên Thời Đại Mới</h2>
         <div class="feature-grid">
             <div class="feature-card">
-                <div class="feature-icon">?</div>
-                <h3>�? Hoa C?i Ti?n</h3>
-                <p>N�ng c?p texture, d? ph�n gi?i HD c�ng hi?u ?ng ki nang mu?t m� 60 FPS, mang l?i tr?i nghi?m th? gi�c tuy?t v?i.</p>
+                <div class="feature-icon">✨</div>
+                <h3>Đồ Hoa Cải Tiến</h3>
+                <p>Nâng cấp texture, độ phân giải HD cùng hiệu ứng kĩ năng mượt mà 60 FPS, mang lại trải nghiệm thị giác tuyệt vời.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">??</div>
-                <h3>Giao D?ch T? Do</h3>
-                <p>H? th?ng kinh t? c�n b?ng, ch? ?o li�n server gi�p ngu?i choi trao d?i v?t ph?m ho�n to�n t? do v� minh b?ch.</p>
+                <div class="feature-icon">🤝</div>
+                <h3>Giao Dịch Tự Do</h3>
+                <p>Hệ thống kinh tế cân bằng, chợ ảo liên server giúp người chơi trao đổi vật phẩm hoàn toàn tự do và minh bạch.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">??</div>
-                <h3>C?ng �?ng S�i �?ng</h3>
-                <p>G?p g?, k?t giao h�ng v?n d?ng d?o tr�n c�c h?i nh�m, th? s?c san Boss da d?ng v?i t�nh chi?n thu?t cao.</p>
+                <div class="feature-icon">⚔️</div>
+                <h3>Cộng Đồng Sôi Động</h3>
+                <p>Gặp gỡ, kết giao hàng vạn đồng đạo trên các hội nhóm, thử sức săn Boss đa dạng với tính chiến thuật cao.</p>
             </div>
         </div>
     </section>
@@ -106,17 +106,17 @@ if (session_status() == PHP_SESSION_NONE) {
         <div class="showcase-section">
             <img src="/images/dragon_ball_showcase.png" alt="Epic Environment" class="showcase-bg">
             <div class="showcase-content">
-                <h2>B?t �?u Chuy?n H�nh Tr�nh</h2>
-                <p>H�ng v?n cu d�n dang ch? d�n b?n.</p>
+                <h2>Bắt Đầu Chuyến Hành Trình</h2>
+                <p>Hàng vạn cư dân đang chờ đón bạn.</p>
                 <br>
-                <a href="/register" class="btn-pill btn-white" style="color: #000; background: #fff; margin-top: 20px; text-decoration: none;">�ang k� mi?n ph�</a>
+                <a href="/register" class="btn-pill btn-white" style="color: #000; background: #fff; margin-top: 20px; text-decoration: none;">Đăng kí miễn phí</a>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer style="text-align: center; padding: 40px; color: var(--text-secondary); font-size: 14px;">
-        B?n quy?n thu?c v? Ch� B� R?ng Online - Thi?t k? b?i Antigravity UI
+        Bản quyền thuộc về Chú Bé Rồng Online - Thiết kế bởi Antigravity UI
     </footer>
 
     <!-- JS Particles Effect -->

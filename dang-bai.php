@@ -12,18 +12,18 @@ if ($_login == null) {
 }
 
 // ============================================
-// WORD FILTER - Danh s�ch t? nh?y c?m 18+
+// WORD FILTER - Danh sách từ nhạy cảm 18+
 // ============================================
 $banned_words = [
     // Vietnamese 18+ words
-    'd?', 'd?t', 'dcm', 'dcm', 'dmm', 'dmm', 'clgt', 'c?c', 'bu?i', 'l?n', 'd�o',
-    'v�i', 'vl', 'vcl', 'vkl', 'di', 'cave', 'ph�', 'd�m', 's?c', 'th? d�m',
-    'n?ng', 'ch?ch', 'fuck', 'shit', 'dick', 'pussy', 'bitch', 'asshole', 'nigger',
+    'đụ', 'địt', 'dcm', 'đcm', 'dmm', 'đmm', 'clgt', 'cặc', 'buồi', 'lồn', 'đéo',
+    'vãi', 'vl', 'vcl', 'vkl', 'đĩ', 'cave', 'phò', 'dâm', 'sục', 'thủ dâm',
+    'nứng', 'chịch', 'fuck', 'shit', 'dick', 'pussy', 'bitch', 'asshole', 'nigger',
     'sex', 'porn', 'xxx', 'nude', 'nudes', 'onlyfans', 'blowjob', 'handjob',
-    'con m?', 'con di', 'd? ch�', 'th?ng ch�', 'con ch�', 'm? m�y',
-    'hack', 'cheat', 'bug v�ng', 'dupe', 'l?a d?o', 'scam',
-    'cc', 'cl', 'dm', 'dm', 'vcc', 'wtf', 'stfu', 'dkm', 'dkm',
-    'kh?n n?n', 'm?t l?n', 'c?t', 'd�i', '?a'
+    'con mẹ', 'con đĩ', 'đồ chó', 'thằng chó', 'con chó', 'mẹ mày',
+    'hack', 'cheat', 'bug vàng', 'dupe', 'lừa đảo', 'scam',
+    'cc', 'cl', 'dm', 'đm', 'vcc', 'wtf', 'stfu', 'dkm', 'đkm',
+    'khốn nạn', 'mặt lồn', 'cứt', 'đái', 'ỉa'
 ];
 
 function containsBannedWord($text, $banned_words) {
@@ -38,7 +38,7 @@ function containsBannedWord($text, $banned_words) {
 }
 
 // ============================================
-// RANK SYSTEM - Check quy?n dang b�i
+// RANK SYSTEM - Check quyền đăng bài
 // ============================================
 $user_tongnap = 0;
 $user_is_admin = 0;
@@ -63,33 +63,33 @@ if ($rank_result) {
 }
 
 // Determine rank
-$user_rank = 'none'; // Chua n?p
-$rank_label = 'Chua N?p';
+$user_rank = 'none'; // Chưa nạp
+$rank_label = 'Chưa Nạp';
 $rank_color = '#999';
 $max_posts_per_day = 0;
 $can_post_image = false;
 
 if ($user_is_admin == 1) {
     $user_rank = 'admin';
-    $rank_label = '??? Admin';
+    $rank_label = '🛡️ Admin';
     $rank_color = '#ef4444';
     $max_posts_per_day = 999;
     $can_post_image = true;
 } elseif ($user_tongnap >= 500000) {
     $user_rank = 'caothu';
-    $rank_label = '?? Cao Th?';
+    $rank_label = '🏆 Cao Thủ';
     $rank_color = '#f59e0b';
     $max_posts_per_day = 3;
     $can_post_image = true;
 } elseif ($user_tongnap >= 100000) {
     $user_rank = 'chiensi';
-    $rank_label = '?? Chi?n Si';
+    $rank_label = '⚔️ Chiến Sĩ';
     $rank_color = '#3b82f6';
     $max_posts_per_day = 1;
     $can_post_image = true;
 } elseif ($user_tongnap > 0) {
     $user_rank = 'tanthu';
-    $rank_label = '?? T�n Th?';
+    $rank_label = '🌱 Tân Thủ';
     $rank_color = '#10b981';
     $max_posts_per_day = 1;
     $can_post_image = false;
@@ -100,7 +100,7 @@ $can_post = $user_rank !== 'none';
 $blocked_reason = '';
 
 if (!$can_post) {
-    $blocked_reason = 'B?n c?n n?p �t nh?t 1 l?n d? du?c quy?n dang b�i tr�n di?n d�n.';
+    $blocked_reason = 'Bạn cần nạp ít nhất 1 lần để được quyền đăng bài trên diễn đàn.';
 }
 
 // Check posts today
@@ -123,7 +123,7 @@ if ($can_post && $user_rank !== 'admin') {
 
     if ($posts_today >= $max_posts_per_day) {
         $can_post = false;
-        $blocked_reason = "B?n d� d?t gi?i h?n $max_posts_per_day b�i/ng�y. Quay l?i ng�y mai nh�!";
+        $blocked_reason = "Bạn đã đạt giới hạn $max_posts_per_day bài/ngày. Quay lại ngày mai nhé!";
     }
 }
 
@@ -137,14 +137,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $can_post) {
     $bad_content = containsBannedWord($noidung, $banned_words);
 
     if ($bad_title !== false) {
-        $_alert = "<div class='message error'>? Ti�u d? ch?a t? ng? kh�ng ph� h?p: \"$bad_title\". Vui l�ng ch?nh s?a l?i.</div>";
+        $_alert = "<div class='message error'>⛔ Tiêu đề chứa từ ngữ không phù hợp: \"$bad_title\". Vui lòng chỉnh sửa lại.</div>";
     } elseif ($bad_content !== false) {
-        $_alert = "<div class='message error'>? N?i dung ch?a t? ng? kh�ng ph� h?p: \"$bad_content\". Vui l�ng ch?nh s?a l?i.</div>";
+        $_alert = "<div class='message error'>⛔ Nội dung chứa từ ngữ không phù hợp: \"$bad_content\". Vui lòng chỉnh sửa lại.</div>";
     } elseif (strlen($tieude) < 5 || strlen(trim(strip_tags($noidung))) < 5) {
-        $_alert = "<div class='message error'>Ti�u d? v� n?i dung ph?i c� �t nh?t 5 k� t?!</div>";
+        $_alert = "<div class='message error'>Tiêu đề và nội dung phải có ít nhất 5 ký tự!</div>";
     } else {
         if (!isset($_username)) {
-            $_alert = "<div class='message error'>L?i: Kh�ng th? x�c d?nh t�n ngu?i d�ng.</div>";
+            $_alert = "<div class='message error'>Lỗi: Không thể xác định tên người dùng.</div>";
         } else {
             $stmt_player_name = $conn->prepare("SELECT p.name FROM player p JOIN account a ON a.id = p.account_id WHERE a.username = ?");
             if ($stmt_player_name) {
@@ -165,11 +165,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $can_post) {
                             $stmt_update->execute();
                             $stmt_update->close();
                         }
-                        $_SESSION['alert_message'] = "<div class='message success'>B�i vi?t d� du?c dang th�nh c�ng.</div>";
+                        $_SESSION['alert_message'] = "<div class='message success'>Bài viết đã được đăng thành công.</div>";
                         header("Location: /forum.php");
                         exit();
                     } else {
-                        $_alert = "<div class='message error'>L?i khi dang b�i vi?t: " . $stmt_insert_post->error . "</div>";
+                        $_alert = "<div class='message error'>Lỗi khi đăng bài viết: " . $stmt_insert_post->error . "</div>";
                     }
                     $stmt_insert_post->close();
                 }
@@ -185,7 +185,7 @@ mysqli_close($conn);
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width,maximum-scale=1,user-scalable=no"/>
     <meta http-equiv="content-language" content="vi" />
-    <title>�ang b�i vi?t m?i - Di?n ��n</title>
+    <title>Đăng bài viết mới - Diễn Đàn</title>
     <link rel="apple-touch-icon" href="/images/favicon-48x48.ico" />
     <link rel="icon" href='/images/favicon-48x48.ico' type="image/x-icon" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -264,12 +264,12 @@ mysqli_close($conn);
     <div class="post-container">
         <a href="/forum.php" class="back-link">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-            H?y v� quay l?i Di?n ��n
+            Hủy và quay lại Diễn Đàn
         </a>
 
         <div class="apple-post-card">
             <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom: 16px;">
-                <h2 style="margin:0; font-size:28px; font-weight:700;">T?o B�i Vi?t M?i</h2>
+                <h2 style="margin:0; font-size:28px; font-weight:700;">Tạo Bài Viết Mới</h2>
                 <span class="rank-badge" style="background:<?php echo $rank_color; ?>15; color:<?php echo $rank_color; ?>; border: 1px solid <?php echo $rank_color; ?>30;">
                     <?php echo $rank_label; ?>
                 </span>
@@ -277,41 +277,41 @@ mysqli_close($conn);
 
             <?php if (!$can_post): ?>
                 <div class="blocked-box">
-                    <div class="blocked-icon">??</div>
-                    <h3>Chua d? quy?n dang b�i</h3>
+                    <div class="blocked-icon">🔒</div>
+                    <h3>Chưa đủ quyền đăng bài</h3>
                     <p><?php echo $blocked_reason; ?></p>
                     <?php if ($user_rank === 'none'): ?>
                     <div class="rank-info" style="margin-top: 20px; text-align: left;">
-                        <strong>?? H? th?ng c?p b?c Di?n ��n:</strong><br>
-                        ?? <strong>T�n Th?</strong> (n?p > 0?): 1 b�i/ng�y, text only<br>
-                        ?? <strong>Chi?n Si</strong> (n?p = 100K): 1 b�i/ng�y, dang k�m ?nh, 5 cmt/ng�y<br>
-                        ?? <strong>Cao Th?</strong> (n?p = 500K): 3 b�i/ng�y, chat v� h?n trong topic m�nh
+                        <strong>📋 Hệ thống cấp bậc Diễn Đàn:</strong><br>
+                        🌱 <strong>Tân Thủ</strong> (nạp > 0₫): 1 bài/ngày, text only<br>
+                        ⚔️ <strong>Chiến Sĩ</strong> (nạp ≥ 100K): 1 bài/ngày, đăng kèm ảnh, 5 cmt/ngày<br>
+                        🏆 <strong>Cao Thủ</strong> (nạp ≥ 500K): 3 bài/ngày, chat vô hạn trong topic mình
                     </div>
                     <?php endif; ?>
-                    <a href="/nap-atm" class="btn-pill btn-black" style="margin-top: 16px; display: inline-block;">N?p ngay</a>
+                    <a href="/nap-atm" class="btn-pill btn-black" style="margin-top: 16px; display: inline-block;">Nạp ngay</a>
                 </div>
             <?php else: ?>
                 <div class="rank-info">
-                    ?? Rank: <strong><?php echo $rank_label; ?></strong> �
-                    B�i h�m nay: <strong><?php echo $posts_today; ?>/<?php echo $max_posts_per_day; ?></strong>
-                    <?php if (!$can_post_image): ?> � ?? Chua du?c dang ?nh (c?n Chi?n Si tr? l�n)<?php endif; ?>
+                    📊 Rank: <strong><?php echo $rank_label; ?></strong> •
+                    Bài hôm nay: <strong><?php echo $posts_today; ?>/<?php echo $max_posts_per_day; ?></strong>
+                    <?php if (!$can_post_image): ?> • 📷 Chưa được đăng ảnh (cần Chiến Sĩ trở lên)<?php endif; ?>
                 </div>
 
                 <?php if (!empty($_alert)) echo $_alert; ?>
 
                 <form id="postForm" method="POST" action="">
                     <div style="margin-bottom: 20px;">
-                        <label style="display:block; margin-bottom:8px; font-weight:600; color:var(--text-secondary); font-size:14px;">Ti�u d? b�i vi?t</label>
-                        <input name="tieude" type="text" class="apple-input" placeholder="Nh?p ti�u d? th?t s�c t�ch..." required />
+                        <label style="display:block; margin-bottom:8px; font-weight:600; color:var(--text-secondary); font-size:14px;">Tiêu đề bài viết</label>
+                        <input name="tieude" type="text" class="apple-input" placeholder="Nhập tiêu đề thật súc tích..." required />
                     </div>
                     
                     <div style="margin-bottom: 25px;">
-                        <label style="display:block; margin-bottom:8px; font-weight:600; color:var(--text-secondary); font-size:14px;">N?i dung</label>
-                        <textarea name="noidung" class="apple-input" rows="12" placeholder="Nh?p n?i dung d?y d?..." style="resize:vertical;" required></textarea>
+                        <label style="display:block; margin-bottom:8px; font-weight:600; color:var(--text-secondary); font-size:14px;">Nội dung</label>
+                        <textarea name="noidung" class="apple-input" rows="12" placeholder="Nhập nội dung đầy đủ..." style="resize:vertical;" required></textarea>
                     </div>
                     
                     <div style="display: flex; justify-content: flex-end;">
-                        <button type="submit" name="submit" class="btn-pill btn-black" style="padding: 14px 40px; font-size: 15px;">�ang B�i Ngay</button>
+                        <button type="submit" name="submit" class="btn-pill btn-black" style="padding: 14px 40px; font-size: 15px;">Đăng Bài Ngay</button>
                     </div>
                 </form>
             <?php endif; ?>

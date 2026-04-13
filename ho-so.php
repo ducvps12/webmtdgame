@@ -47,8 +47,8 @@ if (isset($conn)) {
 function formatPower($val) {
     if ($val === null || $val === '') return '0';
     $val = intval($val);
-    if ($val > 1000000000) return number_format($val / 1000000000, 1, '.', '') . ' t?';
-    if ($val > 1000000) return number_format($val / 1000000, 1, '.', '') . ' tri?u';
+    if ($val > 1000000000) return number_format($val / 1000000000, 1, '.', '') . ' tỷ';
+    if ($val > 1000000) return number_format($val / 1000000, 1, '.', '') . ' triệu';
     if ($val >= 1000) return number_format($val / 1000, 1, '.', '') . 'k';
     return number_format($val);
 }
@@ -63,7 +63,7 @@ if ($player && !empty($player['data_point'])) {
 }
 
 // Gender name
-$gender_names = ['Tr�i �?t', 'Nam?c', 'Xayda'];
+$gender_names = ['Trái Đất', 'Namếc', 'Xayda'];
 $gender_name = $gender_names[$player['gender'] ?? 0] ?? 'Unknown';
 
 // Avatar
@@ -83,8 +83,8 @@ if ($account && ($account['is_admin'] ?? 0) == 1) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>H? So C� Nh�n | Ch� B� R?ng Online</title>
-    <meta name="description" content="H? so c� nh�n, th�ng s? nh�n v?t v� qu?n l� t�i kho?n." />
+    <title>Hồ Sơ Cá Nhân | Chú Bé Rồng Online</title>
+    <meta name="description" content="Hồ sơ cá nhân, thông số nhân vật và quản lý tài khoản." />
     <link rel="apple-touch-icon" href="/images/favicon-48x48.ico" />
     <link rel="icon" href="/images/favicon-48x48.ico" type="image/x-icon" />
     <link rel="stylesheet" href="/view/static/css/apple_ui.css?v=4.0">
@@ -150,7 +150,7 @@ if ($account && ($account['is_admin'] ?? 0) == 1) {
     <?php include __DIR__ . '/nav.php'; ?>
 
     <main class="profile-page">
-        <h1>H? So C� Nh�n</h1>
+        <h1>Hồ Sơ Cá Nhân</h1>
 
         <!-- Profile Header Card -->
         <div class="profile-header">
@@ -163,41 +163,41 @@ if ($account && ($account['is_admin'] ?? 0) == 1) {
                         <span class="tag admin">Admin</span>
                     <?php endif; ?>
                 </div>
-                <div class="power">S?c m?nh: <strong><?php echo formatPower($suc_manh); ?></strong></div>
+                <div class="power">Sức mạnh: <strong><?php echo formatPower($suc_manh); ?></strong></div>
             </div>
         </div>
 
         <!-- Quick Links -->
         <div class="quick-links">
-            <a href="/nap-atm" class="quick-link"><span class="icon">??</span> N?p VND qua Bank</a>
-            <a href="/app/doi-mat-khau" class="quick-link"><span class="icon">??</span> �?i m?t kh?u</a>
-            <a href="/bang-xep-hang" class="quick-link"><span class="icon">??</span> B?ng x?p h?ng</a>
-            <a href="/forum" class="quick-link"><span class="icon">??</span> Di?n d�n</a>
+            <a href="/nap-atm" class="quick-link"><span class="icon">💳</span> Nạp VND qua Bank</a>
+            <a href="/app/doi-mat-khau" class="quick-link"><span class="icon">🔐</span> Đổi mật khẩu</a>
+            <a href="/bang-xep-hang" class="quick-link"><span class="icon">🏆</span> Bảng xếp hạng</a>
+            <a href="/forum" class="quick-link"><span class="icon">💬</span> Diễn đàn</a>
         </div>
 
         <!-- Stats Grid -->
         <div class="stats-grid">
             <!-- Account Info -->
             <div class="stat-panel">
-                <h3>Th�ng tin t�i kho?n</h3>
-                <div class="stat-row"><span class="stat-label">T�n dang nh?p</span><span class="stat-value"><?php echo htmlspecialchars($username); ?></span></div>
-                <div class="stat-row"><span class="stat-label">Nh�n v?t</span><span class="stat-value"><?php echo htmlspecialchars($player['name'] ?? 'Chua c�'); ?></span></div>
-                <div class="stat-row"><span class="stat-label">H�nh tinh</span><span class="stat-value"><?php echo $gender_name; ?></span></div>
-                <div class="stat-row"><span class="stat-label">Ng�y t?o</span><span class="stat-value"><?php echo $account ? date('d/m/Y', strtotime($account['create_time'])) : '-'; ?></span></div>
-                <div class="stat-row"><span class="stat-label">�ang nh?p cu?i</span><span class="stat-value"><?php echo ($account && $account['last_time_login'] !== '2002-07-31 00:00:00') ? date('H:i d/m/Y', strtotime($account['last_time_login'])) : '-'; ?></span></div>
+                <h3>Thông tin tài khoản</h3>
+                <div class="stat-row"><span class="stat-label">Tên đăng nhập</span><span class="stat-value"><?php echo htmlspecialchars($username); ?></span></div>
+                <div class="stat-row"><span class="stat-label">Nhân vật</span><span class="stat-value"><?php echo htmlspecialchars($player['name'] ?? 'Chưa có'); ?></span></div>
+                <div class="stat-row"><span class="stat-label">Hành tinh</span><span class="stat-value"><?php echo $gender_name; ?></span></div>
+                <div class="stat-row"><span class="stat-label">Ngày tạo</span><span class="stat-value"><?php echo $account ? date('d/m/Y', strtotime($account['create_time'])) : '-'; ?></span></div>
+                <div class="stat-row"><span class="stat-label">Đăng nhập cuối</span><span class="stat-value"><?php echo ($account && $account['last_time_login'] !== '2002-07-31 00:00:00') ? date('H:i d/m/Y', strtotime($account['last_time_login'])) : '-'; ?></span></div>
             </div>
 
             <!-- Character Stats -->
             <div class="stat-panel">
-                <h3>Th�ng s? nh�n v?t</h3>
-                <div class="stat-row"><span class="stat-label">S?c m?nh</span><span class="stat-value highlight"><?php echo formatPower($suc_manh); ?></span></div>
+                <h3>Thông số nhân vật</h3>
+                <div class="stat-row"><span class="stat-label">Sức mạnh</span><span class="stat-value highlight"><?php echo formatPower($suc_manh); ?></span></div>
                 <?php if ($player): ?>
                 <div class="stat-row"><span class="stat-label">Power</span><span class="stat-value green"><?php echo formatPower($player['power'] ?? 0); ?></span></div>
                 <?php
                 // Parse more data from data_point JSON if available
                 $dp = json_decode($player['data_point'] ?? '[]', true);
                 if (is_array($dp)):
-                    $dp_labels = ['Ti?m nang', 'S?c m?nh', 'HP', 'KI', 'Ch� m?ng', 'N�'];
+                    $dp_labels = ['Tiềm năng', 'Sức mạnh', 'HP', 'KI', 'Chí mạng', 'Né'];
                     for ($i = 0; $i < min(count($dp), count($dp_labels)); $i++):
                         if (isset($dp[$i]) && $dp[$i] != 0):
                 ?>
@@ -207,33 +207,33 @@ if ($account && ($account['is_admin'] ?? 0) == 1) {
                     endfor;
                 endif; ?>
                 <?php else: ?>
-                <div style="color: var(--text-secondary); font-size: 14px; padding: 16px 0;">Chua c� nh�n v?t. H�y v�o game d? t?o nh�n v?t!</div>
+                <div style="color: var(--text-secondary); font-size: 14px; padding: 16px 0;">Chưa có nhân vật. Hãy vào game để tạo nhân vật!</div>
                 <?php endif; ?>
             </div>
 
             <!-- Financial -->
             <div class="stat-panel">
-                <h3>T�i ch�nh</h3>
-                <div class="stat-row"><span class="stat-label">S? du VND</span><span class="stat-value highlight"><?php echo number_format($account['vnd'] ?? 0); ?>d</span></div>
-                <div class="stat-row"><span class="stat-label">T?ng n?p</span><span class="stat-value"><?php echo number_format($account['tongnap'] ?? 0); ?>d</span></div>
-                <div class="stat-row"><span class="stat-label">T�ch di?m</span><span class="stat-value"><?php echo number_format($account['tichdiem'] ?? 0); ?></span></div>
+                <h3>Tài chính</h3>
+                <div class="stat-row"><span class="stat-label">Số dư VND</span><span class="stat-value highlight"><?php echo number_format($account['vnd'] ?? 0); ?>đ</span></div>
+                <div class="stat-row"><span class="stat-label">Tổng nạp</span><span class="stat-value"><?php echo number_format($account['tongnap'] ?? 0); ?>đ</span></div>
+                <div class="stat-row"><span class="stat-label">Tích điểm</span><span class="stat-value"><?php echo number_format($account['tichdiem'] ?? 0); ?></span></div>
                 <div class="stat-row"><span class="stat-label">Cash</span><span class="stat-value"><?php echo number_format($account['cash'] ?? 0); ?></span></div>
-                <div class="stat-row"><span class="stat-label">V�ng</span><span class="stat-value" style="color: #eab308;"><?php echo number_format($account['vang'] ?? 0); ?></span></div>
+                <div class="stat-row"><span class="stat-label">Vàng</span><span class="stat-value" style="color: #eab308;"><?php echo number_format($account['vang'] ?? 0); ?></span></div>
                 <div class="stat-row"><span class="stat-label">VIP</span><span class="stat-value"><?php echo intval($account['vip'] ?? 0); ?></span></div>
             </div>
 
             <!-- Status -->
             <div class="stat-panel">
-                <h3>Tr?ng th�i</h3>
+                <h3>Trạng thái</h3>
                 <div class="stat-row">
-                    <span class="stat-label">T�i kho?n</span>
+                    <span class="stat-label">Tài khoản</span>
                     <span class="stat-value <?php echo ($account['ban'] ?? 0) == 1 ? '' : 'green'; ?>">
-                        <?php echo ($account['ban'] ?? 0) == 1 ? '?? B? kh�a' : '?? Ho?t d?ng'; ?>
+                        <?php echo ($account['ban'] ?? 0) == 1 ? '🔴 Bị khóa' : '🟢 Hoạt động'; ?>
                     </span>
                 </div>
-                <div class="stat-row"><span class="stat-label">Quy?n h?n</span><span class="stat-value"><?php echo ($account['is_admin'] ?? 0) == 1 ? '??? Qu?n tr? vi�n' : '?? Ngu?i choi'; ?></span></div>
-                <div class="stat-row"><span class="stat-label">Lu?t quay</span><span class="stat-value"><?php echo number_format($account['luotquay'] ?? 0); ?></span></div>
-                <div class="stat-row"><span class="stat-label">�i?m s? ki?n</span><span class="stat-value"><?php echo number_format($account['event_point'] ?? 0); ?></span></div>
+                <div class="stat-row"><span class="stat-label">Quyền hạn</span><span class="stat-value"><?php echo ($account['is_admin'] ?? 0) == 1 ? '🛡️ Quản trị viên' : '👤 Người chơi'; ?></span></div>
+                <div class="stat-row"><span class="stat-label">Lượt quay</span><span class="stat-value"><?php echo number_format($account['luotquay'] ?? 0); ?></span></div>
+                <div class="stat-row"><span class="stat-label">Điểm sự kiện</span><span class="stat-value"><?php echo number_format($account['event_point'] ?? 0); ?></span></div>
             </div>
         </div>
     </main>

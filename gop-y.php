@@ -10,8 +10,8 @@ include __DIR__ . '/head.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>G�p � & �? Xu?t - Ch� B� R?ng Online</title>
-    <meta name="description" content="G?i g�p �, b�o l?i ho?c d? xu?t t�nh nang m?i cho Ch� B� R?ng Online. Admin lu�n l?ng nghe � ki?n t? c?ng d?ng." />
+    <title>Góp Ý & Đề Xuất - Chú Bé Rồng Online</title>
+    <meta name="description" content="Gửi góp ý, báo lỗi hoặc đề xuất tính năng mới cho Chú Bé Rồng Online. Admin luôn lắng nghe ý kiến từ cộng đồng." />
     <link rel="canonical" href="/gop-y" />
     <link rel="apple-touch-icon" href="/images/favicon-48x48.ico" />
     <link rel="icon" href="/images/favicon-48x48.ico" type="image/x-icon" />
@@ -269,8 +269,8 @@ include __DIR__ . '/head.php';
 
     <!-- Hero -->
     <section class="feedback-hero">
-        <h1>?? H�m Thu G�p �</h1>
-        <p>Admin lu�n l?ng nghe v� s?n s�ng c?i thi?n game d?a tr�n � ki?n c?a c?ng d?ng.</p>
+        <h1>📮 Hòm Thư Góp Ý</h1>
+        <p>Admin luôn lắng nghe và sẵn sàng cải thiện game dựa trên ý kiến của cộng đồng.</p>
     </section>
 
     <!-- Toast -->
@@ -280,44 +280,44 @@ include __DIR__ . '/head.php';
         <?php if (!isset($_SESSION['username'])): ?>
             <!-- Not logged in -->
             <div class="feedback-form-card login-prompt">
-                <div style="font-size: 48px; margin-bottom: 16px;">??</div>
-                <p>B?n c?n dang nh?p d? g?i g�p � cho admin.</p>
-                <a href="/login" class="btn-pill btn-black" style="text-decoration: none;">�ang Nh?p</a>
+                <div style="font-size: 48px; margin-bottom: 16px;">🔒</div>
+                <p>Bạn cần đăng nhập để gửi góp ý cho admin.</p>
+                <a href="/login" class="btn-pill btn-black" style="text-decoration: none;">Đăng Nhập</a>
             </div>
         <?php else: ?>
             <!-- Feedback Form -->
             <div class="feedback-form-card">
-                <h2>?? G?i G�p � M?i</h2>
+                <h2>✍️ Gửi Góp Ý Mới</h2>
                 <form id="feedbackForm" onsubmit="return submitFeedback(event)">
                     <div class="form-row">
-                        <label for="fb-category">Lo?i g�p �</label>
+                        <label for="fb-category">Loại góp ý</label>
                         <select id="fb-category" name="category">
-                            <option value="suggestion">?? �? xu?t t�nh nang</option>
-                            <option value="bug">?? B�o l?i (Bug)</option>
-                            <option value="other">?? Kh�c</option>
+                            <option value="suggestion">💡 Đề xuất tính năng</option>
+                            <option value="bug">🐛 Báo lỗi (Bug)</option>
+                            <option value="other">📝 Khác</option>
                         </select>
                     </div>
                     <div class="form-row">
-                        <label for="fb-title">Ti�u d?</label>
-                        <input type="text" id="fb-title" name="title" placeholder="M� t? ng?n g?n v?n d? ho?c d? xu?t..." maxlength="200" required>
+                        <label for="fb-title">Tiêu đề</label>
+                        <input type="text" id="fb-title" name="title" placeholder="Mô tả ngắn gọn vấn đề hoặc đề xuất..." maxlength="200" required>
                     </div>
                     <div class="form-row">
-                        <label for="fb-content">N?i dung chi ti?t</label>
-                        <textarea id="fb-content" name="content" placeholder="M� t? chi ti?t v?n d?, c�ch t�i t?o l?i, ho?c � tu?ng c?a b?n..." required></textarea>
+                        <label for="fb-content">Nội dung chi tiết</label>
+                        <textarea id="fb-content" name="content" placeholder="Mô tả chi tiết vấn đề, cách tái tạo lỗi, hoặc ý tưởng của bạn..." required></textarea>
                     </div>
                     <button type="submit" class="submit-btn" id="submitBtn">
-                        <span>??</span> G?i G�p �
+                        <span>📨</span> Gửi Góp Ý
                     </button>
                 </form>
             </div>
 
             <!-- Feedback History -->
             <div class="history-card">
-                <h2>?? L?ch S? G�p � C?a B?n</h2>
+                <h2>📋 Lịch Sử Góp Ý Của Bạn</h2>
                 <div id="feedbackHistory">
                     <div class="empty-state">
-                        <div class="empty-icon">?</div>
-                        <p>�ang t?i...</p>
+                        <div class="empty-icon">⏳</div>
+                        <p>Đang tải...</p>
                     </div>
                 </div>
             </div>
@@ -341,16 +341,16 @@ include __DIR__ . '/head.php';
 
     function getCategoryLabel(cat) {
         switch(cat) {
-            case 'bug': return '<span class="fb-badge badge-bug">?? Bug</span>';
-            case 'suggestion': return '<span class="fb-badge badge-suggestion">?? �? xu?t</span>';
-            default: return '<span class="fb-badge badge-other">?? Kh�c</span>';
+            case 'bug': return '<span class="fb-badge badge-bug">🐛 Bug</span>';
+            case 'suggestion': return '<span class="fb-badge badge-suggestion">💡 Đề xuất</span>';
+            default: return '<span class="fb-badge badge-other">📝 Khác</span>';
         }
     }
     function getStatusLabel(status) {
         switch(status) {
-            case 'new': return '<span class="fb-badge badge-new">M?i</span>';
-            case 'read': return '<span class="fb-badge badge-read">�� xem</span>';
-            case 'replied': return '<span class="fb-badge badge-replied">�� ph?n h?i</span>';
+            case 'new': return '<span class="fb-badge badge-new">Mới</span>';
+            case 'read': return '<span class="fb-badge badge-read">Đã xem</span>';
+            case 'replied': return '<span class="fb-badge badge-replied">Đã phản hồi</span>';
             default: return '';
         }
     }
@@ -359,7 +359,7 @@ include __DIR__ . '/head.php';
         e.preventDefault();
         var btn = document.getElementById('submitBtn');
         btn.disabled = true;
-        btn.innerHTML = '<span>?</span> �ang g?i...';
+        btn.innerHTML = '<span>⏳</span> Đang gửi...';
 
         var data = {
             category: document.getElementById('fb-category').value,
@@ -383,11 +383,11 @@ include __DIR__ . '/head.php';
             }
         })
         .catch(function() {
-            showToast('C� l?i x?y ra, vui l�ng th? l?i.', 'error');
+            showToast('Có lỗi xảy ra, vui lòng thử lại.', 'error');
         })
         .finally(function() {
             btn.disabled = false;
-            btn.innerHTML = '<span>??</span> G?i G�p �';
+            btn.innerHTML = '<span>📨</span> Gửi Góp Ý';
         });
         return false;
     }
@@ -398,7 +398,7 @@ include __DIR__ . '/head.php';
         .then(function(res) {
             var container = document.getElementById('feedbackHistory');
             if (!res.success || !res.data || res.data.length === 0) {
-                container.innerHTML = '<div class="empty-state"><div class="empty-icon">??</div><p>Chua c� g�p � n�o. H�y g?i g�p � d?u ti�n!</p></div>';
+                container.innerHTML = '<div class="empty-state"><div class="empty-icon">📭</div><p>Chưa có góp ý nào. Hãy gửi góp ý đầu tiên!</p></div>';
                 return;
             }
             var html = '';
@@ -411,10 +411,10 @@ include __DIR__ . '/head.php';
                 html += '    <div class="fb-meta">' + getCategoryLabel(fb.category) + getStatusLabel(fb.status) + '</div>';
                 html += '  </div>';
                 html += '  <p class="fb-content">' + escapeHtml(fb.content) + '</p>';
-                html += '  <span class="fb-date">? ' + dateStr + '</span>';
+                html += '  <span class="fb-date">⏰ ' + dateStr + '</span>';
                 if (fb.admin_reply) {
                     html += '  <div class="fb-reply">';
-                    html += '    <strong>??? Ph?n h?i t? Admin:</strong>';
+                    html += '    <strong>🛡️ Phản hồi từ Admin:</strong>';
                     html += '    <p>' + escapeHtml(fb.admin_reply) + '</p>';
                     html += '  </div>';
                 }
@@ -423,7 +423,7 @@ include __DIR__ . '/head.php';
             container.innerHTML = html;
         })
         .catch(function() {
-            document.getElementById('feedbackHistory').innerHTML = '<div class="empty-state"><div class="empty-icon">??</div><p>Kh�ng th? t?i d? li?u.</p></div>';
+            document.getElementById('feedbackHistory').innerHTML = '<div class="empty-state"><div class="empty-icon">⚠️</div><p>Không thể tải dữ liệu.</p></div>';
         });
     }
 

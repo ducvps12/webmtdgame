@@ -10,7 +10,7 @@ require_once 'post_detail_logic.php';
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width,maximum-scale=1,user-scalable=no"/>
     <meta http-equiv="content-language" content="vi" />
-    <title><?php echo $post_detail ? htmlspecialchars($post_detail['tieude']) : 'B�i vi?t kh�ng t?n t?i'; ?> - Di?n ��n</title>
+    <title><?php echo $post_detail ? htmlspecialchars($post_detail['tieude']) : 'Bài viết không tồn tại'; ?> - Diễn Đàn</title>
     <link rel="apple-touch-icon" href="/images/favicon-48x48.ico" />
     <link rel="icon" href='/images/favicon-48x48.ico' type="image/x-icon" />
     <script src="/view/static/js/disable_devtools.js"></script>
@@ -144,21 +144,21 @@ require_once 'post_detail_logic.php';
         <div class="nav-left">
             <a href="/"><img src="/images/logo_sk_he.png" alt="Logo" class="nav-logo"></a>
             <ul class="nav-links">
-                <li><a href="/">Trang Ch?</a></li>
-                <li><a href="/gioi-thieu">Gi?i Thi?u</a></li>
-                <li><a href="/forum" class="active">Di?n ��n</a></li>
-                <li><a href="https://zalo.me/g/iktqgz458" target="_blank">C?ng �?ng</a></li>
+                <li><a href="/">Trang Chủ</a></li>
+                <li><a href="/gioi-thieu">Giới Thiệu</a></li>
+                <li><a href="/forum" class="active">Diễn Đàn</a></li>
+                <li><a href="https://zalo.me/g/iktqgz458" target="_blank">Cộng Đồng</a></li>
             </ul>
         </div>
         <div class="nav-right">
             <?php if (isset($_SESSION['username'])): ?>
-                <span class="user-balance" style="margin-right: 15px; display: none;">Ch�o <b><?php echo htmlspecialchars($_SESSION['player_name'] ?? $_SESSION['username']); ?></b></span>
+                <span class="user-balance" style="margin-right: 15px; display: none;">Chào <b><?php echo htmlspecialchars($_SESSION['player_name'] ?? $_SESSION['username']); ?></b></span>
                 <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1): ?>
-                    <a href="/admin" class="btn-pill small" style="background: #e53e3e; color: #fff; border: none; margin-right: 6px;">??? Admin</a>
+                    <a href="/admin" class="btn-pill small" style="background: #e53e3e; color: #fff; border: none; margin-right: 6px;">🛡️ Admin</a>
                 <?php endif; ?>
-                <a href="/app/logout" class="btn-pill btn-outline small">�ang xu?t</a>
+                <a href="/app/logout" class="btn-pill btn-outline small">Đăng xuất</a>
             <?php else: ?>
-                <a href="/login" class="btn-pill btn-outline small">�ang Nh?p</a>
+                <a href="/login" class="btn-pill btn-outline small">Đăng Nhập</a>
             <?php endif; ?>
         </div>
     </nav>
@@ -166,7 +166,7 @@ require_once 'post_detail_logic.php';
     <div class="post-container">
         <a href="/forum" class="back-link">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-            Quay l?i di?n d�n
+            Quay lại diễn đàn
         </a>
 
         <?php if ($post_detail): ?>
@@ -183,7 +183,7 @@ require_once 'post_detail_logic.php';
                     
                     <div class="post-body">
                         <div class="post-meta">
-                            <span>�ang l�c <?php echo htmlspecialchars($post_detail['created_at']); ?></span>
+                            <span>Đăng lúc <?php echo htmlspecialchars($post_detail['created_at']); ?></span>
                         </div>
                         <h1 class="post-title"><?php echo htmlspecialchars($post_detail['tieude']); ?></h1>
                         <div class="post-content-text">
@@ -198,29 +198,29 @@ require_once 'post_detail_logic.php';
 
             <!-- Comments Section -->
             <div class="apple-post-card">
-                <h3 style="margin-top:0; font-size:18px; margin-bottom:20px;">B�nh lu?n</h3>
+                <h3 style="margin-top:0; font-size:18px; margin-bottom:20px;">Bình luận</h3>
                 
                 <?php if ($_is_logged_in): ?>
                     <?php if ($can_comment): ?>
                     <form method="POST" action="bai-viet.php?id=<?php echo htmlspecialchars($post_id); ?>" style="margin-bottom: 30px;">
                         <input type="hidden" name="post_id" value="<?php echo htmlspecialchars($post_id); ?>">
-                        <textarea class="apple-input" name="comment_content" rows="3" placeholder="Chia s? suy nghi c?a b?n..." style="width: 100%; border-radius: 12px; margin-bottom: 15px; resize: vertical;"></textarea>
+                        <textarea class="apple-input" name="comment_content" rows="3" placeholder="Chia sẻ suy nghĩ của bạn..." style="width: 100%; border-radius: 12px; margin-bottom: 15px; resize: vertical;"></textarea>
                         <div style="display:flex; justify-content:space-between; align-items:center;">
                             <span style="font-size: 12px; color: var(--text-secondary); padding: 4px 12px; border-radius: 20px; background: <?php echo $rank_color; ?>15; color: <?php echo $rank_color; ?>; font-weight: 600;"><?php echo $rank_label; ?></span>
-                            <button type="submit" name="submit_comment" class="btn-pill btn-black">G?i b�nh lu?n</button>
+                            <button type="submit" name="submit_comment" class="btn-pill btn-black">Gửi bình luận</button>
                         </div>
                     </form>
                     <?php else: ?>
                     <div style="background: rgba(239,68,68,0.05); padding: 16px 20px; border-radius: 12px; text-align: center; margin-bottom: 30px; border: 1px solid rgba(239,68,68,0.15);">
-                        <span style="font-size: 14px; color: #d70015; font-weight: 500;">?? <?php echo $comment_blocked_reason; ?></span>
+                        <span style="font-size: 14px; color: #d70015; font-weight: 500;">🔒 <?php echo $comment_blocked_reason; ?></span>
                         <?php if ($user_rank === 'none'): ?>
-                        <br><a href="/nap-atm" style="color: #0071e3; font-weight: 600; text-decoration: none; font-size: 13px; margin-top: 6px; display: inline-block;">N?p ngay d? m? kh�a ?</a>
+                        <br><a href="/nap-atm" style="color: #0071e3; font-weight: 600; text-decoration: none; font-size: 13px; margin-top: 6px; display: inline-block;">Nạp ngay để mở khóa →</a>
                         <?php endif; ?>
                     </div>
                     <?php endif; ?>
                 <?php else: ?>
                     <div style="background: rgba(0,113,227,0.05); padding: 20px; border-radius: 12px; text-align: center; margin-bottom: 30px;">
-                        B?n c?n <a href="/login" style="color: #0071e3; font-weight: 600; text-decoration: none;">�ang nh?p</a> d? tham gia b�nh lu?n.
+                        Bạn cần <a href="/login" style="color: #0071e3; font-weight: 600; text-decoration: none;">Đăng nhập</a> để tham gia bình luận.
                     </div>
                 <?php endif; ?>
 
@@ -252,7 +252,7 @@ require_once 'post_detail_logic.php';
                                             <?php echo htmlspecialchars($comment['created_at']); ?>
                                             
                                             <?php if ($logged_in_username === $comment['nguoidung'] || $is_admin): ?>
-                                                <a href="bai-viet.php?id=<?php echo htmlspecialchars($post_id); ?>&delete_comment_id=<?php echo htmlspecialchars($comment['id']); ?>" onclick="return confirm('X�c nh?n xo� b�nh lu?n?');" style="color: #ff3b30; margin-left: 10px; text-decoration: none;">Xo�</a>
+                                                <a href="bai-viet.php?id=<?php echo htmlspecialchars($post_id); ?>&delete_comment_id=<?php echo htmlspecialchars($comment['id']); ?>" onclick="return confirm('Xác nhận xoá bình luận?');" style="color: #ff3b30; margin-left: 10px; text-decoration: none;">Xoá</a>
                                             <?php endif; ?>
                                         </div>
                                     </div>
@@ -264,7 +264,7 @@ require_once 'post_detail_logic.php';
                         <?php endforeach; ?>
                     <?php else: ?>
                         <div style="text-align: center; color: var(--text-secondary); padding: 20px 0;">
-                            Chua c� b�nh lu?n n�o. H�y l� ngu?i d?u ti�n!
+                            Chưa có bình luận nào. Hãy là người đầu tiên!
                         </div>
                     <?php endif; ?>
                 </div>
@@ -273,8 +273,8 @@ require_once 'post_detail_logic.php';
         <?php else: ?>
             <div class="apple-post-card" style="text-align: center; padding: 50px 20px;">
                 <h2 style="margin:0 0 10px 0;">Opps!</h2>
-                <p style="color: var(--text-secondary);">B�i vi?t kh�ng t?n t?i ho?c d� b? qu?n tr? vi�n xo�.</p>
-                <a href="/forum" class="btn-pill btn-black" style="margin-top: 20px;">Tr? l?i Di?n ��n</a>
+                <p style="color: var(--text-secondary);">Bài viết không tồn tại hoặc đã bị quản trị viên xoá.</p>
+                <a href="/forum" class="btn-pill btn-black" style="margin-top: 20px;">Trở lại Diễn Đàn</a>
             </div>
         <?php endif; ?>
     </div>

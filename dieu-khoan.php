@@ -6,8 +6,8 @@ if (session_status() == PHP_SESSION_NONE) { session_start(); }
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>�i?u Kho?n S? D?ng | Ch� B� R?ng Online</title>
-    <meta name="description" content="�i?u kho?n s? d?ng d?ch v? Ch� B� R?ng Online � d? �n phi thuong m?i v?i m?c d�ch h?c t?p l?p tr�nh." />
+    <title>Điều Khoản Sử Dụng | Chú Bé Rồng Online</title>
+    <meta name="description" content="Điều khoản sử dụng dịch vụ Chú Bé Rồng Online — dự án phi thương mại với mục đích học tập lập trình." />
     <meta name="robots" content="INDEX,FOLLOW" />
     <link rel="apple-touch-icon" href="/images/favicon-48x48.ico" />
     <link rel="icon" href="/images/favicon-48x48.ico" type="image/x-icon" />
@@ -31,67 +31,67 @@ if (session_status() == PHP_SESSION_NONE) { session_start(); }
     <?php include __DIR__ . '/nav.php'; ?>
 
     <main class="legal-page">
-        <h1>�i?u Kho?n S? D?ng</h1>
-        <p class="update-date">C?p nh?t l?n cu?i: <?php echo date('d/m/Y'); ?></p>
+        <h1>Điều Khoản Sử Dụng</h1>
+        <p class="update-date">Cập nhật lần cuối: <?php echo date('d/m/Y'); ?></p>
 
         <div class="legal-highlight">
-            <p><strong>Tuy�n b? quan tr?ng:</strong> Ch� B� R?ng Online l� d? �n <strong>phi thuong m?i</strong>, du?c ph�t tri?n v?i m?c d�ch <strong>h?c t?p v� nghi�n c?u c�ng ngh? l?p tr�nh game</strong>. D? �n kh�ng li�n k?t, du?c t�i tr? hay ?y quy?n b?i Akira Toriyama, Shueisha, Toei Animation, Bandai Namco, hay b?t k? t? ch?c s? h?u thuong hi?u Dragon Ball n�o.</p>
+            <p><strong>Tuyên bố quan trọng:</strong> Chú Bé Rồng Online là dự án <strong>phi thương mại</strong>, được phát triển với mục đích <strong>học tập và nghiên cứu công nghệ lập trình game</strong>. Dự án không liên kết, được tài trợ hay ủy quyền bởi Akira Toriyama, Shueisha, Toei Animation, Bandai Namco, hay bất kỳ tổ chức sở hữu thương hiệu Dragon Ball nào.</p>
         </div>
 
-        <h2>1. Ch?p nh?n di?u kho?n</h2>
-        <p>B?ng vi?c truy c?p, dang k� t�i kho?n ho?c s? d?ng c�c d?ch v? do Ch� B� R?ng Online cung c?p (bao g?m website, game client, di?n d�n), b?n d?ng � tu�n th? to�n b? c�c �i?u Kho?n S? D?ng n�y. N?u b?n kh�ng d?ng � v?i b?t k? di?u kho?n n�o, vui l�ng ng?ng s? d?ng d?ch v?.</p>
+        <h2>1. Chấp nhận điều khoản</h2>
+        <p>Bằng việc truy cập, đăng ký tài khoản hoặc sử dụng các dịch vụ do Chú Bé Rồng Online cung cấp (bao gồm website, game client, diễn đàn), bạn đồng ý tuân thủ toàn bộ các Điều Khoản Sử Dụng này. Nếu bạn không đồng ý với bất kỳ điều khoản nào, vui lòng ngừng sử dụng dịch vụ.</p>
 
-        <h2>2. M?c d�ch c?a d? �n</h2>
-        <p>D? �n du?c t?o ra nh?m:</p>
+        <h2>2. Mục đích của dự án</h2>
+        <p>Dự án được tạo ra nhằm:</p>
         <ul>
-            <li>Ph?c v? m?c d�ch <strong>nghi�n c?u v� h?c t?p</strong> trong linh v?c l?p tr�nh game, thi?t k? web, qu?n tr? co s? d? li?u v� v?n h�nh h? th?ng.</li>
-            <li>T?o m�i tru?ng th?c h�nh cho c�c nh� ph�t tri?n tr? trong c?ng d?ng l?p tr�nh.</li>
-            <li><strong>Kh�ng nh?m m?c d�ch thuong m?i</strong>, kh�ng kinh doanh, kh�ng t�m ki?m l?i nhu?n t? thuong hi?u Dragon Ball ho?c b?t k? t�i s?n tr� tu? n�o c?a b�n th? ba.</li>
+            <li>Phục vụ mục đích <strong>nghiên cứu và học tập</strong> trong lĩnh vực lập trình game, thiết kế web, quản trị cơ sở dữ liệu và vận hành hệ thống.</li>
+            <li>Tạo môi trường thực hành cho các nhà phát triển trẻ trong cộng đồng lập trình.</li>
+            <li><strong>Không nhằm mục đích thương mại</strong>, không kinh doanh, không tìm kiếm lợi nhuận từ thương hiệu Dragon Ball hoặc bất kỳ tài sản trí tuệ nào của bên thứ ba.</li>
         </ul>
 
-        <h2>3. Quy?n s? h?u tr� tu?</h2>
-        <p>T?t c? nh�n v?t, h�nh ?nh, �m thanh, c?t truy?n li�n quan d?n Dragon Ball l� t�i s?n tr� tu? thu?c v? <strong>Akira Toriyama / Bird Studio / Shueisha / Toei Animation / Bandai Namco Entertainment</strong>. D? �n n�y s? d?ng c�c y?u t? d� v?i m?c d�ch <strong>phi thuong m?i, fan-made</strong> v� ho�n to�n t�n tr?ng quy?n s? h?u g?c.</p>
-        <p>N?u b?t k? b�n s? h?u n�o y�u c?u g? b?, d? �n s? tu�n th? ngay l?p t?c.</p>
+        <h2>3. Quyền sở hữu trí tuệ</h2>
+        <p>Tất cả nhân vật, hình ảnh, âm thanh, cốt truyện liên quan đến Dragon Ball là tài sản trí tuệ thuộc về <strong>Akira Toriyama / Bird Studio / Shueisha / Toei Animation / Bandai Namco Entertainment</strong>. Dự án này sử dụng các yếu tố đó với mục đích <strong>phi thương mại, fan-made</strong> và hoàn toàn tôn trọng quyền sở hữu gốc.</p>
+        <p>Nếu bất kỳ bên sở hữu nào yêu cầu gỡ bỏ, dự án sẽ tuân thủ ngay lập tức.</p>
 
-        <h2>4. T�i kho?n ngu?i d�ng</h2>
+        <h2>4. Tài khoản người dùng</h2>
         <ul>
-            <li>M?i ngu?i ch? du?c t?o m?t s? lu?ng t�i kho?n h?p l�.</li>
-            <li>B?n ch?u tr�ch nhi?m b?o m?t th�ng tin dang nh?p c?a m�nh.</li>
-            <li>Nghi�m c?m mua b�n, trao d?i t�i kho?n.</li>
-            <li>Qu?n tr? vi�n c� quy?n kh�a ho?c x�a t�i kho?n vi ph?m m� kh�ng c?n th�ng b�o tru?c.</li>
+            <li>Mỗi người chỉ được tạo một số lượng tài khoản hợp lý.</li>
+            <li>Bạn chịu trách nhiệm bảo mật thông tin đăng nhập của mình.</li>
+            <li>Nghiêm cấm mua bán, trao đổi tài khoản.</li>
+            <li>Quản trị viên có quyền khóa hoặc xóa tài khoản vi phạm mà không cần thông báo trước.</li>
         </ul>
 
-        <h2>5. H�nh vi b? c?m</h2>
-        <p>Ngu?i d�ng kh�ng du?c th?c hi?n c�c h�nh vi sau:</p>
+        <h2>5. Hành vi bị cấm</h2>
+        <p>Người dùng không được thực hiện các hành vi sau:</p>
         <ul>
-            <li>S? d?ng ph?n m?m gian l?n (hack, cheat, bot, auto).</li>
-            <li>Khai th�c l?i h? th?ng (bug exploit) d? tr?c l?i.</li>
-            <li>Qu?y r?i, x�c ph?m, de d?a ngu?i choi kh�c.</li>
-            <li>Ph�t t�n n?i dung vi ph?m ph�p lu?t, d?i tr?y, ho?c g�y h?i cho c?ng d?ng.</li>
-            <li>T?n c�ng h? th?ng (DDoS, SQL injection, brute-force, v.v.).</li>
-            <li>Giao d?ch v?t ph?m, t�i kho?n game b?ng ti?n th?t ngo�i h? th?ng ch�nh th?c.</li>
+            <li>Sử dụng phần mềm gian lận (hack, cheat, bot, auto).</li>
+            <li>Khai thác lỗi hệ thống (bug exploit) để trục lợi.</li>
+            <li>Quấy rối, xúc phạm, đe dọa người chơi khác.</li>
+            <li>Phát tán nội dung vi phạm pháp luật, đồi trụy, hoặc gây hại cho cộng đồng.</li>
+            <li>Tấn công hệ thống (DDoS, SQL injection, brute-force, v.v.).</li>
+            <li>Giao dịch vật phẩm, tài khoản game bằng tiền thật ngoài hệ thống chính thức.</li>
         </ul>
 
-        <h2>6. N?p ti?n v� giao d?ch n?i b?</h2>
+        <h2>6. Nạp tiền và giao dịch nội bộ</h2>
         <ul>
-            <li>Ti?n n?p v�o h? th?ng l� <strong>kho?n d�ng g�p t? nguy?n</strong> d? h? tr? chi ph� v?n h�nh m�y ch?, t�n mi?n v� ph�t tri?n d? �n.</li>
-            <li>Kho?n d�ng g�p <strong>kh�ng du?c ho�n tr?</strong> du?i b?t k? h�nh th?c n�o.</li>
-            <li>VND trong game l� don v? ?o, kh�ng c� gi� tr? quy d?i ra ti?n th?t.</li>
-            <li>Qu?n tr? vi�n c� quy?n di?u ch?nh s? du v� v?t ph?m d? d?m b?o c�n b?ng h? th?ng.</li>
+            <li>Tiền nạp vào hệ thống là <strong>khoản đóng góp tự nguyện</strong> để hỗ trợ chi phí vận hành máy chủ, tên miền và phát triển dự án.</li>
+            <li>Khoản đóng góp <strong>không được hoàn trả</strong> dưới bất kỳ hình thức nào.</li>
+            <li>VND trong game là đơn vị ảo, không có giá trị quy đổi ra tiền thật.</li>
+            <li>Quản trị viên có quyền điều chỉnh số dư và vật phẩm để đảm bảo cân bằng hệ thống.</li>
         </ul>
 
-        <h2>7. Mi?n tr? tr�ch nhi?m</h2>
+        <h2>7. Miễn trừ trách nhiệm</h2>
         <ul>
-            <li>D?ch v? du?c cung c?p theo nguy�n t?c "nguy�n tr?ng" (as-is) kh�ng k�m b?t k? b?o d?m n�o.</li>
-            <li>Ch�ng t�i kh�ng ch?u tr�ch nhi?m v? m?t m�t d? li?u, gi�n do?n d?ch v?, ho?c thi?t h?i ph�t sinh t? vi?c s? d?ng d?ch v?.</li>
-            <li>D? �n c� th? ng?ng ho?t d?ng b?t c? l�c n�o m� kh�ng c?n th�ng b�o tru?c.</li>
+            <li>Dịch vụ được cung cấp theo nguyên tắc "nguyên trạng" (as-is) không kèm bất kỳ bảo đảm nào.</li>
+            <li>Chúng tôi không chịu trách nhiệm về mất mát dữ liệu, gián đoạn dịch vụ, hoặc thiệt hại phát sinh từ việc sử dụng dịch vụ.</li>
+            <li>Dự án có thể ngừng hoạt động bất cứ lúc nào mà không cần thông báo trước.</li>
         </ul>
 
-        <h2>8. Thay d?i di?u kho?n</h2>
-        <p>Ch�ng t�i c� quy?n c?p nh?t �i?u Kho?n S? D?ng b?t c? l�c n�o. C�c thay d?i s? c� hi?u l?c ngay khi du?c dang tr�n trang n�y. Vi?c ti?p t?c s? d?ng d?ch v? d?ng nghia v?i vi?c b?n ch?p nh?n phi�n b?n m?i nh?t c?a �i?u Kho?n.</p>
+        <h2>8. Thay đổi điều khoản</h2>
+        <p>Chúng tôi có quyền cập nhật Điều Khoản Sử Dụng bất cứ lúc nào. Các thay đổi sẽ có hiệu lực ngay khi được đăng trên trang này. Việc tiếp tục sử dụng dịch vụ đồng nghĩa với việc bạn chấp nhận phiên bản mới nhất của Điều Khoản.</p>
 
-        <h2>9. Li�n h?</h2>
-        <p>M?i c�u h?i, khi?u n?i ho?c y�u c?u li�n quan d?n �i?u Kho?n S? D?ng, vui l�ng li�n h? qua nh�m c?ng d?ng Zalo ho?c di?n d�n ch�nh th?c c?a d? �n.</p>
+        <h2>9. Liên hệ</h2>
+        <p>Mọi câu hỏi, khiếu nại hoặc yêu cầu liên quan đến Điều Khoản Sử Dụng, vui lòng liên hệ qua nhóm cộng đồng Zalo hoặc diễn đàn chính thức của dự án.</p>
     </main>
 
     <?php include __DIR__ . '/footer.php'; ?>

@@ -10,9 +10,9 @@ include __DIR__ . '/head.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hu?ng D?n Choi B?n Java - Ch� B� R?ng Online</title>
-    <meta name="description" content="Hu?ng d?n t?i v� c�i d?t gi? l?p AngelChip MicroEmulator d? choi Ch� B� R?ng Online phi�n b?n Java tr�n PC. H? tr? proxy, treo nhi?u tab." />
-    <meta name="keywords" content="Ch� B� R?ng Online, b?n Java, MicroEmulator, AngelChip, gi? l?p, proxy, hu?ng d?n c�i d?t" />
+    <title>Hướng Dẫn Chơi Bản Java - Chú Bé Rồng Online</title>
+    <meta name="description" content="Hướng dẫn tải và cài đặt giả lập AngelChip MicroEmulator để chơi Chú Bé Rồng Online phiên bản Java trên PC. Hỗ trợ proxy, treo nhiều tab." />
+    <meta name="keywords" content="Chú Bé Rồng Online, bản Java, MicroEmulator, AngelChip, giả lập, proxy, hướng dẫn cài đặt" />
     <meta name="robots" content="INDEX,FOLLOW" />
 
     <link rel="apple-touch-icon" href="/images/favicon-48x48.ico" />
@@ -386,8 +386,8 @@ include __DIR__ . '/head.php';
     <!-- ===== HERO ===== -->
     <section class="guide-hero">
         <div class="guide-hero-content">
-            <h1>Phi�n B?n Java<br>Tr�n PC</h1>
-            <p class="subtitle">Choi Ch� B� R?ng Online b?n Java ngay tr�n m�y t�nh v?i gi? l?p AngelChip MicroEmulator. H? tr? proxy, treo nhi?u tab, ti?t ki?m t�i nguy�n.</p>
+            <h1>Phiên Bản Java<br>Trên PC</h1>
+            <p class="subtitle">Chơi Chú Bé Rồng Online bản Java ngay trên máy tính với giả lập AngelChip MicroEmulator. Hỗ trợ proxy, treo nhiều tab, tiết kiệm tài nguyên.</p>
         </div>
     </section>
 
@@ -398,31 +398,31 @@ include __DIR__ . '/head.php';
                 <img src="/images/jar.png" alt="Java JAR">
             </div>
             <div class="download-card-info">
-                <h2>T?i File Game Java (.jar)</h2>
-                <p>File game d?nh d?ng .jar d�ng d? m? trong gi? l?p MicroEmulator. Kh�ng c?n c�i d?t, ch? c?n k�o th? v�o gi? l?p.</p>
-                <div class="file-meta">?? File: VPS(2).jar &bull; Dung lu?ng: ~1.6 MB</div>
-                <a href="/download/VPS(2).jar" class="download-btn">? T?i File JAR</a>
+                <h2>Tải File Game Java (.jar)</h2>
+                <p>File game định dạng .jar dùng để mở trong giả lập MicroEmulator. Không cần cài đặt, chỉ cần kéo thả vào giả lập.</p>
+                <div class="file-meta">📦 File: VPS(2).jar &bull; Dung lượng: ~1.6 MB</div>
+                <a href="/download/VPS(2).jar" class="download-btn">⬇ Tải File JAR</a>
             </div>
         </div>
     </div>
 
-    <!-- ===== HU?NG D?N C�I �?T ===== -->
+    <!-- ===== HƯỚNG DẪN CÀI ĐẶT ===== -->
     <div class="guide-container">
         <div class="fade-section">
-            <p class="section-label">Hu?ng d?n t?ng bu?c</p>
-            <h2 class="section-heading">C�i �?t AngelChip MicroEmulator</h2>
+            <p class="section-label">Hướng dẫn từng bước</p>
+            <h2 class="section-heading">Cài Đặt AngelChip MicroEmulator</h2>
 
             <div class="steps-timeline">
                 <!-- Step 1 -->
                 <div class="step-card">
                     <div class="step-number">1</div>
                     <div class="step-content">
-                        <h3>T?i gi? l?p AngelChip MicroEmulator</h3>
-                        <p>Truy c?p trang ch�nh th?c c?a AngelChip d? t?i phi�n b?n MicroEmulator m?i nh?t. Phi�n b?n n�y d� t�ch h?p s?n proxy v� ch? d? t? ng? ti?t ki?m CPU/GPU.</p>
+                        <h3>Tải giả lập AngelChip MicroEmulator</h3>
+                        <p>Truy cập trang chính thức của AngelChip để tải phiên bản MicroEmulator mới nhất. Phiên bản này đã tích hợp sẵn proxy và chế độ tự ngủ tiết kiệm CPU/GPU.</p>
                         <a href="https://angelchip.net/share-microemulator-tich-hop-su-dung-proxy/" target="_blank" class="step-link">
-                            ?? T?i AngelChip MicroEmulator ?
+                            🔗 Tải AngelChip MicroEmulator →
                         </a>
-                        <p style="margin-top:8px; font-size:13px; color:#888;">Ho?c t?i tr?c ti?p file JAR: <a href="https://angelchip.net/files/share/AngelChipEmulator_V2Proxy.jar" target="_blank" style="color:#0071e3; font-weight:600;">AngelChipEmulator_V2Proxy.jar</a></p>
+                        <p style="margin-top:8px; font-size:13px; color:#888;">Hoặc tải trực tiếp file JAR: <a href="https://angelchip.net/files/share/AngelChipEmulator_V2Proxy.jar" target="_blank" style="color:#0071e3; font-weight:600;">AngelChipEmulator_V2Proxy.jar</a></p>
                     </div>
                 </div>
 
@@ -430,12 +430,12 @@ include __DIR__ . '/head.php';
                 <div class="step-card">
                     <div class="step-number">2</div>
                     <div class="step-content">
-                        <h3>C�i d?t Java Runtime (n?u chua c�)</h3>
-                        <p>MicroEmulator y�u c?u <strong>Java Runtime Environment (JRE)</strong> d? ch?y. N?u m�y b?n chua c� Java, h�y t?i v� c�i d?t t? trang ch�nh th?c:</p>
+                        <h3>Cài đặt Java Runtime (nếu chưa có)</h3>
+                        <p>MicroEmulator yêu cầu <strong>Java Runtime Environment (JRE)</strong> để chạy. Nếu máy bạn chưa có Java, hãy tải và cài đặt từ trang chính thức:</p>
                         <a href="https://www.java.com/download/" target="_blank" class="step-link">
-                            ? T?i Java Runtime ?
+                            ☕ Tải Java Runtime →
                         </a>
-                        <p style="margin-top:8px;">Sau khi c�i Java xong, kh?i d?ng l?i m�y t�nh d? ho�n t?t.</p>
+                        <p style="margin-top:8px;">Sau khi cài Java xong, khởi động lại máy tính để hoàn tất.</p>
                     </div>
                 </div>
 
@@ -443,9 +443,9 @@ include __DIR__ . '/head.php';
                 <div class="step-card">
                     <div class="step-number">3</div>
                     <div class="step-content">
-                        <h3>M? gi? l?p v� n?p file game</h3>
-                        <p>Ch?y file <code>AngelChipEmulator_V2Proxy.jar</code> (click d�p). Giao di?n gi? l?p s? m? ra.</p>
-                        <p>V�o menu <strong>File ? Open MIDlet File</strong> r?i ch?n file game <code>VPS(2).jar</code> d� t?i ? tr�n. Game s? kh?i d?ng ngay tr�n gi? l?p!</p>
+                        <h3>Mở giả lập và nạp file game</h3>
+                        <p>Chạy file <code>AngelChipEmulator_V2Proxy.jar</code> (click đúp). Giao diện giả lập sẽ mở ra.</p>
+                        <p>Vào menu <strong>File → Open MIDlet File</strong> rồi chọn file game <code>VPS(2).jar</code> đã tải ở trên. Game sẽ khởi động ngay trên giả lập!</p>
                     </div>
                 </div>
 
@@ -453,9 +453,9 @@ include __DIR__ . '/head.php';
                 <div class="step-card">
                     <div class="step-number">4</div>
                     <div class="step-content">
-                        <h3>�ang nh?p v� choi</h3>
-                        <p>Nh?p t�i kho?n v� m?t kh?u d� dang k� tr�n website. N?u chua c� t�i kho?n, h�y <a href="/register" style="color:#0071e3; font-weight:600;">dang k� mi?n ph�</a> ngay.</p>
-                        <p>Ch?n server, t?o nh�n v?t v� b?t d?u cu?c phi�u luu!</p>
+                        <h3>Đăng nhập và chơi</h3>
+                        <p>Nhập tài khoản và mật khẩu đã đăng ký trên website. Nếu chưa có tài khoản, hãy <a href="/register" style="color:#0071e3; font-weight:600;">đăng ký miễn phí</a> ngay.</p>
+                        <p>Chọn server, tạo nhân vật và bắt đầu cuộc phiêu lưu!</p>
                     </div>
                 </div>
             </div>
@@ -463,58 +463,58 @@ include __DIR__ . '/head.php';
 
         <!-- ===== PROXY SECTION ===== -->
         <section class="proxy-section fade-section">
-            <h2>?? C?n Treo Nhi?u Tab? S? D?ng Proxy!</h2>
-            <p>N?u b?n mu?n treo nhi?u nick c�ng l�c tr�n m?t m�y, b?n c?n s? d?ng proxy d? tr�nh b? gi?i h?n IP. AngelChip MicroEmulator d� t�ch h?p s?n t�nh nang c�i d?t proxy r?t ti?n l?i.</p>
+            <h2>🌐 Cần Treo Nhiều Tab? Sử Dụng Proxy!</h2>
+            <p>Nếu bạn muốn treo nhiều nick cùng lúc trên một máy, bạn cần sử dụng proxy để tránh bị giới hạn IP. AngelChip MicroEmulator đã tích hợp sẵn tính năng cài đặt proxy rất tiện lợi.</p>
 
             <div class="proxy-grid">
                 <div class="proxy-card">
-                    <span class="tag pro">? Khuy�n d�ng</span>
+                    <span class="tag pro">⭐ Khuyên dùng</span>
                     <h3>MTD Proxy</h3>
-                    <p>Proxy d�n cu Vi?t Nam ch?t lu?ng cao, t?c d? ?n d?nh. H? tr? SOCKS5, ph� h?p choi game treo nhi?u tab. Gi� t? 800d/proxy.</p>
-                    <a href="https://mtdproxy.com/" target="_blank" class="proxy-link">Mua Proxy MTD ?</a>
+                    <p>Proxy dân cư Việt Nam chất lượng cao, tốc độ ổn định. Hỗ trợ SOCKS5, phù hợp chơi game treo nhiều tab. Giá từ 800đ/proxy.</p>
+                    <a href="https://mtdproxy.com/" target="_blank" class="proxy-link">Mua Proxy MTD →</a>
                 </div>
                 <div class="proxy-card">
-                    <span class="tag free">?? Mi?n ph�</span>
-                    <h3>Proxy mi?n ph�</h3>
-                    <p>B?n c� th? t�m proxy SOCKS4/SOCKS5 mi?n ph� tr�n m?ng. Tuy nhi�n t?c d? thu?ng ch?m v� kh�ng ?n d?nh, th?i gian s? d?ng ng?n.</p>
-                    <a href="https://www.google.com/search?q=free+socks5+proxy+list" target="_blank" class="proxy-link" style="background:#6c757d;">T�m Proxy Free ?</a>
+                    <span class="tag free">🆓 Miễn phí</span>
+                    <h3>Proxy miễn phí</h3>
+                    <p>Bạn có thể tìm proxy SOCKS4/SOCKS5 miễn phí trên mạng. Tuy nhiên tốc độ thường chậm và không ổn định, thời gian sử dụng ngắn.</p>
+                    <a href="https://www.google.com/search?q=free+socks5+proxy+list" target="_blank" class="proxy-link" style="background:#6c757d;">Tìm Proxy Free →</a>
                 </div>
             </div>
 
             <!-- Proxy Setup Steps -->
             <div class="tips-box" style="background: linear-gradient(135deg, #e8f0fe, #dbe5f8); border-color: rgba(0,113,227,0.15); margin-top: 24px;">
-                <h3>?? C�ch c�i d?t Proxy trong AngelChip</h3>
+                <h3>⚙️ Cách cài đặt Proxy trong AngelChip</h3>
                 <ul>
-                    <li>M? gi? l?p ? v�o menu <strong>"AngelChip"</strong> tr�n thanh MenuBar ? ch?n <strong>"C�i d?t Proxy"</strong>.</li>
-                    <li><strong>Proxy Host:</strong> �i?n d?a ch? IP ho?c domain proxy (ngu?i b�n cung c?p).</li>
-                    <li><strong>Proxy Port:</strong> �i?n port proxy.</li>
-                    <li><strong>User / Password:</strong> �i?n n?u proxy y�u c?u, b? tr?ng n?u kh�ng.</li>
-                    <li>T�ch ch?n <strong>"B?t s? d?ng Proxy"</strong> ? nh?n <strong>OK</strong> ? kh?i d?ng l?i Emulator.</li>
-                    <li>C�c tab m? sau d� s? t? d?ng d�ng proxy. B? t�ch d? t?t, kh�ng c?n x�a c�i d?t.</li>
+                    <li>Mở giả lập → vào menu <strong>"AngelChip"</strong> trên thanh MenuBar → chọn <strong>"Cài đặt Proxy"</strong>.</li>
+                    <li><strong>Proxy Host:</strong> Điền địa chỉ IP hoặc domain proxy (người bán cung cấp).</li>
+                    <li><strong>Proxy Port:</strong> Điền port proxy.</li>
+                    <li><strong>User / Password:</strong> Điền nếu proxy yêu cầu, bỏ trống nếu không.</li>
+                    <li>Tích chọn <strong>"Bật sử dụng Proxy"</strong> → nhấn <strong>OK</strong> → khởi động lại Emulator.</li>
+                    <li>Các tab mở sau đó sẽ tự động dùng proxy. Bỏ tích để tắt, không cần xóa cài đặt.</li>
                 </ul>
             </div>
         </section>
 
         <!-- ===== TIPS ===== -->
         <div class="tips-box fade-section" style="margin-top: 36px;">
-            <h3>?? M?o H?u �ch</h3>
+            <h3>💡 Mẹo Hữu Ích</h3>
             <ul>
-                <li><strong>Ch? d? t? ng?:</strong> V�o menu "AngelChip" ? t�ch "Ch? d? t? ng?". Gi? l?p s? t? ng? sau 5 ph�t kh�ng thao t�c, gi?m ti�u hao CPU/GPU. Nh?n ph�m b?t k? d? d�nh th?c.</li>
-                <li><strong>Ng? ngay l?p t?c:</strong> B?m ph�m <code>\</code> tr�n b�n ph�m d? k�ch ho?t ch? d? ng? ngay.</li>
-                <li><strong>Treo nhi?u tab:</strong> M? nhi?u c?a s? gi? l?p, m?i c?a s? d�ng m?t proxy kh�c nhau d? kh�ng b? gi?i h?n IP.</li>
-                <li><strong>Lo?i proxy:</strong> Khi thu� proxy, ch?n lo?i <strong>SOCKS4</strong> ho?c <strong>SOCKS5</strong> d? tuong th�ch v?i gi? l?p.</li>
-                <li><strong>Proxy VN:</strong> N�n mua proxy server Vi?t Nam d? c� t?c d? k?t n?i t?t nh?t khi choi game.</li>
+                <li><strong>Chế độ tự ngủ:</strong> Vào menu "AngelChip" → tích "Chế độ tự ngủ". Giả lập sẽ tự ngủ sau 5 phút không thao tác, giảm tiêu hao CPU/GPU. Nhấn phím bất kỳ để đánh thức.</li>
+                <li><strong>Ngủ ngay lập tức:</strong> Bấm phím <code>\</code> trên bàn phím để kích hoạt chế độ ngủ ngay.</li>
+                <li><strong>Treo nhiều tab:</strong> Mở nhiều cửa sổ giả lập, mỗi cửa sổ dùng một proxy khác nhau để không bị giới hạn IP.</li>
+                <li><strong>Loại proxy:</strong> Khi thuê proxy, chọn loại <strong>SOCKS4</strong> hoặc <strong>SOCKS5</strong> để tương thích với giả lập.</li>
+                <li><strong>Proxy VN:</strong> Nên mua proxy server Việt Nam để có tốc độ kết nối tốt nhất khi chơi game.</li>
             </ul>
         </div>
 
         <!-- ===== CTA ===== -->
         <section class="fade-section" style="text-align:center; padding: 50px 0 20px;">
-            <h2 style="font-size:32px; font-weight:700; margin:0 0 12px;">B?t �?u Ngay!</h2>
-            <p style="color:var(--text-secondary); font-size:16px; margin:0 0 28px;">T?i game, c�i gi? l?p v� chi?n d?u c�ng h�ng v?n chi?n binh.</p>
+            <h2 style="font-size:32px; font-weight:700; margin:0 0 12px;">Bắt Đầu Ngay!</h2>
+            <p style="color:var(--text-secondary); font-size:16px; margin:0 0 28px;">Tải game, cài giả lập và chiến đấu cùng hàng vạn chiến binh.</p>
             <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
-                <a href="/download/VPS(2).jar" class="btn-pill btn-black" style="text-decoration:none;">? T?i File Game JAR</a>
-                <a href="https://angelchip.net/share-microemulator-tich-hop-su-dung-proxy/" target="_blank" class="btn-pill btn-outline" style="text-decoration:none;">T?i AngelChip Emulator</a>
-                <a href="/register" class="btn-pill btn-outline" style="text-decoration:none;">�ang K� T�i Kho?n</a>
+                <a href="/download/VPS(2).jar" class="btn-pill btn-black" style="text-decoration:none;">⬇ Tải File Game JAR</a>
+                <a href="https://angelchip.net/share-microemulator-tich-hop-su-dung-proxy/" target="_blank" class="btn-pill btn-outline" style="text-decoration:none;">Tải AngelChip Emulator</a>
+                <a href="/register" class="btn-pill btn-outline" style="text-decoration:none;">Đăng Ký Tài Khoản</a>
             </div>
         </section>
     </div>
